@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import _ from 'lodash';
 import { setJwtToken } from '../../utils/localStorage';
 
@@ -26,10 +27,15 @@ class LoginView extends PureComponent {
   render() {
     const { props } = this;
     return (
-      <LoginForm
-        submitting={props.pendingGetJwt}
-        error={props.errorGetJwt}
-        onSubmit={this.login} />
+      <Fragment>
+        <Helmet>
+          <title>Potato trading - Login</title>
+        </Helmet>
+        <LoginForm
+          submitting={props.pendingGetJwt}
+          error={props.errorGetJwt}
+          onSubmit={this.login} />
+      </Fragment>
     );
   }
 }

@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 
 class LandingView extends PureComponent {
@@ -7,9 +8,12 @@ class LandingView extends PureComponent {
   render() {
 
     return (
-      <div>
+      <Fragment>
+        <Helmet>
+          <title>Potato trading - Landing</title>
+        </Helmet>
         Landing
-      </div>
+      </Fragment>
     );
   }
 }

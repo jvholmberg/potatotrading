@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 import _ from 'lodash';
 
 class DashboardView extends PureComponent {
@@ -12,9 +13,12 @@ class DashboardView extends PureComponent {
   render() {
     const { props } = this;
     return (
-      <div>
+      <Fragment>
+        <Helmet>
+          <title>Potato trading - Dashboard</title>
+        </Helmet>
         Dashboard
-      </div>
+      </Fragment>
     );
   }
 }

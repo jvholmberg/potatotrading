@@ -1,63 +1,79 @@
-import { CALL_API } from '../middleware/api'
+import {
+	makeRequest,
+	forceRequest,
+	removeRequest,
+	REQUEST_METHOD,
+	FORCE_REQUEST,
+	REMOVE_REQUEST,
+} from '../middleware/Requests';
+import {
+	getFromLocalStorage,
+} from '../middleware/LocalStorage';
 
 /**
  * Login user
  */
 export const GET_JWT = 'GET_JWT';
-export const getJwt = (values, options = {}) => ({
-  [CALL_API]: {
-    type: GET_JWT,
-    url: `/api/users/auth`,
-    method: 'POST',
-    body: values,
-    forceReq: options.force,
-    deleteReq: options.delete,
-  },
-});
+export const getJwt = (values) =>
+	makeRequest({
+		type: GET_JWT,
+		url: `/api/users/auth`,
+		method: REQUEST_METHOD.POST,
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+		body: values,
+	});
 
 /**
  * Validate jwt-token
  */
 export const VALIDATE_JWT = 'VALIDATE_JWT';
-export const validateJwt = (options = {}) => ({
-  [CALL_API]: {
-    type: VALIDATE_JWT,
-    url: `/api/users/auth`,
-    method: 'GET',
-    restricted: true,
-    forceReq: options.force,
-    deleteReq: options.delete,
-  },
+export const validateJwt = () => ({
+	...forceRequest({
+		type: VALIDATE_JWT,
+		url: `/api/users/auth`,
+		method: REQUEST_METHOD.GET,
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+	}),
+	...getFromLocalStorage('accessToken', `${FORCE_REQUEST}.headers.Authorization`, (e) => `Bearer ${e}`),
 });
 
 /**
  * Refresh jwt-token
  */
 export const REFRESH_JWT = 'REFRESH_JWT';
-export const refreshJwt = (refreshToken, options = {}) => ({
-  [CALL_API]: {
-    type: REFRESH_JWT,
-    url: `/api/users/auth/${refreshToken}`,
-    method: 'GET',
-    restricted: true,
-    forceReq: options.force,
-    deleteReq: options.delete,
-  },
+export const refreshJwt = () => ({
+	...forceRequest({
+		type: REFRESH_JWT,
+		method: REQUEST_METHOD.GET,
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+	}),
+	...getFromLocalStorage('refreshToken', `${FORCE_REQUEST}.url`, (e) => `/api/users/auth/${e}`),
 });
 
 /**
  * Destroy jwt-token
  */
 export const DESTROY_JWT = 'DESTROY_JWT';
-export const destroyJwt = (options = {}) => ({
-  [CALL_API]: {
+export const destroyJwt = () => ({
+	...forceRequest({
     type: DESTROY_JWT,
     url: `/api/users/auth`,
-    method: 'DELETE',
-    restricted: true,
-    forceReq: options.force,
-    deleteReq: options.delete,
-  },
+		method: REQUEST_METHOD.DELETE,
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+	}),
+	...getFromLocalStorage('accessToken', `${FORCE_REQUEST}.headers.Authorization`, (e) => `Bearer ${e}`),
 });
 
 /**

@@ -1,9 +1,16 @@
+import './Header.css'
+
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Skeleton = (props) => (
-  null
+  <div className='App-Header--skeleton'>
+			not logged in
+		<span className='App-Header--skeleton__Link' />
+		<span className='App-Header--skeleton__Link' />
+		<span className='App-Header--skeleton__Link' />
+	</div>
 );
 
 const Unauthorized = (props) => (
@@ -22,7 +29,7 @@ const Authorized = (props) => (
   </div>
 );
 
-const AppHeader = (props) => {
+const Header = (props) => {
   if (props.showSkeleton) {
     return (<Skeleton {...props} />);
   }
@@ -32,4 +39,14 @@ const AppHeader = (props) => {
   return (<Unauthorized {...props} />);
 };
 
-export default AppHeader;
+Header.defaultProps = {
+	showSkeleton: true,
+	loggedIn: false,
+};
+
+Header.propTypes = {
+	showSkeleton: PropTypes.bool.isRequired,
+	loggedIn: PropTypes.bool.isRequired,
+};
+
+export default Header;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import Dashboard from '../Dashboard';
-import Landing from '../Landing';
-import Login from '../Login';
-import Register from '../Register';
+import Dashboard from '../../Dashboard';
+import Landing from '../../Landing';
+import Login from '../../Login';
+import Register from '../../Register';
 
 const Unauthorized = () => (
   <Switch>
@@ -21,8 +22,16 @@ const Authorized = () => (
   </Switch>
 );
 
-const AppRoutes = (props) => props.loggedIn
+const Routes = (props) => props.loggedIn
   ? (<Authorized />)
   : (<Unauthorized />);
 
-export default AppRoutes;
+Routes.defaultProps = {
+	loggedIn: false,
+};
+
+Routes.propTypes = {
+	loggedIn: PropTypes.bool.isRequired,
+};
+
+export default Routes;

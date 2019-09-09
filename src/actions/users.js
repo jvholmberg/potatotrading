@@ -7,8 +7,10 @@ import {
 	REMOVE_REQUEST,
 } from '../middleware/Requests';
 import {
-	getFromLocalStorage,
-} from '../middleware/LocalStorage';
+	getFromStorage,
+	createObjectForStorageActions,
+	LOCAL_STORAGE,
+} from '../middleware/Storage';
 
 /**
  * Login user
@@ -40,7 +42,12 @@ export const validateJwt = () => ({
 			'Accept': 'application/json',
 		},
 	}),
-	...getFromLocalStorage('accessToken', `${FORCE_REQUEST}.headers.Authorization`, (e) => `Bearer ${e}`),
+	...getFromStorage([
+		createObjectForStorageActions(LOCAL_STORAGE, 'accessToken', null, (e) => ({
+			key: `${FORCE_REQUEST}.headers.Authorization`,
+			value: `Bearer ${e}`
+		}))
+	]),
 });
 
 /**
@@ -56,7 +63,16 @@ export const refreshJwt = () => ({
 			'Accept': 'application/json',
 		},
 	}),
-	...getFromLocalStorage('refreshToken', `${FORCE_REQUEST}.url`, (e) => `/api/users/auth/${e}`),
+	...getFromStorage([
+		createObjectForStorageActions(LOCAL_STORAGE, 'refreshToken', null, (e) => ({
+			key: `${FORCE_REQUEST}.url`,
+			value: `/api/users/auth/${e}`
+		})),
+		createObjectForStorageActions(LOCAL_STORAGE, 'accessToken', null, (e) => ({
+			key: `${FORCE_REQUEST}.headers.Authorization`,
+			value: `Bearer ${e}`
+		}))
+	]),
 });
 
 /**
@@ -73,35 +89,48 @@ export const destroyJwt = () => ({
 			'Accept': 'application/json',
 		},
 	}),
-	...getFromLocalStorage('accessToken', `${FORCE_REQUEST}.headers.Authorization`, (e) => `Bearer ${e}`),
+	...getFromStorage([
+		createObjectForStorageActions(LOCAL_STORAGE, 'accessToken', null, (e) => ({
+			key: `${FORCE_REQUEST}.headers.Authorization`,
+			value: `Bearer ${e}`
+		}))
+	]),
 });
 
 /**
  * Get all users
  */
 export const FETCH_USERS = 'FETCH_USERS';
-export const fetchUsers = (options = {}) => ({
-  [CALL_API]: {
+export const fetchUsers = () => ({
+	...makeRequest({
     type: FETCH_USERS,
     url: `/api/users`,
-    method: 'GET',
-    restricted: true,
-    forceReq: options.force,
-    deleteReq: options.delete,
-  },
+		method: REQUEST_METHOD.GET,
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+	}),
+	...getFromStorage([
+		createObjectForStorageActions(LOCAL_STORAGE, 'accessToken', null, (e) => ({
+			key: `${FORCE_REQUEST}.headers.Authorization`,
+			value: `Bearer ${e}`
+		}))
+	]),
 });
 
 /**
  * Register user
  */
 export const REGISTER_USER = 'REGISTER_USER';
-export const register = (values, options = {}) => ({
-  [CALL_API]: {
+export const register = (values) => 
+	forceRequest({
     type: REGISTER_USER,
     url: `/api/users`,
-    method: 'POST',
+		method: REQUEST_METHOD.POST,
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
     body: values,
-    forceReq: options.force,
-    deleteReq: options.delete,
-  },
-});
+	});

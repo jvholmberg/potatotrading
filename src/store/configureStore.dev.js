@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
-import localStorage from '../middleware/LocalStorage';
+import localStorage from '../middleware/Storage';
 import requests from '../middleware/Requests';
 import rootReducer from '../reducers';
 import DevTools from '../tools/DevTools';

@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import localStorage from '../middleware/LocalStorage';
+import localStorage from '../middleware/Storage';
 import requests from '../middleware/Requests';
 import rootReducer from '../reducers';
 

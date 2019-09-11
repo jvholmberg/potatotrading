@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Skeleton = (props) => (
   <div className='App-Header--skeleton'>
-			not logged in
+			skeleton
 		<span className='App-Header--skeleton__Link' />
 		<span className='App-Header--skeleton__Link' />
 		<span className='App-Header--skeleton__Link' />
@@ -15,6 +15,7 @@ const Skeleton = (props) => (
 
 const Unauthorized = (props) => (
   <div>
+		not logged in
     <Link to='/'>Landing</Link>
     <Link to='/login'>Login</Link>
     <Link to='/register'>Register</Link>

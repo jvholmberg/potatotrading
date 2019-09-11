@@ -29,7 +29,7 @@ class LoginView extends PureComponent {
     return (
       <Fragment>
         <Helmet>
-          <title>Potato trading - Login</title>
+          <title>Login</title>
         </Helmet>
         <LoginForm
           submitting={props.pendingGetJwt}

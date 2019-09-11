@@ -57,18 +57,14 @@ class App extends PureComponent {
 
 	logout = () => {
 		const { props } = this;
-		props.destroyJwt({ force: true });
+		props.destroyJwt();
 		removeJwtToken();
 	}
 
 	componentDidMount() {
 		const { props } = this;
 
-		// Validate jwt-token if exists
-		const jwt = getJwtToken();
-		if (jwt) {
-			props.validateJwt();
-		}
+		props.validateJwt();
 	}
 
 	componentDidUpdate(prevProps) {

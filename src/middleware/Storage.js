@@ -50,14 +50,17 @@ export const createObjectForStorageActions = (storage = LOCAL_STORAGE, key, valu
  */
 const validator = (e, action) => {
 	if (process.env.NODE_ENV !== 'production') {
-		const validate = (x) => {
-			if (!x.key) {
+		const validate = (e) => {
+			if (!e) {
+				throw new Error('undefined not allowed');
+			}
+			if (!e.key) {
 				throw new Error('key must be provided');
 			}
-			if (action === STORAGE_SET && !x.value) {
+			if (action === STORAGE_SET && !e.value) {
 				throw new Error('value must be provided when setting to storage');
 			}
-			if (action === STORAGE_GET && !x.formatter) {
+			if (action === STORAGE_GET && !e.formatter) {
 				throw new Error('formatter must be provided when getting from storage');
 			}
 		};
@@ -98,7 +101,7 @@ export default (store) => (next) => (action) => {
 
 	// Get values for all provided keys
 	if (get) {
-		validator(set, STORAGE_GET);
+		validator(get, STORAGE_GET);
 		!_.isArray(get)
 			? (() => {
 				const data = window[get.storage].getItem(get.key);
@@ -119,7 +122,7 @@ export default (store) => (next) => (action) => {
 
 	// Handle all keys marked for removal
 	if (remove) {
-		validator(set, STORAGE_REMOVE);
+		validator(remove, STORAGE_REMOVE);
 		!_.isArray(remove)
 			? window[remove.storage].removeItem(remove.key)
 			: _.forEach(set, (x) => {

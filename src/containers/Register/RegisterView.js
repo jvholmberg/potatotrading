@@ -11,7 +11,7 @@ class RegisterView extends PureComponent {
     return (
       <Fragment>
         <Helmet>
-          <title>Potato trading - Register</title>
+          <title>Register</title>
         </Helmet>
         <RegisterForm
           error={props.registerError}

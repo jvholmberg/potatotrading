@@ -35,7 +35,7 @@ export const VALIDATE_JWT = 'VALIDATE_JWT';
 export const validateJwt = () => ({
 	...forceRequest({
 		type: VALIDATE_JWT,
-		url: `/api/users/auth`,
+		url: 'http://localhost:3030/api/users/auth',
 		method: REQUEST_METHOD.GET,
 		headers: {
 			'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ class LandingView extends PureComponent {
     return (
       <Fragment>
         <Helmet>
-          <title>Potato trading - Landing</title>
+          <title>Landing</title>
         </Helmet>
         Landing
       </Fragment>

@@ -15,7 +15,7 @@ class DashboardView extends PureComponent {
     return (
       <Fragment>
         <Helmet>
-          <title>Potato trading - Dashboard</title>
+          <title>Dashboard</title>
         </Helmet>
         Dashboard
       </Fragment>

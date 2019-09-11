@@ -185,8 +185,10 @@ export default (store) => (next) => (action) => {
     query,
     body: JSON.stringify(body),
     mode: 'cors',
-  }).then((res) =>
-    res.json()
+	})
+	.then((res) => {
+		res
+			.json()
       .then((json) => {
         if (!res.ok) {
           next(actionCreator({
@@ -200,6 +202,15 @@ export default (store) => (next) => (action) => {
 					response: json,
 				}))
 				return;
-			}));
+			});
+	})
+	.catch((err) => {
+		next(actionCreator({
+			type: `REQ:${type}/FAILURE`,
+			error: err,
+		}));
+		return;
+	});
 	return;
 };
+

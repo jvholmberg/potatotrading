@@ -14,9 +14,15 @@ class LandingView extends PureComponent {
         <Helmet>
           <title>Landing</title>
         </Helmet>
-        <Button.Primary>
-          btn
-        </Button.Primary>
+        <Button.Primary btnSize='xs'>Primary</Button.Primary>
+        <Button.Secondary btnSize='sm'>Secondary</Button.Secondary>
+        <Button.Success btnSize='md'>Success</Button.Success>
+        <Button.Danger btnSize='lg'>Danger</Button.Danger>
+        <Button.Warning>Warning</Button.Warning>
+        <Button.Info>Info</Button.Info>
+        <Button.Light>Light</Button.Light>
+        <Button.Dark>Dark</Button.Dark>
+        <Button.Link>Link</Button.Link>
         Landing
       </Fragment>
     );

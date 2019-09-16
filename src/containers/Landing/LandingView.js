@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { Button, Input } from '../../components';
+import { Button, Input, Dropdown } from '../../components';
 
 
 class LandingView extends PureComponent {
@@ -24,6 +24,11 @@ class LandingView extends PureComponent {
         <Button.Dark>Dark</Button.Dark>
         <Button.Link>Link</Button.Link>
         <Input.Text></Input.Text>
+				<Dropdown>
+					<Dropdown.Text>
+						hej
+					</Dropdown.Text>
+				</Dropdown>
         Landing
       </Fragment>
     );

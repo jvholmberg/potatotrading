@@ -23,12 +23,9 @@ class LandingView extends PureComponent {
         <Button.Light>Light</Button.Light>
         <Button.Dark>Dark</Button.Dark>
         <Button.Link>Link</Button.Link>
-        <Input.Text></Input.Text>
-				<Dropdown>
-					<Dropdown.Text>
-						hej
-					</Dropdown.Text>
-				</Dropdown>
+
+        <Input.Text label='label'></Input.Text>
+        <Input.Email validate required label='label'></Input.Email>
         Landing
       </Fragment>
     );

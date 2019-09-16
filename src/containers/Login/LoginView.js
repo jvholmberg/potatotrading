@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import _ from 'lodash';
-import { setJwtToken } from '../../utils/localStorage';
 
 import LoginForm from './LoginForm';
 
@@ -15,7 +14,7 @@ class LoginView extends PureComponent {
     const responseGetJwt = _.get(props, 'responseGetJwt', {});
 
     if (prevResponseGetJwt.accessToken !== responseGetJwt.accessToken) {
-      setJwtToken(responseGetJwt);
+      // setJwtToken(responseGetJwt);
     }
   }
 

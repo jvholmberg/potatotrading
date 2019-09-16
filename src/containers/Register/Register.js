@@ -1,5 +1,3 @@
-import './Register.css';
-
 import { connect } from 'react-redux';
 import RegisterView from './RegisterView';
 import { mapStateToProps, mapDispatchToProps } from './RegisterMapper';

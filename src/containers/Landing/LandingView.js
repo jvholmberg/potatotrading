@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { Button } from '../../components';
+import { Button, Input } from '../../components';
 
 
 class LandingView extends PureComponent {
@@ -23,6 +23,7 @@ class LandingView extends PureComponent {
         <Button.Light>Light</Button.Light>
         <Button.Dark>Dark</Button.Dark>
         <Button.Link>Link</Button.Link>
+        <Input.Text></Input.Text>
         Landing
       </Fragment>
     );

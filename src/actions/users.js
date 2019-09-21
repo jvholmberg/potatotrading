@@ -100,10 +100,10 @@ export const destroyJwt = () => ({
 /**
  * Get all users
  */
-export const FETCH_USERS = 'FETCH_USERS';
+export const GET_USER = 'GET_USER';
 export const fetchUsers = () => ({
 	...makeRequest({
-    type: FETCH_USERS,
+    type: GET_USER,
     url: `/api/users`,
 		method: REQUEST_METHOD.GET,
 		headers: {

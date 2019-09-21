@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {
-  FETCH_USERS,
+  GET_USER,
   GET_JWT,
   VALIDATE_JWT,
   REFRESH_JWT,
@@ -22,3 +22,7 @@ export const errRefreshJwt = (state) => _.get(state, `requests.${REFRESH_JWT}.er
 export const reqDestroyJwt = (state) => _.get(state, `requests.${DESTROY_JWT}`, {});
 export const resDestroyJwt = (state) => _.get(state, `requests.${DESTROY_JWT}.response`);
 export const errDestroyJwt = (state) => _.get(state, `requests.${DESTROY_JWT}.error`);
+
+export const reqGetUser = (state) => _.get(state, `requests.${GET_USER}`, {});
+export const resGetUser = (state) => _.get(state, `requests.${GET_USER}.response`);
+export const errGetUser = (state) => _.get(state, `requests.${GET_USER}.error`);

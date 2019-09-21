@@ -1,11 +1,9 @@
-import './App.css';
+import '../../components/config.css';
 
 import React, { PureComponent, Fragment } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import { getJwtToken, removeJwtToken } from '../../utils/localStorage';
 
 import Header from './Header';
 import Routes from './Routes';
@@ -57,8 +55,8 @@ class App extends PureComponent {
 
 	logout = () => {
 		const { props } = this;
-		props.destroyJwt();
-		removeJwtToken();
+		// props.destroyJwt();
+		// removeJwtToken();
 	}
 
 	componentDidMount() {
@@ -80,8 +78,8 @@ class App extends PureComponent {
 		if (!prevProps.queuedRefreshJwt
 			&& props.queuedRefreshJwt
 			&& !props.pendingRefreshToken) {
-				const jwt = getJwtToken();
-				props.refreshJwt(jwt.refreshToken, { force: true });
+				// const jwt = getJwtToken();
+				// props.refreshJwt(jwt.refreshToken, { force: true });
 			}
 	}
 

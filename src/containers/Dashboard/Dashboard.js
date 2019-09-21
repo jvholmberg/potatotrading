@@ -1,5 +1,3 @@
-import './Dashboard.css';
-
 import { connect } from 'react-redux';
 import DashboardView from './DashboardView';
 import { mapStateToProps, mapDispatchToProps } from './DashboardMapper';

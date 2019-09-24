@@ -27,21 +27,23 @@ const Login = (props) => (
 				password: '',
 			}}
 			validationSchema={LoginSchema}
-			onSubmit={props.onSubmit}
+			onSubmit={props.getJwt}
 			render={(formProps) => (
 				<form onSubmit={formProps.handleSubmit}>
 					<Input.Email
 						name='email'
-						placeholder='Email'
+						label='Email'
 						onChange={formProps.handleChange}
 						onBlur={formProps.handleBlur}
-						value={formProps.values.email} />
+						value={formProps.values.email}
+						error={formProps.errors.email} />
 					<Input.Password
 						name='password'
-						placeholder='Password'
+						label='Password'
 						onChange={formProps.handleChange}
 						onBlur={formProps.handleBlur}
-						value={formProps.values.password} />
+						value={formProps.values.password}
+						error={formProps.errors.password} />
 					<Button.Primary
 						type='submit'
 						kind='primary'

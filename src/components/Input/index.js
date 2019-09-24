@@ -15,7 +15,6 @@ const StyledInput = styled.input`
   background-color: ${common.LIGHT_COLOR};
   border: none;
   border-bottom: .1rem solid ${common.SECONDARY_COLOR}
-  ${(props) => console.log(props)}
   &[required]:valid {
     border-bottom: .1rem solid ${common.SUCCESS_COLOR}
   }
@@ -24,12 +23,18 @@ const StyledInput = styled.input`
   }
 `;
 
+const Error = styled.span`
+	display: block;
+	color: ${common.DANGER_COLOR};
+`;
 
-const Input = ({ label, ...rest}) => label
+
+const Input = ({ label, error, ...rest}) => label
   ? (
     <Label>
       {label}
       <StyledInput {...rest} />
+			<Error>{error}</Error>
     </Label>
   )
   : (

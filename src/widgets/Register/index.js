@@ -27,35 +27,30 @@ const Register = (props) => (
       passwordVerify: '',
     }}
     validationSchema={RegisterSchema}
-    onSubmit={props.onSubmit}
+    onSubmit={props.createUser}
     render={(formProps) => (
       <form onSubmit={formProps.handleSubmit}>
-        <input
+        <Input.Email
           name='email'
-          type='text'
           placeholder='Email'
           onChange={formProps.handleChange}
           onBlur={formProps.handleBlur}
           value={formProps.values.email} />
-        <input
+        <Input.Password
           name='password'
-          type='password'
           placeholder='Password'
           onChange={formProps.handleChange}
           onBlur={formProps.handleBlur}
           value={formProps.values.password} />
-        <input
+        <Input.Password
           name='passwordVerify'
-          type='password'
           placeholder='Verify password'
           onChange={formProps.handleChange}
           onBlur={formProps.handleBlur}
           value={formProps.values.passwordVerify} />
-        <button
-          type='submit'
-          kind='primary'>
+        <Button.Primary type='submit'>
           Log in
-        </button>
+        </Button.Primary>
       </form>
     )} />
 );

@@ -6,7 +6,7 @@ import { Label } from '../';
 
 const StyledInput = styled.input`
   display: block;
-  margin: ${common.SPACING} 0;
+  margin: ${common.GAP} 0;
   padding: ${common.PADDING};
   width: 100%;
   font-size: 1em;
@@ -14,12 +14,11 @@ const StyledInput = styled.input`
   box-sizing: border-box;
   background-color: ${common.LIGHT_COLOR};
   border: none;
-  border-bottom: .1rem solid ${common.SECONDARY_COLOR}
   &[required]:valid {
-    border-bottom: .1rem solid ${common.SUCCESS_COLOR}
+    background-color: ${common.LIGHT_X_SUCCESS_COLOR};
   }
   &[required]:invalid {
-    border-bottom: .1rem solid ${common.DANGER_COLOR}
+    background-color: ${common.LIGHT_X_DANGER_COLOR};
   }
 `;
 

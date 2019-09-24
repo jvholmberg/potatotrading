@@ -20,9 +20,11 @@ export const PRIMARY_VARIANT_COLOR = '#0062cc';
 export const SECONDARY_COLOR = '#6c757d';
 export const SECONDARY_VARIANT_COLOR = '#545b62';
 
+export const LIGHT_X_SUCCESS_COLOR = '#b3e6be';
 export const SUCCESS_COLOR = '#28a745';
 export const SUCCESS_VARIANT_COLOR = '#218838';
 
+export const LIGHT_X_DANGER_COLOR = '#fbbec4';
 export const DANGER_COLOR = '#dc3545';
 export const DANGER_VARIANT_COLOR = '#c82333';
 

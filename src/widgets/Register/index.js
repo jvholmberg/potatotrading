@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { Widget, Input, Button } from '../../components';
+
 import { mapStateToProps, mapDispatchToProps } from "./selectors";
 
 const RegisterSchema = Yup
@@ -20,39 +21,47 @@ const RegisterSchema = Yup
   });
 
 const Register = (props) => (
-  <Formik
-    initialValues={{
-      email: '',
-      password: '',
-      passwordVerify: '',
-    }}
-    validationSchema={RegisterSchema}
-    onSubmit={props.createUser}
-    render={(formProps) => (
-      <form onSubmit={formProps.handleSubmit}>
-        <Input.Email
-          name='email'
-          placeholder='Email'
-          onChange={formProps.handleChange}
-          onBlur={formProps.handleBlur}
-          value={formProps.values.email} />
-        <Input.Password
-          name='password'
-          placeholder='Password'
-          onChange={formProps.handleChange}
-          onBlur={formProps.handleBlur}
-          value={formProps.values.password} />
-        <Input.Password
-          name='passwordVerify'
-          placeholder='Verify password'
-          onChange={formProps.handleChange}
-          onBlur={formProps.handleBlur}
-          value={formProps.values.passwordVerify} />
-        <Button.Primary type='submit'>
-          Log in
-        </Button.Primary>
-      </form>
-    )} />
+	<Widget
+		visible={props.visible}
+		loading={props.loading}>
+		<Formik
+			initialValues={{
+				email: '',
+				password: '',
+				passwordVerify: '',
+			}}
+			validationSchema={RegisterSchema}
+			onSubmit={props.createUser}
+			render={(formProps) => (
+				<form onSubmit={formProps.handleSubmit}>
+					{console.log(formProps)}
+					<Input.Email
+						name='email'
+						label='Email'
+						onChange={formProps.handleChange}
+						onBlur={formProps.handleBlur}
+						value={formProps.values.email}
+						error={formProps.touched.email && formProps.errors.email}  />
+					<Input.Password
+						name='password'
+						label='Password'
+						onChange={formProps.handleChange}
+						onBlur={formProps.handleBlur}
+						value={formProps.values.password}
+						error={formProps.touched.password && formProps.errors.password} />
+					<Input.Password
+						name='passwordVerify'
+						label='Verify password'
+						onChange={formProps.handleChange}
+						onBlur={formProps.handleBlur}
+						value={formProps.values.passwordVerify}
+						error={formProps.touched.passwordVerify && formProps.errors.passwordVerify}  />
+					<Button.Primary type='submit'>
+						Log in
+					</Button.Primary>
+				</form>
+			)} />
+	</Widget>
 );
 
 

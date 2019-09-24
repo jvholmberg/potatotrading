@@ -36,14 +36,14 @@ const Login = (props) => (
 						onChange={formProps.handleChange}
 						onBlur={formProps.handleBlur}
 						value={formProps.values.email}
-						error={formProps.errors.email} />
+						error={formProps.touched.email && formProps.errors.email} />
 					<Input.Password
 						name='password'
 						label='Password'
 						onChange={formProps.handleChange}
 						onBlur={formProps.handleBlur}
 						value={formProps.values.password}
-						error={formProps.errors.password} />
+						error={formProps.touched.password && formProps.errors.password} />
 					<Button.Primary
 						type='submit'
 						kind='primary'

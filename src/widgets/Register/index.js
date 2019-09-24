@@ -1,9 +1,12 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { Formik } from 'formik';
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
+import { Widget, Input, Button } from '../../components';
+import { mapStateToProps, mapDispatchToProps } from "./selectors";
 
-const LoginSchema = Yup
+const RegisterSchema = Yup
   .object()
   .shape({
     email: Yup.string()
@@ -11,15 +14,19 @@ const LoginSchema = Yup
       .required('Required'),
     password: Yup.string()
       .required('Required'),
+    passwordVerify: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords does not match')
+      .required('Required'),
   });
 
-const LoginForm = (props) => (
+const Register = (props) => (
   <Formik
     initialValues={{
       email: '',
       password: '',
+      passwordVerify: '',
     }}
-    validationSchema={LoginSchema}
+    validationSchema={RegisterSchema}
     onSubmit={props.onSubmit}
     render={(formProps) => (
       <form onSubmit={formProps.handleSubmit}>
@@ -37,14 +44,24 @@ const LoginForm = (props) => (
           onChange={formProps.handleChange}
           onBlur={formProps.handleBlur}
           value={formProps.values.password} />
+        <input
+          name='passwordVerify'
+          type='password'
+          placeholder='Verify password'
+          onChange={formProps.handleChange}
+          onBlur={formProps.handleBlur}
+          value={formProps.values.passwordVerify} />
         <button
           type='submit'
-          kind='primary'
-          disabled={props.submitting}>
+          kind='primary'>
           Log in
         </button>
       </form>
     )} />
 );
 
-export default LoginForm;
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Register);

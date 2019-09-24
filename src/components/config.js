@@ -2,9 +2,11 @@
  * MEASUREMENTS
  */
 
-export const PADDING = '.5rem'
+export const PADDING = '.5rem';
 export const SPACING = '.5rem';
-export const BORDER_RADIUS = '.15em'
+export const BORDER_RADIUS = '.15em';
+
+export const GAP = '.8rem';
 
 /**
  * COLORS

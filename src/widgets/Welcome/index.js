@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Widget, Loader } from '../../components';
 
-import selectors from './selectors';
+import mapStateToProps from './selectors';
 
 const Skeleton = () => (
 	<Widget>
@@ -44,4 +44,4 @@ class Welcome extends Component {
 	}
 }
 
-export default connect(selectors)(Welcome);
+export default connect(mapStateToProps)(Welcome);

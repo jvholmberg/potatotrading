@@ -2,7 +2,10 @@ import React from "react";
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import { connect } from 'react-redux';
 import { Widget, Input, Button } from '../../components';
+
+import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const LoginSchema = Yup
   .object()
@@ -50,4 +53,7 @@ const Login = (props) => (
 	</Widget>
 );
 
-export default Login;
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Login);

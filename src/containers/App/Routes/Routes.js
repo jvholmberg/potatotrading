@@ -4,14 +4,10 @@ import PropTypes from 'prop-types';
 
 import Dashboard from '../../Dashboard';
 import Landing from '../../Landing';
-import Login from '../../Login';
-import Register from '../../Register';
 
 const Unauthorized = () => (
   <Switch>
     <Route exact path='/' component={Landing} />
-    <Route path='/login' component={Login} />
-    <Route path='/register' component={Register} />
   </Switch>
 );
 

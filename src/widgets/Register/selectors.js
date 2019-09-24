@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
-import { resGetJwt, errGetJwt } from '../../selectors';
-import { getJwt } from "../../actions";
+import { errGetJwt, reqCreateUser } from '../../selectors';
+import { createUser } from "../../actions";
 
 export const mapStateToProps = createSelector(
-	[resGetJwt, errGetJwt],
-	(resGetJwt, errGetJwt) => ({
+	[errGetJwt, reqCreateUser],
+	(errGetJwt, reqCreateUser) => ({
 		visible: errGetJwt,
-		loading: !resGetJwt && !errGetJwt,
+		loading: reqCreateUser.pending,
 	}));
 
 export const mapDispatchToProps = (dispatch) =>
 	bindActionCreators({
-		getJwt,
+		createUser,
 	}, dispatch);

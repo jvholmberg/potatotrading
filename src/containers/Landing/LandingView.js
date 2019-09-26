@@ -8,6 +8,7 @@ import {
 	Dropdown,
 	Widget,
 	Grid,
+	Chart,
 } from '../../components';
 
 import RegisterWidget from '../../widgets/Register';
@@ -40,6 +41,10 @@ class LandingView extends PureComponent {
 					<LoginWidget />
 					<RegisterWidget />
 				</Grid>
+				<Chart.Pie data={[
+					{ name: '1', value: 1},
+					{ name: '2', value: 2 },
+				]} />
       </Fragment>
     );
   }

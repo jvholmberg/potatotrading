@@ -1,19 +1,22 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { createLogger } from 'redux-logger';
-import localStorage from '../middleware/Storage';
-import requests from '../middleware/Requests';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
+import rootSaga from '../sagas';
 import DevTools from '../tools/DevTools';
 
 export default (preloadedState) => {
+	const sagaMiddleware = createSagaMiddleware();
+
   const store = createStore(
     rootReducer,
     preloadedState,
     compose(
-      applyMiddleware(localStorage, requests, createLogger()),
-      DevTools.instrument()
+      applyMiddleware(sagaMiddleware),
+      DevTools.instrument(),
     ),
-  );
+	);
+	
+	sagaMiddleware.run(rootSaga);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { Widget, Input, Button } from '../../components';
 
-import { mapStateToProps, mapDispatchToProps } from "./selectors";
+// import { mapStateToProps, mapDispatchToProps } from "./selectors";
 
 const RegisterSchema = Yup
   .object()
@@ -66,6 +66,6 @@ const Register = (props) => (
 
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
+	// mapStateToProps,
+	// mapDispatchToProps,
 )(Register);

@@ -1,13 +1,21 @@
 import { createStore, applyMiddleware } from 'redux';
-import localStorage from '../middleware/Storage';
-import requests from '../middleware/Requests';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
+import rootSaga from '../sagas';
 
-const configureStore = (preloadedState) =>
-  createStore(
+const configureStore = (preloadedState) => {
+	const sagaMiddleware = createSagaMiddleware();
+
+	const strore = createStore(
     rootReducer,
     preloadedState,
-    applyMiddleware(localStorage, requests),
-  );
+    applyMiddleware(
+			sagaMiddleware),
+	);
+
+	sagaMiddleware.run(rootSaga);
+	
+	return StorageEvent;
+};
 
 export default configureStore;

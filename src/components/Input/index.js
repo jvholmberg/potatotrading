@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as common from '../config';
+import * as common from '../../theme';
 
 import { Label } from '../';
 

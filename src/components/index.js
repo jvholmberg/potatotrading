@@ -1,7 +1,6 @@
 export * from './Button';
-export * from './Dropdown';
-export * from './Chart';
-export * from './Grid';
 export * from './Input';
+export * from './Jumbotron';
 export * from './Label';
-export * from './Widget';
+export * from './Menu';
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as common from '../config';
+import * as common from '../../theme';
 
 const StyledButton = styled.button`
   display: inline-block;

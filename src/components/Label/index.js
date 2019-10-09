@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as common from '../config';
+import * as common from '../../theme';
 
 const Label = styled.label`
   display: inline-block;
@@ -7,7 +7,7 @@ const Label = styled.label`
   font-weight: 100;
   color: #212529;
   &:focus-within {
-    font-style: italic;
+		
   }
 `;
 

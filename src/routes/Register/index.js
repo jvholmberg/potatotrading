@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 import { Input, Button } from '../../components';
 
-import { mapStateToProps, mapDispatchToProps } from "./selectors";
+import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const RegisterSchema = Yup
   .object()

@@ -10,11 +10,15 @@ import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
-import { Menu } from '../components';
+import { AppBar } from '../components';
 
-const ControlledRoute = ({ path, to, component, push }) => to
+const ControlledRoute = ({ check, path, to, component, push }) => check
 	? (<Redirect { ...{ to, push } } />)
 	: (<Route { ...{ path, component } }  />);
+
+const ControlledLink = ({ check, ...rest }) => check
+	? (<AppBar.Link {...rest} />)
+	: (null);
 
 class Routes extends Component {
 
@@ -26,20 +30,32 @@ class Routes extends Component {
 		const { accessToken } = this.props;
 		return (
 			<Fragment>
-				<Menu />
+				<AppBar>
+					<AppBar.LeftSection>
+						<ControlledLink check={!accessToken} to='/login'>Login</ControlledLink>
+						<ControlledLink check={!accessToken} to='/register'>Register</ControlledLink>
+						<ControlledLink check={accessToken} to='/dashboard'>Dashboard</ControlledLink>
+					</AppBar.LeftSection>
+					<AppBar.RightSection>
+			
+					</AppBar.RightSection>
+				</AppBar>
 				<Switch>
 					<Route exact path='/' component={Landing} />
 					<ControlledRoute
+						check={accessToken}
 						path='/register'
-						to={accessToken && '/dashboard'}
+						to='/dashboard'
 						component={Register} />
 					<ControlledRoute
+						check={accessToken}
 						path='/login'
-						to={accessToken && '/dashboard'}
+						to='/dashboard'
 						component={Login} />
 					<ControlledRoute
+						check={!accessToken}
 						path='/dashboard'
-						to={!accessToken && '/'}
+						to='/'
 						component={Dashboard} />
 					<Route component={NotFound} />
 				</Switch>

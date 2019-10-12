@@ -1,30 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as common from '../../theme';
 
 import { Label } from '../';
 
 const StyledInput = styled.input`
   display: block;
-  margin: ${common.GAP} 0;
-  padding: ${common.PADDING};
+  margin: 1rem 0;
+  padding: 1rem;
   width: 100%;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 100;
   box-sizing: border-box;
-  background-color: ${common.LIGHT_COLOR};
-  border: none;
-  &[required]:valid {
-    background-color: ${common.LIGHT_X_SUCCESS_COLOR};
-  }
-  &[required]:invalid {
-    background-color: ${common.LIGHT_X_DANGER_COLOR};
-  }
+	background-color: #fff;
+	border-radius: .2em;
+  border: .1rem solid #b5b5b5;
 `;
 
 const Error = styled.span`
 	display: block;
-	color: ${common.DANGER_COLOR};
+	color: #dc3545;
 `;
 
 

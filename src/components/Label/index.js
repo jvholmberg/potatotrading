@@ -1,14 +1,11 @@
 import styled from 'styled-components';
-import * as common from '../../theme';
 
 const Label = styled.label`
   display: inline-block;
-  padding: ${common.PADDING};
+  padding: 1rem;
+  font-size: 1.2rem;
   font-weight: 100;
   color: #212529;
-  &:focus-within {
-		
-  }
 `;
 
 export { Label };

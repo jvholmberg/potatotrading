@@ -1,106 +1,91 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as common from '../../theme';
 
-const StyledButton = styled.button`
-  display: inline-block;
-  margin: 0 ${common.SPACING};
-  padding: ${({ btnSize = 'md' }) => ({
-    xs: '.1rem .2rem',
-    sm: '.3rem .6rem',
-    md: '.75rem 1.5rem',
-    lg: '1.1rem 2.2rem',
-  })[btnSize]}
-  font-size: ${({ btnSize = 'md' }) => ({
-    xs: '.65em',
-    sm: '.75em',
-    md: '.9em',
-    lg: '1.3em',
-  })[btnSize]}
+const defaultStyle = `
+	display: inline-block;
+  margin: 0 1rem;
+	padding: 1rem 1.5rem;
+  font-size: 1.4rem;
   font-family: inherit;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  border-radius: ${common.BORDER_RADIUS};
-  background-color: ${({ btnType = 'primary' }) => ({
-    primary: common.PRIMARY_COLOR,
-    secondary: common.SECONDARY_COLOR,
-    success: common.SUCCESS_COLOR,
-    danger: common.DANGER_COLOR,
-    warning: common.WARNING_COLOR,
-    info: common.INFO_COLOR,
-    light: common.LIGHT_COLOR,
-    dark: common.DARK_COLOR,
-    link: 'transparent',
-  })[btnType]};
-  border-color: ${({ btnType = 'primary' }) => ({
-    primary: common.PRIMARY_COLOR,
-    secondary: common.SECONDARY_COLOR,
-    success: common.SUCCESS_COLOR,
-    danger: common.DANGER_COLOR,
-    warning: common.WARNING_COLOR,
-    info: common.INFO_COLOR,
-    light: common.LIGHT_COLOR,
-    dark: common.DARK_COLOR,
-    link: 'transparent',
-  })[btnType]};
-  color: ${({ btnType = 'primary' }) => ({
-    primary: common.FONT_COLOR_LIGHT,
-    secondary: common.FONT_COLOR_LIGHT,
-    success: common.FONT_COLOR_LIGHT,
-    danger: common.FONT_COLOR_LIGHT,
-    warning: common.FONT_COLOR_DARK,
-    info: common.FONT_COLOR_LIGHT,
-    light: common.FONT_COLOR_DARK,
-    dark: common.FONT_COLOR_LIGHT,
-    link: common.PRIMARY_COLOR,
-  })[btnType]};
-  &:hover, &:active {
-    background-color: ${({ btnType = 'primary' }) => ({
-      primary: common.PRIMARY_VARIANT_COLOR,
-      secondary: common.SECONDARY_VARIANT_COLOR,
-      success: common.SUCCESS_VARIANT_COLOR,
-      danger: common.DANGER_VARIANT_COLOR,
-      warning: common.WARNING_VARIANT_COLOR,
-      info: common.INFO_VARIANT_COLOR,
-      light: common.LIGHT_VARIANT_COLOR,
-      dark: common.DARK_VARIANT_COLOR,
-      link: 'transparent',
-    })[btnType]};
-    border-color: ${({ btnType = 'primary' }) => ({
-      primary: common.PRIMARY_VARIANT_COLOR,
-      secondary: common.SECONDARY_VARIANT_COLOR,
-      success: common.SUCCESS_VARIANT_COLOR,
-      danger: common.DANGER_VARIANT_COLOR,
-      warning: common.WARNING_VARIANT_COLOR,
-      info: common.INFO_VARIANT_COLOR,
-      light: common.LIGHT_VARIANT_COLOR,
-      dark: common.DARK_VARIANT_COLOR,
-      link: 'transparent',
-    })[btnType]};
-    color: ${({ btnType = 'primary' }) => ({
-      primary: common.FONT_COLOR_LIGHT,
-      secondary: common.FONT_COLOR_LIGHT,
-      success: common.FONT_COLOR_LIGHT,
-      danger: common.FONT_COLOR_LIGHT,
-      warning: common.FONT_COLOR_DARK,
-      info: common.FONT_COLOR_LIGHT,
-      light: common.FONT_COLOR_DARK,
-      dark: common.FONT_COLOR_LIGHT,
-      link: common.PRIMARY_VARIANT_COLOR,
-    })[btnType]}
-  }
+	border-radius: .2rem;
+	border: none;
 `;
 
-const Button = (props) => (<StyledButton {...props} btnType='primary' />);
-Button.Primary = (props) => (<StyledButton {...props} btnType='primary' />);
-Button.Secondary = (props) => (<StyledButton {...props} btnType='secondary' />);
-Button.Success = (props) => (<StyledButton {...props} btnType='success' />);
-Button.Danger = (props) => (<StyledButton {...props} btnType='danger' />);
-Button.Warning = (props) => (<StyledButton {...props} btnType='warning' />);
-Button.Info = (props) => (<StyledButton {...props} btnType='info' />);
-Button.Light = (props) => (<StyledButton {...props} btnType='light' />);
-Button.Dark = (props) => (<StyledButton {...props} btnType='dark' />);
-Button.Link = (props) => (<StyledButton {...props} btnType='link' />);
+const Button = (props) => (null);
+Button.Primary = styled.button`
+	${defaultStyle}
+	background-color: #007bff;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #0062cc;
+	};
+`;
+Button.Secondary = styled.button`
+	${defaultStyle}
+	background-color: #6c757d;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #545b62;
+	};
+`;
+Button.Success = styled.button`
+	${defaultStyle}
+	background-color: #28a745;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #218838;
+	};
+`;
+Button.Danger = styled.button`
+	${defaultStyle}
+	background-color: #dc3545;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #c82333;
+	};
+`;
+Button.Warning = styled.button`
+	${defaultStyle}
+	background-color: #ffc107;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #e0a800;
+	};
+`;
+Button.Info = styled.button`
+	${defaultStyle}
+	background-color: #17a2b8;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #138496;
+	};
+`;
+Button.Light = styled.button`
+	${defaultStyle}
+	background-color: #f8f9fa;
+	color: #212529;
+	&:hover, &:active {
+		background-color: #e2e6ea;
+	};
+`;
+Button.Dark = styled.button`
+	${defaultStyle}
+	background-color: #343a40;
+	color: #fff;
+	&:hover, &:active {
+		background-color: #23272b;
+	};
+`;
+Button.Link = styled.button`
+	${defaultStyle}
+	background-color: transparent;
+	color: #007bff;
+	&:hover, &:active {
+		color: #0062cc;
+	};
+`;
 
 export { Button };

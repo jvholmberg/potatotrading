@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import { getJwt } from '../../sagas/auth/actions';
-import { selectGetJwtReq } from '../../sagas/auth/selectors';
+import { selectGetJwt } from '../../sagas/auth/selectors';
 
 export const mapStateToProps = createSelector(
-	[selectGetJwtReq],
+	[selectGetJwt],
 	(request) => ({
 		...request
 	}));

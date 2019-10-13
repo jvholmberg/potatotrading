@@ -12,7 +12,7 @@ export const defaultState = fromJS({
 		[VALIDATE_JWT]: { pending: false, done: false, error: null, },
 		[REFRESH_JWT]: { pending: false, done: false, error: null, },
 		[DESTROY_JWT]: { pending: false, done: false, error: null, },
-	}
+	},
 });
 
 export default (state = defaultState, action) => {

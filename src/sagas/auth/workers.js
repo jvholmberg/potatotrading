@@ -6,12 +6,12 @@ import {
 	getAccessToken, getRefreshToken,
 	deleteAccessToken, deleteRefreshToken,
 } from '../storage';
-import * as api from '../../utils/api';
+import * as Api from '../../utils/api';
 
 export function* workerGetJwt(action) {
 	try	{
 		yield put({ type: createRequestAction(GET_JWT, PENDING), payload: null });
-		const { data } = yield call(api.instance, {
+		const { data } = yield call(Api.instance, {
 			method: 'post',
 			url: '/users/auth',
 			data: action.payload,
@@ -26,10 +26,10 @@ export function* workerValidateJwt(action) {
 	try	{
 		yield put({ type: createRequestAction(VALIDATE_JWT, PENDING), payload: null });
 		const accessToken = yield call(getAccessToken);
-		const response = yield call(api.instance, {
+		const response = yield call(Api.instance, {
 			method: 'get',
 			url: '/users/auth',
-			headers: api.generateHeaders(accessToken),
+			headers: Api.generateHeaders(accessToken),
 		});
 		const json = yield response.json();
 		yield put({ type: createRequestAction(VALIDATE_JWT, SUCCESS), payload: json });
@@ -43,10 +43,10 @@ export function* workerRefreshJwt(action) {
 		yield put({ type: createRequestAction(REFRESH_JWT, PENDING), payload: null });
 		const accessToken = yield call(getAccessToken);
 		const refreshToken = yield call(getRefreshToken);
-		const response = yield call(api.instance, {
+		const response = yield call(Api.instance, {
 			method: 'get',
 			url: `/users/auth/${refreshToken}`,
-			headers: api.generateHeaders(accessToken)
+			headers: Api.generateHeaders(accessToken)
 		});
 		const json = yield response.json();
 		yield call(setAccessToken, json.accessToken);
@@ -61,10 +61,10 @@ export function* workerDestroyJwt(action) {
 	try	{
 		yield put({ type: createRequestAction(DESTROY_JWT, PENDING), payload: null });
 		const accessToken = yield call(getAccessToken);
-		const response = yield call(api.instance, {
+		const response = yield call(Api.instance, {
 			method: 'delete',
 			url: '/users/auth',
-			headers: api.generateHeaders(accessToken),
+			headers: Api.generateHeaders(accessToken),
 		});
 		const json = yield response.json();
 		yield call(deleteAccessToken);

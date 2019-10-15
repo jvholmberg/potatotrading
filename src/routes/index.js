@@ -13,8 +13,8 @@ import { mapStateToProps, mapDispatchToProps } from './selectors';
 import { AppBar } from '../components';
 
 const ControlledRoute = ({ check, path, to, component, push }) => check
-	? (<Redirect { ...{ to, push } } />)
-	: (<Route { ...{ path, component } }  />);
+	?	(<Route { ...{ path, component } }  />)
+	: (<Redirect { ...{ to, push } } />);
 
 const ControlledLink = ({ check, ...rest }) => check
 	? (<AppBar.Link {...rest} />)
@@ -43,17 +43,18 @@ class Routes extends Component {
 				<Switch>
 					<Route exact path='/' component={Landing} />
 					<ControlledRoute
-						check={accessToken}
+						check={!accessToken}
 						path='/register'
 						to='/dashboard'
 						component={Register} />
 					<ControlledRoute
-						check={accessToken}
+						check={!accessToken}
 						path='/login'
 						to='/dashboard'
 						component={Login} />
 					<ControlledRoute
-						check={!accessToken}
+						check={true}
+						// check={accessToken}
 						path='/dashboard'
 						to='/'
 						component={Dashboard} />

@@ -10,15 +10,13 @@ import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
+import Menu from '../components/Menu';
+
 import { AppBar } from '../components';
 
 const ControlledRoute = ({ check, path, to, component, push }) => check
 	?	(<Route { ...{ path, component } }  />)
 	: (<Redirect { ...{ to, push } } />);
-
-const ControlledLink = ({ check, ...rest }) => check
-	? (<AppBar.Link {...rest} />)
-	: (null);
 
 class Routes extends Component {
 
@@ -30,16 +28,7 @@ class Routes extends Component {
 		const { accessToken } = this.props;
 		return (
 			<Fragment>
-				<AppBar>
-					<AppBar.LeftSection>
-						<ControlledLink check={!accessToken} to='/login'>Login</ControlledLink>
-						<ControlledLink check={!accessToken} to='/register'>Register</ControlledLink>
-						<ControlledLink check={accessToken} to='/dashboard'>Dashboard</ControlledLink>
-					</AppBar.LeftSection>
-					<AppBar.RightSection>
-			
-					</AppBar.RightSection>
-				</AppBar>
+				<Menu />
 				<Switch>
 					<Route exact path='/' component={Landing} />
 					<ControlledRoute

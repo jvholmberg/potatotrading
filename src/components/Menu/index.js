@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { mapStateToProps, mapDispatchToProps } from './selectors';
-import { Wrapper, Content, Wordmark, LeftSection, RightSection, Link, ButtonLink } from './styles';
+import { Wrapper, Content, Wordmark, LeftSection, RightSection, Link, ButtonLink, Button } from './styles';
 
 const ControlledLink = ({ check, ...rest }) => check
 	? (<Link {...rest} />)
@@ -11,6 +11,10 @@ const ControlledLink = ({ check, ...rest }) => check
 
 const ControlledButtonLink = ({ check, ...rest }) => check
 	? (<ButtonLink {...rest} />)
+	: (null);
+
+const ControlledButton = ({ check, ...rest }) => check 
+	? (<Button {...rest} />)
 	: (null);
 
 const Menu = ({ accessToken }) => (
@@ -23,6 +27,7 @@ const Menu = ({ accessToken }) => (
 			<RightSection>
 				{/* <ControlledLink check={!accessToken} to='/register'>Register</ControlledLink> */}
 				<ControlledButtonLink check={!accessToken} to='/login'>Login</ControlledButtonLink>
+				<ControlledButton check={accessToken}>Logout</ControlledButton>
 			</RightSection>
 		</Content>
 	</Wrapper>

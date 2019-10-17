@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 	padding: 0 1rem;
 	width: 100%;
 	box-sizing: border-box;
+	border-bottom: .1rem solid #b5b5b5;
 `;
 
 export const Content = styled.header`
@@ -20,7 +21,7 @@ export const Content = styled.header`
 `;
 
 export const Wordmark = styled(ReactRouterLink)`
-	padding: 1.4rem;
+	padding: 1.4rem 1rem;
 	grid-area: wordmark;
 	font-size: 1.5rem;
 	font-weight: 400;
@@ -53,10 +54,28 @@ export const Link = styled(ReactRouterLink)`
 
 export const ButtonLink = styled(ReactRouterLink)`
 	display: inline-block;
-	margin: .7rem 0;
+	margin: .7rem 1rem .7rem 0;
 	padding: .8rem 1.6rem;
 	font-size: 1.3rem;
+	line-height: 1.3rem;
 	background-color: #3a3a3a;
+	border: .1rem solid #3a3a3a;
+	border-radius: .2rem;
+	color: #fff;
+	text-decoration: none;
+	&:hover, &:active {
+		background-color: #4a4a4a;
+	}
+`;
+
+export const Button = styled.button`
+	display: inline-block;
+	margin: .7rem 1rem .7rem 0;
+	padding: .8rem 1.6rem;
+	font-size: 1.3rem;
+	line-height: 1.3rem;
+	background-color: #3a3a3a;
+	border: .1rem solid #3a3a3a;
 	border-radius: .2rem;
 	color: #fff;
 	text-decoration: none;

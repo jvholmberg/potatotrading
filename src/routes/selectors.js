@@ -6,8 +6,6 @@ import {
 	selectExpiresIn, selectValidUntil,
 } from '../sagas/auth/selectors';
 
-
-
 export const mapStateToProps = createSelector(
 	[
 		selectAccessToken,

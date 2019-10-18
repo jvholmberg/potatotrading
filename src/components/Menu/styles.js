@@ -5,9 +5,11 @@ export const Wrapper = styled.div`
 	position: sticky;
 	display: block;
 	padding: 0 1rem;
+	top: 0;
 	width: 100%;
 	box-sizing: border-box;
-	border-bottom: .1rem solid #b5b5b5;
+	background-color: #fcfcfc;
+	box-shadow: 0 0 .4rem rgba(0,0,0,.25);
 `;
 
 export const Content = styled.header`
@@ -25,7 +27,7 @@ export const Wordmark = styled(ReactRouterLink)`
 	grid-area: wordmark;
 	font-size: 1.5rem;
 	font-weight: 400;
-	color: #3a3a3a;
+	color: var(--black);
 	text-decoration: none;
 `;
 
@@ -45,7 +47,7 @@ export const Link = styled(ReactRouterLink)`
 	margin: .7rem 0;
 	padding: .8rem 1.6rem;
 	font-size: 1.5rem;
-	color: #3a3a3a;
+	color: var(--black);
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
@@ -58,8 +60,8 @@ export const ButtonLink = styled(ReactRouterLink)`
 	padding: .8rem 1.6rem;
 	font-size: 1.3rem;
 	line-height: 1.3rem;
-	background-color: #3a3a3a;
-	border: .1rem solid #3a3a3a;
+	background-color: var(--black);
+	border: .1rem solid var(--black);
 	border-radius: .2rem;
 	color: #fff;
 	text-decoration: none;
@@ -74,8 +76,8 @@ export const Button = styled.button`
 	padding: .8rem 1.6rem;
 	font-size: 1.3rem;
 	line-height: 1.3rem;
-	background-color: #3a3a3a;
-	border: .1rem solid #3a3a3a;
+	background-color: var(--black);
+	border: .1rem solid var(--black);
 	border-radius: .2rem;
 	color: #fff;
 	text-decoration: none;

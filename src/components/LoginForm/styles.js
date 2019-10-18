@@ -36,7 +36,7 @@ export const Error = styled.span`
 	color: #dc3545;
 `;
 
-export const PrimaryButton = styled.button`
+export const Button = styled.button`
 	display: inline-block;
 	margin: .7rem 1rem .7rem 0;
 	padding: .8rem 1.6rem;
@@ -52,7 +52,7 @@ export const PrimaryButton = styled.button`
 	}
 `;
 
-export const SecondaryButton = styled(Link)`
+export const ButtonLink = styled(Link)`
 	display: inline-block;
 	margin: .7rem .5rem;
 	padding: .8rem 1.6rem;

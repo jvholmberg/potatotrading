@@ -5,8 +5,8 @@ export const Wrapper = styled.div`
 	padding: 0 1rem;
 	width: 100%;
 	min-height: 30vh;
-	box-sizing: border-box;
-	background-color: #3a3a3a;
+	box-sizing: border-bo8x;
+	background-color: var(--black);
 `;
 
 export const Content = styled.header`

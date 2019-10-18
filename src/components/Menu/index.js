@@ -20,7 +20,7 @@ const ControlledButton = ({ check, ...rest }) => check
 const Menu = ({ accessToken }) => (
 	<Wrapper>
 		<Content>
-			<Wordmark to='/'>Training</Wordmark>
+			<Wordmark to='/'>superset</Wordmark>
 			<LeftSection>
 				<ControlledLink check={accessToken} to='/dashboard'>Dashboard</ControlledLink>
 			</LeftSection>

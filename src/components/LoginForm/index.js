@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
-import { Form, Input, Label, Error, PrimaryButton, SecondaryButton } from './styles';
+import { Form, Input, Label, Error, Button, ButtonLink } from './styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const LoginSchema = Yup
@@ -58,12 +58,12 @@ const Login = (props) => (
 								)}
 						</Label>
 					)} />
-				<PrimaryButton type='submit' disabled={props.submitting}>
+				<Button type='submit' disabled={props.submitting}>
 					Login
-				</PrimaryButton>
-				<SecondaryButton to='/register' disabled={props.submitting}>
-					Login
-				</SecondaryButton>
+				</Button>
+				<ButtonLink to='/register' disabled={props.submitting}>
+					Register
+				</ButtonLink>
 			</Form>
 		)} />
 );

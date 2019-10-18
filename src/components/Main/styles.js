@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 	width: 100%;
 	min-height: 100vh;
 	box-sizing: border-box;
-	background-color: #f7f7f7;
+	background-color: #fff;
 `;
 
 export const Content = styled.main`

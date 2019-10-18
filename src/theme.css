@@ -3,6 +3,8 @@ html {
 	font-size: 10px;
 }
 :root {
-	--black: #3a3a3a;
+	--dark: #3a3a3a;
+	--darker: #1f1f1f;
+	--light: #fcfcfc;
 	--red: #e43737;
 }

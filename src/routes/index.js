@@ -1,13 +1,45 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import Footer from '../components/Footer';
-import Menu from '../components/Menu';
-import Main from '../components/Main';
+import { mapStateToProps } from './selectors';
 
-export default () => (
-	<Fragment>
-		<Menu />
-		<Main />
-		<Footer />
-	</Fragment>
+import Landing from './Landing';
+import Register from './Register';
+import Login from './Login';
+import Dashboard from './Dashboard';
+import NotFound from './NotFound';
+
+const ControlledRoute = ({ check, path, to, component, push }) => check
+	?	(<Route { ...{ path, component } }  />)
+	: (<Redirect { ...{ to, push } } />);
+
+const Routes = ({ accessToken }) => (
+	<Switch>
+		<Route exact path='/' component={Landing} />
+		<ControlledRoute
+			check={!accessToken}
+			path='/register'
+			to='/dashboard'
+			component={Register} />
+		<ControlledRoute
+			check={!accessToken}
+			path='/login'
+			to='/dashboard'
+			component={Login} />
+		<ControlledRoute
+			check={true}
+			// check={accessToken}
+			path='/dashboard'
+			to='/'
+			component={Dashboard} />
+		<Route component={NotFound} />
+	</Switch>
 );
+
+
+export default connect(
+	mapStateToProps,
+	null,
+)(Routes);

@@ -14,5 +14,6 @@ export const Content = styled.main`
 	margin: 0 auto;
 	max-width: 108rem;
 	width: 100%;
+	min-height: 100vh;
 	height: 100%;
 `;

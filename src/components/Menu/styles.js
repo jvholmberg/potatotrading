@@ -27,7 +27,7 @@ export const Wordmark = styled(ReactRouterLink)`
 	grid-area: wordmark;
 	font-size: 1.5rem;
 	font-weight: 400;
-	color: var(--black);
+	color: var(--dark);
 	text-decoration: none;
 `;
 
@@ -47,7 +47,7 @@ export const Link = styled(ReactRouterLink)`
 	margin: .7rem 0;
 	padding: .8rem 1.6rem;
 	font-size: 1.5rem;
-	color: var(--black);
+	color: var(--dark);
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
@@ -60,8 +60,8 @@ export const ButtonLink = styled(ReactRouterLink)`
 	padding: .8rem 1.6rem;
 	font-size: 1.3rem;
 	line-height: 1.3rem;
-	background-color: var(--black);
-	border: .1rem solid var(--black);
+	background-color: var(--dark);
+	border: .1rem solid var(--dark);
 	border-radius: .2rem;
 	color: #fff;
 	text-decoration: none;
@@ -76,8 +76,8 @@ export const Button = styled.button`
 	padding: .8rem 1.6rem;
 	font-size: 1.3rem;
 	line-height: 1.3rem;
-	background-color: var(--black);
-	border: .1rem solid var(--black);
+	background-color: var(--dark);
+	border: .1rem solid var(--dark);
 	border-radius: .2rem;
 	color: #fff;
 	text-decoration: none;

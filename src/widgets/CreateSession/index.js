@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { createUUIDV4 } from '../../utils/uuid';
-import { Input, Button } from '../../components';
+import { Input, Button } from './styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 import { Table, THead, TH, TBody, TD, TR } from './styles';
 
@@ -28,12 +28,12 @@ const Exercises = ({ formProps, props }) => (
 				<THead>
 					<TR>
 						<TH>
-							<Button.Secondary
+							<Button
 								type='button'
 								onClick={() => arrayHelper.push({ name: '', comment: '', key: createUUIDV4() })}
 								disabled={props.submitting}>
 								Add exercise
-							</Button.Secondary>
+							</Button>
 						</TH>
 					</TR>
 				</THead>
@@ -44,7 +44,7 @@ const Exercises = ({ formProps, props }) => (
 								<Field
 									name={`exercises.${index}.name`}
 									render={({ field }) => (
-										<Input.Text
+										<Input
 											{...field}
 											error={_.get(formProps, `touched.${field.name}`) && _.get(formProps, `errors.${field.name}`)}
 											label='Name' />
@@ -54,7 +54,7 @@ const Exercises = ({ formProps, props }) => (
 								<Field
 									name={`exercises.${index}.comment`}
 									render={({ field }) => (
-										<Input.Text
+										<Input
 											{...field}
 											error={_.get(formProps, `touched.${field.name}`) && _.get(formProps, `errors.${field.name}`)}
 											label='Comment' />
@@ -79,7 +79,7 @@ const CreateSession = (props) => {
 			onSubmit={props.createSession}
 			render={(formProps) => (
 				<form onSubmit={formProps.handleSubmit}>
-					<Input.Text
+					<Input
 						name='title'
 						label='Title'
 						onChange={formProps.handleChange}
@@ -89,11 +89,11 @@ const CreateSession = (props) => {
 					<Exercises
 						formProps={formProps}
 						props={props} />
-					<Button.Primary
+					<Button
 						type='submit'
 						disabled={props.submitting}>
 						Create
-					</Button.Primary>
+					</Button>
 				</form>
 			)} />
 	);

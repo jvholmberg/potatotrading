@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Menu from '../../components/Menu';
 import Main from '../../components/Main';
 import Footer from '../../components/Footer';
-import LoginForm from '../../components/LoginForm';
+import LoginForm from './LoginForm';
 
 import { Center } from './styles';
 

@@ -7,7 +7,6 @@ import Footer from '../../components/Footer';
 
 const Landing = (props) => (
 	<Fragment>
-		<Menu />
 		<Main style={{
 			background: 'url(/123.jpg) no-repeat center center',
 			backgroundSize: 'cover',

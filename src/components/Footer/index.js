@@ -6,7 +6,18 @@ import { Wrapper, Content } from './styles';
 const Footer = () => (
 	<Wrapper>
 		<Content>
-			wd
+			wdasxas
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			<br />
+			fsdfsdf
 		</Content>
 	</Wrapper>
 );

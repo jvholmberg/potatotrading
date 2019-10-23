@@ -17,7 +17,7 @@ const ControlledButton = ({ check, ...rest }) => check
 	? (<Button {...rest} />)
 	: (null);
 
-const Menu = ({ accessToken }) => (
+const Menu = ({ accessToken, destroyJwt }) => (
 	<Wrapper>
 		<Content>
 			<Wordmark to='/'>superset</Wordmark>
@@ -27,7 +27,7 @@ const Menu = ({ accessToken }) => (
 			<RightSection>
 				{/* <ControlledLink check={!accessToken} to='/register'>Register</ControlledLink> */}
 				<ControlledButtonLink check={!accessToken} to='/login'>Login</ControlledButtonLink>
-				<ControlledButton check={accessToken}>Logout</ControlledButton>
+				<ControlledButton check={accessToken} onClick={destroyJwt}>Logout</ControlledButton>
 			</RightSection>
 		</Content>
 	</Wrapper>

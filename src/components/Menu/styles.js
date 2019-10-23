@@ -9,7 +9,8 @@ export const Wrapper = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	background-color: #fcfcfc;
-	box-shadow: 0 0 .4rem rgba(0,0,0,.25);
+	box-shadow: 0 0 .4rem rgba(0, 0, 0, .25);
+	z-index: 3;
 `;
 
 export const Content = styled.header`

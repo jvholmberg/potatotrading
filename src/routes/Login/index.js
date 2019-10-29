@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Menu from '../../components/Menu';
 import Main from '../../components/Main';
 import Footer from '../../components/Footer';
 import LoginForm from './LoginForm';
@@ -10,7 +9,6 @@ import { Center } from './styles';
 
 const Login = (props) => (
 	<Fragment>
-		<Menu />
 		<Main style={{
 			background: 'url(/312.jpg) no-repeat center center',
 			backgroundSize: 'cover',

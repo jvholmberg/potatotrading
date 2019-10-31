@@ -1,25 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { Wrapper, Content } from './styles';
+import { Root, Copyright, Caption } from './styles';
 
 const Footer = () => (
-	<Wrapper>
-		<Content>
-			wdasxas
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			fsdfsdf
-		</Content>
-	</Wrapper>
+	<Root>
+		<Copyright />
+		<Caption />
+	</Root>
 );
 
 export default Footer;

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Main from '../../components/Main';
-import Footer from '../../components/Footer';
 import LoginForm from './LoginForm';
 
 import { Center } from './styles';
@@ -17,7 +16,6 @@ const Login = (props) => (
 				<LoginForm />
 			</Center>
 		</Main>
-		<Footer />
 	</Fragment>
 );
 

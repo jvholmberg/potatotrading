@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import TiltedSection from '../../components/TiltedSection';
 import Main from '../../components/Main';
-import Footer from '../../components/Footer';
 import RegisterForm from './RegisterForm';
 
 import { Center } from './styles';
@@ -21,7 +20,6 @@ const Login = (props) => (
 			<Center>
 			</Center>
 		</Main>
-		<Footer />
 	</Fragment>
 );
 

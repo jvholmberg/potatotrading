@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Main from '../../components/Main';
-import Footer from '../../components/Footer';
 
 const Landing = (props) => (
 	<Fragment>
@@ -12,7 +11,6 @@ const Landing = (props) => (
 		}}>
 			landing
 		</Main>
-		<Footer />
 	</Fragment>
 );
 

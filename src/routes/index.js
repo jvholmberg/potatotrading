@@ -48,7 +48,6 @@ const Routes = ({ accessToken }) => (
 	</Fragment>
 );
 
-
 export default connect(
 	mapStateToProps,
 	null,

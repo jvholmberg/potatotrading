@@ -13,9 +13,6 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    boxShadow: 'none'
-  },
   flexGrow: {
     flexGrow: 1
   },
@@ -30,17 +27,14 @@ const Logo = props => (
 	</RouterLink>
 );
 
-export const Root = ({ children, ...rest }) => {
-	const classes = useStyles();
-	return (
-		<AppBar className={classes.root} {...rest}>
-      <Toolbar>
-				<Logo />
-				{children}
-      </Toolbar>
-    </AppBar>
-  );
-};
+export const Root = ({ children, ...rest }) => (
+	<AppBar variant='primary' {...rest}>
+		<Toolbar>
+			<Logo />
+			{children}
+		</Toolbar>
+	</AppBar>
+);
 
 export const SignInButton = (props) => (
 	<RouterLink to='/login'>

@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import MinimalLayout from '../../layouts/Minimal';
+
 const Landing = (props) => (
-	<Fragment>
-			landing
-	</Fragment>
+	<MinimalLayout>
+		landing
+	</MinimalLayout>
 );
 
 Landing.propTypes = {

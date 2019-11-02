@@ -3,6 +3,7 @@ import { SIDEBAR_OPEN } from './actions';
 import { getActionType, getActionName, getActionStatus, UI } from '../actionCreator'
 
 export const defaultState = fromJS({
+	screen: { size: null },
 	sidebar: { open: false },
 });
 

@@ -1,7 +1,8 @@
 import React from 'react';
+import MinimalLayout from '../../layouts/Minimal';
 
 export default () => (
-	<div>
+	<MinimalLayout>
 		not found
-	</div>
+	</MinimalLayout>
 );

@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import CreateSession from '../../widgets/CreateSession';
+import MainLayout from '../../layouts/Main';
 
 const Login = (props) => (
-	<Fragment>
-			<CreateSession />
-	</Fragment>
+	<MainLayout>
+	</MainLayout>
 );
 
 Login.propTypes = {

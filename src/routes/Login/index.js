@@ -1,16 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import MinimalLayout from '../../layouts/Minimal';
 import LoginForm from './LoginForm';
 
-import { Center } from './styles';
-
 const Login = (props) => (
-	<Fragment>
-			<Center>
-				<LoginForm />
-			</Center>
-	</Fragment>
+	<MinimalLayout>
+		<LoginForm />
+	</MinimalLayout>
 );
 
 Login.propTypes = {

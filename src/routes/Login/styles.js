@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Center = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-`;
-
 export const Form = styled.form`
 	padding: 3rem;
 	max-width: 35rem;

@@ -28,7 +28,7 @@ const Logo = props => (
 );
 
 export const Root = ({ children, ...rest }) => (
-	<AppBar variant='primary' {...rest}>
+	<AppBar position='sticky' variant='primary' {...rest}>
 		<Toolbar>
 			<Logo />
 			{children}

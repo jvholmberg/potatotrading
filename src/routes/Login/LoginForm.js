@@ -35,10 +35,11 @@ const Login = (props) => (
 					render={({ field }) => (
 						<TextField
 							{...field}
+							type='email'
 							label='Email'
 							margin='normal'
 							variant='outlined'
-							error={formProps.touched.email && formProps.errors.email}
+							error={(formProps.touched.email && formProps.errors.email) ? true : false}
 							helperText={formProps.touched.email && formProps.errors.email} />
 					)} />
 				<Field
@@ -50,7 +51,7 @@ const Login = (props) => (
 							label='Password'
 							margin='normal'
 							variant='outlined'
-							error={formProps.touched.password && formProps.errors.password}
+							error={(formProps.touched.password && formProps.errors.password) ? true : false}
 							helperText={formProps.touched.password && formProps.errors.password} />
 					)} />
 				<Button type='submit' disabled={props.submitting}>

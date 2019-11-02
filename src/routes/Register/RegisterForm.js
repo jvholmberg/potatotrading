@@ -1,10 +1,11 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
-import { Input, Button } from './styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const RegisterSchema = Yup
@@ -31,27 +32,42 @@ const Register = (props) => (
 		onSubmit={props.createUser}
 		render={(formProps) => (
 			<form onSubmit={formProps.handleSubmit}>
-				<Input
+				<Field
 					name='email'
-					label='Email'
-					onChange={formProps.handleChange}
-					onBlur={formProps.handleBlur}
-					value={formProps.values.email}
-					error={formProps.touched.email && formProps.errors.email}  />
-				<Input
+					render={({ field }) => (
+						<TextField
+							{...field}
+							type='email'
+							label='Email'
+							margin='normal'
+							variant='outlined'
+							error={(formProps.touched.email && formProps.errors.email) ? true : false}
+							helperText={formProps.touched.email && formProps.errors.email} />
+					)} />
+				<Field
 					name='password'
-					label='Password'
-					onChange={formProps.handleChange}
-					onBlur={formProps.handleBlur}
-					value={formProps.values.password}
-					error={formProps.touched.password && formProps.errors.password} />
-				<Input
+					render={({ field }) => (
+						<TextField
+							{...field}
+							type='password'
+							label='Password'
+							margin='normal'
+							variant='outlined'
+							error={(formProps.touched.password && formProps.errors.password) ? true : false}
+							helperText={formProps.touched.password && formProps.errors.password} />
+					)} />
+				<Field
 					name='passwordVerify'
-					label='Verify password'
-					onChange={formProps.handleChange}
-					onBlur={formProps.handleBlur}
-					value={formProps.values.passwordVerify}
-					error={formProps.touched.passwordVerify && formProps.errors.passwordVerify}  />
+					render={({ field }) => (
+						<TextField
+							{...field}
+							type='password'
+							label='Verify password'
+							margin='normal'
+							variant='outlined'
+							error={(formProps.touched.passwordVerify && formProps.errors.passwordVerify) ? true : false}
+							helperText={formProps.touched.passwordVerify && formProps.errors.passwordVerify} />
+					)} />
 				<Button type='submit'>
 					Register
 				</Button>

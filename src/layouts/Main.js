@@ -9,8 +9,10 @@ const Main = ({ children }) => (
 	<Fragment>
 		<Header />
 		<Sidebar />
-		<Content>{children}</Content>
-		<Footer />
+		<Content>
+			{children}
+			<Footer />
+		</Content>
 	</Fragment>
 );
 

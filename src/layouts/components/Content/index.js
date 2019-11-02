@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Content = ({ isDesktop, children }) => {
+export const Content = ({ isDesktop, children }) => {
 	const classes = useStyles();
 	return (
 		<div className={isDesktop ? classes.shiftContent : undefined}>

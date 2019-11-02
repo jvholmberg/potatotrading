@@ -35,8 +35,8 @@ const Sidebar = props => {
 		<Drawer
 			anchor="left"
 			classes={{ paper: classes.drawer }}
-			onClose={() => setOpen(false)}
-			open={open}>
+			onClose={() => props.setSidebarOpen(false)}
+			open={props.sidebarOpen}>
 			sidesdadadsd
 		</Drawer>
 	);

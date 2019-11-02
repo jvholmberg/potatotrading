@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Logo = props => (
-	<RouterLink to='/' {...props}>
+	<Link to='/' {...props}>
 		<img alt='Logo' src='/logo.svg' />
-	</RouterLink>
+	</Link>
 );
 
 export const Root = ({ children, ...rest }) => (
@@ -37,11 +37,11 @@ export const Root = ({ children, ...rest }) => (
 );
 
 export const SignInButton = (props) => (
-	<RouterLink to='/login'>
+	<Link to='/login'>
 		<Button color='inherit' {...props}>
 			Login
 		</Button>
-	</RouterLink>
+	</Link>
 );
 
 export const SignOutButton = (props) => {

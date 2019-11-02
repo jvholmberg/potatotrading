@@ -3,8 +3,10 @@ import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { Form, Input, Label, Error, Button, ButtonLink } from './styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const LoginSchema = Yup
@@ -26,45 +28,40 @@ const Login = (props) => (
 		validationSchema={LoginSchema}
 		onSubmit={props.getJwt}
 		render={(formProps) => (
-			<Form onSubmit={formProps.handleSubmit}>
+			<form onSubmit={formProps.handleSubmit}>
+
 				<Field
 					name='email'
 					render={({ field }) => (
-						<Label>
-							Email
-							<Input
-								{...field}
-								type='email'
-								label='Name' />
-								{formProps.touched.email && formProps.errors.email && (
-									<Error>
-										{formProps.errors.email}
-									</Error>
-								)}
-						</Label>
+						<TextField
+							{...field}
+							label='Email'
+							margin='normal'
+							variant='outlined'
+							error={formProps.touched.email && formProps.errors.email}
+							helperText={formProps.touched.email && formProps.errors.email} />
 					)} />
 				<Field
 					name='password'
 					render={({ field }) => (
-						<Label>
-							Password
-							<Input
-								{...field}
-								type='password'/>
-								{formProps.touched.password && formProps.errors.password && (
-									<Error>
-										{formProps.errors.password}
-									</Error>
-								)}
-						</Label>
+						<TextField
+							{...field}
+							type='password'
+							label='Password'
+							margin='normal'
+							variant='outlined'
+							error={formProps.touched.password && formProps.errors.password}
+							helperText={formProps.touched.password && formProps.errors.password} />
 					)} />
 				<Button type='submit' disabled={props.submitting}>
 					Login
 				</Button>
-				<ButtonLink to='/register' disabled={props.submitting}>
-					Register
-				</ButtonLink>
-			</Form>
+				<Link to='/register'>
+					<Button color='inherit'>
+						Register
+					</Button>
+				</Link>
+			</form>
 		)} />
 );
 

@@ -22,5 +22,5 @@ export const mapStateToProps = createSelector(
 
 export const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
-
+	
   }, dispatch);

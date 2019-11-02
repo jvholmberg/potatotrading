@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Drawer } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -29,17 +29,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Sidebar = props => {
-	const [open, setOpen] = useState(true);
 	const classes = useStyles();
 	return (
 		<Drawer
-			anchor="left"
+			anchor='left'
+			variant={props.isDesktop ? 'persistent' : 'temporary'}
 			classes={{ paper: classes.drawer }}
 			onClose={() => props.setSidebarOpen(false)}
-			open={props.sidebarOpen}>
+			open={props.isDesktop || props.sidebarOpen}>
 			sidesdadadsd
 		</Drawer>
 	);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Sidebar);

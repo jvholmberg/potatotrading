@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { SIDEBAR_OPEN } from './actions';
+import { SIDEBAR_OPEN, SCREEN_SIZE } from './actions';
 import { getActionType, getActionName, getActionStatus, UI } from '../actionCreator'
 
 export const defaultState = fromJS({
@@ -16,6 +16,8 @@ export default (state = defaultState, action) => {
 	}
 	const actionName = getActionName(type);
 	switch (actionName) {
+		case SCREEN_SIZE:
+			return state.setIn(['screen', 'size'], payload);
 		case SIDEBAR_OPEN:
 			return state.setIn(['sidebar', 'open'], payload);
 		default:

@@ -5,13 +5,13 @@ import Sidebar from './components/Sidebar';
 import Content from './components/Content';
 import Footer from './components/Footer';
 
-const Main = ({ children }) => (
+const Main = ({ children, noFooter }) => (
 	<Fragment>
 		<Header />
 		<Sidebar />
 		<Content>
 			{children}
-			<Footer />
+			{!noFooter && (<Footer />)}
 		</Content>
 	</Fragment>
 );

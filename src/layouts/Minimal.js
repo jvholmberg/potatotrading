@@ -4,12 +4,12 @@ import Header from './components/Header';
 import { Content } from './components/Content';
 import Footer from './components/Footer';
 
-const Minimal = ({ children }) => (
+const Minimal = ({ children, noFooter }) => (
 	<Fragment>
 		<Header />
 		<Content>
 			{children}
-			<Footer />
+			{!noFooter && (<Footer />)}
 		</Content>
 	</Fragment>
 );

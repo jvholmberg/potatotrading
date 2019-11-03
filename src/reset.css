@@ -46,3 +46,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/**
+ * Additions to css-reset
+ */
+html, body, #root {
+	height: 100%;
+}

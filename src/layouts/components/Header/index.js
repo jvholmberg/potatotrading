@@ -18,9 +18,11 @@ const Header = props => (
 				<SignInButton />
 			</Hidden>
 		)}
-		<Hidden lgUp>
-			<MenuButton onClick={() => !props.isDesktop && props.setSidebarOpen(!props.sidebarOpen)} />
-		</Hidden>
+		{!props.noSidebar && (
+			<Hidden lgUp>
+				<MenuButton onClick={() => !props.isDesktop && props.setSidebarOpen(!props.sidebarOpen)} />
+			</Hidden>
+		)}
 	</Root>
 );
 

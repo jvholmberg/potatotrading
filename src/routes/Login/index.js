@@ -12,25 +12,18 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     backgroundColor: theme.palette.background.default,
 	},
-	leftRoot: {
+	leftContainer: {
     [theme.breakpoints.down('md')]: {
       display: 'none',
     },
-	},
-	leftContainer: {
-    backgroundColor: theme.palette.neutral,
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundImage: 'url(/fitsum.jpg)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-	},
-	leftContent: {
-    textAlign: 'center',
-    flexBasis: '600px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    display: 'flex',
 	},
 	leftTitle: {
     color: theme.palette.white,
@@ -54,17 +47,20 @@ const Login = (props) => {
 				justify='space-evenly'
 				alignItems='stretch'
 				alignContent='stretch'>
-				<Grid className={classes.leftRoot} item lg={5}>
-					<div className={classes.leftContainer}>
-						<div className={classes.leftContent}>
-							<Typography className={classes.leftTitle} variant="h1">
-								Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
-								they sold out High Life.
-							</Typography>
-						</div>
-					</div>
+				<Grid
+					item
+					lg={5}
+					className={classes.leftContainer}>
+					<Typography className={classes.leftTitle} variant="h1">
+						Hella narwhal Cosby sweater McSweeney's, salvia kitsch before
+						they sold out High Life.
+					</Typography>
 				</Grid>
-				<Grid className={classes.rightContainer} item lg={7} xs={12}>
+				<Grid
+					item
+					lg={7}
+					xs={12}
+					className={classes.rightContainer}>
 					<LoginForm />
 				</Grid>
 			</Grid>

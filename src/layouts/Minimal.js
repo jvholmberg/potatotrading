@@ -6,10 +6,10 @@ import Footer from './components/Footer';
 
 const Minimal = ({ children, noFooter }) => (
 	<Fragment>
-		<Header />
+		<Header noSidebar />
 		<Content>
 			{children}
-			{!noFooter && (<Footer />)}
+			<Footer noFooter={noFooter} />
 		</Content>
 	</Fragment>
 );

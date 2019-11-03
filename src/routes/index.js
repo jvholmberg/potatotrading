@@ -34,7 +34,7 @@ const Routes = ({ accessToken }) => (
 				to='/dashboard'
 				component={Login} />
 			<ControlledRoute
-				check={!accessToken}
+				check={accessToken}
 				path='/dashboard'
 				to='/'
 				component={Dashboard} />

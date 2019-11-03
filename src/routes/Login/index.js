@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/styles';
 import MinimalLayout from '../../layouts/Minimal';
+import LoginForm from './LoginForm';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import LoginForm from './LoginForm';
+import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -16,23 +16,25 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('md')]: {
       display: 'none',
     },
-    backgroundImage: 'url(/fitsum.jpg)',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
-    display: 'flex',
+    backgroundImage: 'url(/tushar.jpg)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
 	},
 	leftTitle: {
     color: theme.palette.white,
     fontWeight: 300
   },
 	rightContainer: {
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
 	},
 }));
 

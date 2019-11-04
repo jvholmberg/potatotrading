@@ -13,8 +13,8 @@ import { makeStyles } from '@material-ui/styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const useStyles = makeStyles(theme => ({
-	form: {
-		padding: 120
+	root: {
+		maxWidth: 500,
 	},
   title: {
     marginTop: theme.spacing(3)
@@ -48,7 +48,7 @@ const LoginForm = (props) => {
 			validationSchema={LoginFormSchema}
 			onSubmit={props.getJwt}
 			render={(formProps) => (
-				<form className={classes.form} onSubmit={formProps.handleSubmit}>
+				<form className={classes.root} onSubmit={formProps.handleSubmit}>
 					<Typography className={classes.title} variant='h2'>
 						Sign in
 					</Typography>

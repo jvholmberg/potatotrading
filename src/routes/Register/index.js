@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 import MinimalLayout from '../../layouts/Minimal';
 import RegisterForm from './RegisterForm';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -30,16 +33,24 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 300
   },
 	rightContainer: {
-    display: 'flex',
+		padding: theme.spacing(2),
+	},
+  contentHeader: {
+		position: 'absolute',
+    padding: theme.spacing(2),
+		boxSizing: 'border-box',
+  },
+	content: {
+		display: 'flex',
+    padding: theme.spacing(2),
+    height: '100%',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
 	},
 }));
 
-
-const Login = (props) => {
+const Register = (props) => {
 	const classes = useStyles();
 	return (
 		<MinimalLayout noFooter>
@@ -64,15 +75,22 @@ const Login = (props) => {
 					lg={7}
 					xs={12}
 					className={classes.rightContainer}>
-					<RegisterForm />
+					<div className={classes.contentHeader}>
+						<IconButton onClick={props.history.goBack}>
+							<ArrowBackIcon />
+						</IconButton>
+					</div>
+					<div className={classes.content}>
+						<RegisterForm />
+					</div>
 				</Grid>
 			</Grid>
 		</MinimalLayout>
 	);
 };
 
-Login.propTypes = {
+Register.propTypes = {
 	
 };
 
-export default Login;
+export default withRouter(Register);

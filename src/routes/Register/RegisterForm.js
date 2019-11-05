@@ -1,11 +1,11 @@
 import React from 'react';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
 
+import FormikInput from '../../components/FormikInput';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 
@@ -58,48 +58,9 @@ const Register = (props) => {
 					<Typography color='textSecondary' gutterBottom>
 						Sign in to get access to all the goodies
 					</Typography>
-					<Field
-						name='email'
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								className={classes.textField}
-								type='email'
-								label='Email'
-								margin='normal'
-								variant='outlined'
-								error={(formProps.touched.email && formProps.errors.email) ? true : false}
-								helperText={formProps.touched.email && formProps.errors.email} />
-						)} />
-					<Field
-						name='password'
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								className={classes.textField}
-								type='password'
-								label='Password'
-								margin='normal'
-								variant='outlined'
-								error={(formProps.touched.password && formProps.errors.password) ? true : false}
-								helperText={formProps.touched.password && formProps.errors.password} />
-						)} />
-					<Field
-						name='passwordVerify'
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								className={classes.textField}
-								type='password'
-								label='Verify password'
-								margin='normal'
-								variant='outlined'
-								error={(formProps.touched.passwordVerify && formProps.errors.passwordVerify) ? true : false}
-								helperText={formProps.touched.passwordVerify && formProps.errors.passwordVerify} />
-						)} />
+					<FormikInput name='email' type='email' label='Email' fullWidth formProps={formProps} />
+					<FormikInput name='password' type='password' label='Password' fullWidth formProps={formProps} />
+					<FormikInput name='passwordVerify' type='password' label='Verify password' fullWidth formProps={formProps} />
 						<Button
 							type='submit'
 							fullWidth

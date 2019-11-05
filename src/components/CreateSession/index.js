@@ -6,9 +6,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { createUUIDV4 } from '../../utils/uuid';
-import { Input, Button } from './styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
-import { Table, THead, TH, TBody, TD, TR } from './styles';
 
 const CreateSessionSchema = Yup.object().shape({
 		name: Yup.string()

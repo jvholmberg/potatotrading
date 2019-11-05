@@ -1,14 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link as RouterLink, withRouter } from 'react-router-dom';
 import MinimalLayout from '../../layouts/Minimal';
 import RegisterForm from './RegisterForm';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/styles';
+import BackButton from '../../components/Button/BackButton';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -76,9 +74,7 @@ const Register = (props) => {
 					xs={12}
 					className={classes.rightContainer}>
 					<div className={classes.contentHeader}>
-						<IconButton onClick={props.history.goBack}>
-							<ArrowBackIcon />
-						</IconButton>
+						<BackButton />
 					</div>
 					<div className={classes.content}>
 						<RegisterForm />
@@ -93,4 +89,4 @@ Register.propTypes = {
 	
 };
 
-export default withRouter(Register);
+export default Register;

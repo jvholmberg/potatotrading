@@ -5,10 +5,11 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
 /**
- * 
+ * Notifications button with a badge. Used to display notifications which user may interract with.
+ *
  * @param {object} props
- * @param {number} props.length
- * @param {string} props.color
+ * @param {number} props.length - Number of notifications
+ * @param {string} props.color - Color of badge
  */
 const NotificationsButton = props => {
 	const { length, color, ...rest } = props;

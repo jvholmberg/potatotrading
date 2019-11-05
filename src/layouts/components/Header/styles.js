@@ -53,14 +53,6 @@ export const SignOutButton = (props) => {
 	);
 };
 
-export const NotificationButton = ({ length, ...rest}) => (
-	<IconButton color='inherit' {...rest}>
-		<Badge badgeContent={length} color='error' variant='dot'>
-			<NotificationsIcon />
-		</Badge>
-	</IconButton>
-);
-
 export const MenuButton = (props) => (
 	<IconButton color='inherit' {...props}>
 		<MenuIcon />

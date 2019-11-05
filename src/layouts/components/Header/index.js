@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Hidden } from '@material-ui/core';
-import { Root, SignInButton, SignOutButton, NotificationButton, MenuButton, FlexGrow } from './styles';
+import { Root, SignInButton, SignOutButton, MenuButton, FlexGrow } from './styles';
+import NotificationsButton from '../../../components/Buttons/Notifications';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const Header = props => (
@@ -10,7 +11,7 @@ const Header = props => (
 		<FlexGrow />
 		{props.accessToken ? (
 			<Hidden mdDown>
-				<NotificationButton length={1} />
+				<NotificationsButton length={1} />
 				<SignOutButton onClick={props.destroyJwt} />
 			</Hidden>
 		) : (

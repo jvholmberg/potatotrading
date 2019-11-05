@@ -6,7 +6,7 @@ import RegisterForm from './RegisterForm';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
-import BackButton from '../../components/Button/BackButton';
+import BackButton from '../../components/Buttons/Back';
 
 const useStyles = makeStyles(theme => ({
 	root: {

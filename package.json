@@ -32,7 +32,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "clean": "rm -rf node_modules && yarn install"
+    "clean": "rm -rf node_modules && yarn install",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,5 +50,13 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2"
+  }
 }

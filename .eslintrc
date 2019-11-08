@@ -3,20 +3,51 @@
     "react-app",
     "airbnb",
     "plugin:jsx-a11y/recommended",
-    "prettier",
-    "prettier/react"
+    "eslint:recommended"
   ],
   "plugins": [
     "jsx-a11y",
     "prettier"
   ],
   "rules": {
-    "semi": 0,
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
+    "block-spacing": "error",
+    "comma-dangle": ["error", "only-multiline"],
+    "consistent-return": "error",
+    "eqeqeq": "error",
+		"indent": ["error", 2],
+    "jsx-quotes": ["error", "prefer-double"],
+    "key-spacing": ["error", { "beforeColon": false }],
+    "keyword-spacing": ["error", { "before": true }],
+    "max-len": ["error", {
+      "code": 120,
+      "tabWidth": 2,
+      "ignoreComments": true,
+      "ignoreUrls": true
+    }],
+    "max-depth": ["error", 2],
+    "max-lines-per-function": ["error", 20],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-const-assign": "error",
+    "no-nested-ternary": "error",
+    "no-var": "error",
+    "no-eq-null": "error",
+    "no-sync": "error",
+    "no-undefined": "error",
+    "prefer-const": "error",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "prettier/prettier": [
-      "error", {
-        "semi": false
-      }
-    ]
+    "react/jsx-closing-bracket-location": [1, {
+      "nonEmpty": false,
+      "selfClosing": "after-props"
+    }],
+		"react/jsx-props-no-spreading": [0, {
+			"html": "ignore",
+			"custom": "ignore",
+			"explicitSpread": "ignore",
+			"exceptions": []
+    }],
+    "require-yield": "error",
+    "semi": 0
   }
 }

@@ -1,39 +1,50 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
-import { mapDispatchToProps } from './selectors';
+import mapDispatchToProps from './selectors';
 
 class ScreenReporter extends PureComponent {
+  componentDidMount() {
+    this.handleReport();
+  }
 
-	componentDidMount() {
-		this.handleReport(this.props.isDesktop);
-	}
+  componentDidUpdate() {
+    this.handleReport();
+  }
 
-	componentDidUpdate(prevProps) {
-		this.handleReport(this.props.isDesktop);
-	}
+  handleReport() {
+    const { isDesktop, setScreenSize } = this.props;
+    if (isDesktop) return setScreenSize('lg');
+    if (!isDesktop) return setScreenSize('sm');
+    return null;
+  }
 
-	handleReport() {
-		if (this.props.isDesktop) return this.props.setScreenSize('lg');
-		if (!this.props.isDesktop) return this.props.setScreenSize('sm');
-	}
-
-	render() {
-		return (<Fragment />)
-	}
+  render() {
+    return null;
+  }
 }
 
+ScreenReporter.propTypes = {
+  isDesktop: PropTypes.bool.isRequired,
+  setScreenSize: PropTypes.func.isRequired,
+};
+
 const ScreenSpy = ({ setScreenSize }) => {
-	const theme = useTheme();
-	const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
-		defaultMatches: true,
-	});
-	return (<ScreenReporter isDesktop={isDesktop} setScreenSize={setScreenSize} />);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true,
+  });
+  return <ScreenReporter {...{ isDesktop, setScreenSize }} />;
+};
+
+ScreenSpy.propTypes = {
+  setScreenSize: PropTypes.func.isRequired,
 };
 
 export default connect(
-	null,
-	mapDispatchToProps,
+  null,
+  mapDispatchToProps,
 )(ScreenSpy);

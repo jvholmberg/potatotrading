@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Drawer } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -28,21 +29,31 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Sidebar = props => {
-	const classes = useStyles();
-	return (
-		<Drawer
-			anchor='left'
-			variant={props.isDesktop ? 'persistent' : 'temporary'}
-			classes={{ paper: classes.drawer }}
-			onClose={() => props.setSidebarOpen(false)}
-			open={props.isDesktop || props.sidebarOpen}>
-			sidesdadadsd
-		</Drawer>
-	);
+const Sidebar = ({ isDesktop, sidebarOpen, setSidebarOpen }) => {
+  const classes = useStyles();
+  return (
+    <Drawer
+      anchor="left"
+      variant={isDesktop ? 'persistent' : 'temporary'}
+      classes={{ paper: classes.drawer }}
+      onClose={() => setSidebarOpen(false)}
+      open={isDesktop || sidebarOpen}>
+      sidesdadadsd
+    </Drawer>
+  );
+};
+
+Sidebar.propTypes = {
+  isDesktop: PropTypes.bool,
+  sidebarOpen: PropTypes.bool.isRequired,
+  setSidebarOpen: PropTypes.func.isRequired
+};
+
+Sidebar.defaultProps = {
+  isDesktop: true,
 };
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps,
 )(Sidebar);

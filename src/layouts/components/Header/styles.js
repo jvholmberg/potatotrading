@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -22,46 +24,44 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Logo = props => (
-	<RouterLink to='/' {...props}>
-		<img alt='Logo' src='/logo.svg' />
-	</RouterLink>
+  <RouterLink to="/" {...props}>
+    <img alt="Logo" src="/logo.svg" />
+  </RouterLink>
 );
 
 export const Root = ({ children, ...rest }) => (
-	<AppBar variant='primary' {...rest}>
-		<Toolbar>
-			<Logo />
-			{children}
-		</Toolbar>
-	</AppBar>
+  <AppBar variant="primary" {...rest}>
+    <Toolbar>
+      <Logo />
+      {children}
+    </Toolbar>
+  </AppBar>
 );
 
-export const SignInButton = (props) => (
-	<RouterLink to='/login'>
-		<Button color='inherit' {...props}>
+export const SignInButton = props => (
+  <RouterLink to="/login">
+    <Button color="inherit" {...props}>
 			Login
-		</Button>
-	</RouterLink>
+    </Button>
+  </RouterLink>
 );
 
-export const SignOutButton = (props) => {
-	const classes = useStyles();
-	return (
-		<IconButton color='inherit' className={classes.signOutButton} {...props}>
-			<InputIcon />
-		</IconButton>
-	);
+export const SignOutButton = props => {
+  const classes = useStyles();
+  return (
+    <IconButton color="inherit" className={classes.signOutButton} {...props}>
+      <InputIcon />
+    </IconButton>
+  );
 };
 
-export const MenuButton = (props) => (
-	<IconButton color='inherit' {...props}>
-		<MenuIcon />
-	</IconButton>
+export const MenuButton = props => (
+  <IconButton color="inherit" {...props}>
+    <MenuIcon />
+  </IconButton>
 );
 
 export const FlexGrow = () => {
-	const classes = useStyles();
-	return (<div className={classes.flexGrow} />)
+  const classes = useStyles();
+  return (<div className={classes.flexGrow} />)
 };
-
-          

@@ -2,7 +2,11 @@ import { fromJS } from 'immutable';
 import { CREATE_USER, DELETE_USER } from './actions';
 
 export const defaultState = fromJS({
-
+  user: null,
+  requests: {
+    [CREATE_USER]: { pending: false, done: false, error: null },
+    [DELETE_USER]: { pending: false, done: false, error: null },
+  },
 });
 
 export default (state = defaultState, { type, payload }) => {

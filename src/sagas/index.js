@@ -13,18 +13,18 @@ import usersSagas from './users/watchers';
 import uiSagas from './ui/watchers';
 
 export const rootReducer = combineReducers({
-	auth: authReducer,
-	users: usersReducer,
-	sessions: sessionsReducer,
-	ui: uiReducer,
+  auth: authReducer,
+  users: usersReducer,
+  sessions: sessionsReducer,
+  ui: uiReducer,
 });
 
 export function* rootSaga() {
   yield all([
-		...authSagas,
-		...storageSagas,
-		...sessionsSagas,
-		...usersSagas,
-		...uiSagas,
-	]);
-};
+    ...authSagas,
+    ...storageSagas,
+    ...sessionsSagas,
+    ...usersSagas,
+    ...uiSagas,
+  ]);
+}

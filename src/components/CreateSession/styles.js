@@ -1,3 +1,7 @@
+/* eslint-disable */
+
+// This will be completely remade from the ground up and only still exists to prevent legacy code from breaking
+
 import styled from 'styled-components';
 
 export const Table = styled.table`
@@ -31,9 +35,6 @@ export const Label = styled.label`
   font-weight: 100;
   color: #212529;
 `;
-
-
-
 
 
 export const Input = styled.input`

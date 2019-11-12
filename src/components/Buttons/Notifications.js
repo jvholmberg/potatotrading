@@ -12,24 +12,23 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
  * @param {string} props.color - Color of badge
  */
 const NotificationsButton = props => {
-	const { length, color, ...rest } = props;
-	return (
-		<IconButton color='inherit' {...rest}>
-			<Badge badgeContent={length} color={color} variant='dot'>
-				<NotificationsIcon />
-			</Badge>
-		</IconButton>
-	);
+  const { length, color, ...rest } = props;
+  return (
+    <IconButton color="inherit" {...rest}>
+      <Badge badgeContent={length} color={color} variant="dot">
+        <NotificationsIcon />
+      </Badge>
+    </IconButton>
+  );
 };
 
 NotificationsButton.propTypes = {
-	length: PropTypes.number.isRequired,
-	color: PropTypes.string,
+  length: PropTypes.number.isRequired,
+  color: PropTypes.string,
 };
 
 NotificationsButton.defaultProps = {
-	length: 0,
-	color: 'error',
+  color: 'error',
 };
 
 export default NotificationsButton;

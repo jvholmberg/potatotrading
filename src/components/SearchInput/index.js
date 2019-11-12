@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     padding: theme.spacing(1),
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchInput = (props) => {
+const SearchInput = props => {
   const { className, ...rest } = props;
   const classes = useStyles();
   return (

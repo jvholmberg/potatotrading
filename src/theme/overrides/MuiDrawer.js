@@ -1,17 +1,17 @@
 export default {
-	root: {
+  root: {
 
-	},
-	docked: {
+  },
+  docked: {
 
-	},
-	paper: {
+  },
+  paper: {
 
-	},
-	paperAnchorLeft: {
+  },
+  paperAnchorLeft: {
 
-	},
-	paperAnchorDockedLeft: {
+  },
+  paperAnchorDockedLeft: {
 
-	}
+  }
 };

@@ -1,8 +1,8 @@
 export default {
-	root: {
-		boxShadow: 'none',
-	},
-	positionSticky: {
+  root: {
+    boxShadow: 'none',
+  },
+  positionSticky: {
 
-	},
+  },
 };

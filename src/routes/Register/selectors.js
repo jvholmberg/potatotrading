@@ -4,12 +4,10 @@ import { createUser } from '../../sagas/users/actions';
 import { reqCreateUser } from '../../sagas/users/selectors';
 
 export const mapStateToProps = createSelector(
-	[reqCreateUser],
-	(reqCreateUser) => ({
-		...reqCreateUser
-	}));
+  [reqCreateUser], user => user
+);
 
-export const mapDispatchToProps = (dispatch) =>
-	bindActionCreators({
-		createUser,
-	}, dispatch);
+export const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    createUser,
+  }, dispatch);

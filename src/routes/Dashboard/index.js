@@ -1,15 +1,9 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import MainLayout from '../../layouts/Main';
 
-const Login = (props) => (
-	<MainLayout>
-	</MainLayout>
+const Login = () => (
+  <MainLayout />
 );
-
-Login.propTypes = {
-	
-};
 
 export default Login;

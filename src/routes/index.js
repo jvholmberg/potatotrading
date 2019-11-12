@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { useMediaQuery } from '@material-ui/core';
-import { useTheme } from '@material-ui/styles';
-import { mapStateToProps, mapDispatchToProps } from './selectors';
+import { mapStateToProps } from './selectors';
 
 import ScreenSpy from '../components/ScreenSpy';
 import Landing from './Landing';
@@ -14,36 +12,55 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
 
-const ControlledRoute = ({ check, path, to, component, push }) => check
-	?	(<Route { ...{ path, component } }  />)
-	: (<Redirect { ...{ to, push } } />);
+const ControlledRoute = ({
+  check, path, to, component, push,
+}) => {
+  if (check) return <Route {...{ path, component }} />;
+  return <Redirect {...{ to, push }} />;
+}
 
-const Routes = ({ accessToken }) => (
-	<Fragment>
-		<ScreenSpy />
-		<Switch>
-			<Route exact path='/' component={Landing} />
-			<ControlledRoute
-				check={!accessToken}
-				path='/register'
-				to='/dashboard'
-				component={Register} />
-			<ControlledRoute
-				check={!accessToken}
-				path='/login'
-				to='/dashboard'
-				component={Login} />
-			<ControlledRoute
-				check={true}
-				path='/dashboard'
-				to='/'
-				component={Dashboard} />
-			<Route component={NotFound} />
-		</Switch>
-	</Fragment>
+ControlledRoute.propTypes = {
+  check: PropTypes.bool.isRequired,
+  path: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  component: PropTypes.node.isRequired,
+  push: PropTypes.bool,
+};
+
+ControlledRoute.defaultProps = {
+  push: false,
+};
+
+const Routes = ({ isLoggedIn }) => (
+  <>
+    <ScreenSpy />
+    <Switch>
+      <Route exact path="/" component={Landing} />
+      <ControlledRoute
+        check={!isLoggedIn}
+        path="/register"
+        to="/dashboard"
+        component={Register} />
+      <ControlledRoute
+        check={!isLoggedIn}
+        path="/login"
+        to="/dashboard"
+        component={Login} />
+      <ControlledRoute
+        check
+        path="/dashboard"
+        to="/"
+        component={Dashboard} />
+      <Route component={NotFound} />
+    </Switch>
+  </>
 );
 
+Routes.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+};
+
 export default connect(
-	mapStateToProps,
-	null,
+  mapStateToProps,
+  null,
 )(Routes);

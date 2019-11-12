@@ -8,9 +8,9 @@ import MuiTableHead from './MuiTableHead';
 import MuiTypography from './MuiTypography';
 
 export default {
-	MuiAppBar,
-	MuiButton,
-	MuiDrawer,
+  MuiAppBar,
+  MuiButton,
+  MuiDrawer,
   MuiIconButton,
   MuiPaper,
   MuiTableCell,

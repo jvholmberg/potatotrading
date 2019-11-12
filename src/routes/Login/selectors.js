@@ -4,12 +4,13 @@ import { getJwt } from '../../sagas/auth/actions';
 import { selectGetJwtReq } from '../../sagas/auth/selectors';
 
 export const mapStateToProps = createSelector(
-	[selectGetJwtReq],
-	(request) => ({
-		...request
-	}));
+  [selectGetJwtReq],
+  request => ({
+    ...request
+  })
+);
 
-export const mapDispatchToProps = (dispatch) =>
-	bindActionCreators({
-		getJwt,
-	}, dispatch);
+export const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    getJwt,
+  }, dispatch);

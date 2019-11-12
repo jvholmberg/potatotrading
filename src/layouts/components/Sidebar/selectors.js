@@ -7,15 +7,16 @@ import { selectSidebarOpen, selectIsDesktop } from '../../../sagas/ui/selectors'
 import { setSidebarOpen } from '../../../sagas/ui/actions';
 
 export const mapStateToProps = createSelector(
-	[selectAccessToken, selectSidebarOpen, selectIsDesktop],
-	(accessToken, sidebarOpen, isDesktop) => ({
-		accessToken,
-		sidebarOpen,
-		isDesktop,
-	}));
+  [selectAccessToken, selectSidebarOpen, selectIsDesktop],
+  (accessToken, sidebarOpen, isDesktop) => ({
+    accessToken,
+    sidebarOpen,
+    isDesktop,
+  })
+);
 
-export const mapDispatchToProps = (dispatch) =>
+export const mapDispatchToProps = dispatch =>
   bindActionCreators({
-		destroyJwt,
-		setSidebarOpen,
+    destroyJwt,
+    setSidebarOpen,
   }, dispatch);

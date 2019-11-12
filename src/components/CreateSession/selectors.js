@@ -4,12 +4,13 @@ import { createSession } from '../../sagas/sessions/actions';
 import { selectCreateSessionReq } from '../../sagas/sessions/selectors';
 
 export const mapStateToProps = createSelector(
-	[selectCreateSessionReq],
-	(request) => ({
-		...request
-	}));
+  [selectCreateSessionReq],
+  request => ({
+    ...request
+  })
+);
 
-export const mapDispatchToProps = (dispatch) =>
-	bindActionCreators({
-		createSession,
-	}, dispatch);
+export const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    createSession,
+  }, dispatch);

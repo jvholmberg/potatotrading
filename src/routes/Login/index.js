@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
@@ -53,25 +52,18 @@ const Login = () => {
   return (
     <MinimalLayout noFooter>
       <Grid
-        className={classes.root}
         container
+        className={classes.root}
         direction="row"
         justify="space-evenly"
         alignItems="stretch"
         alignContent="stretch">
-        <Grid
-          item
-          lg={5}
-          className={classes.leftContainer}>
+        <Grid item lg={5} className={classes.leftContainer}>
           <Typography className={classes.leftTitle} variant="h1">
             #Example title
           </Typography>
         </Grid>
-        <Grid
-          item
-          lg={7}
-          xs={12}
-          className={classes.rightContainer}>
+        <Grid item lg={7} xs={12} className={classes.rightContainer}>
           <div className={classes.contentHeader}>
             <BackButton />
           </div>

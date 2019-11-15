@@ -7,9 +7,7 @@ import { rootSaga, rootReducer } from './sagas';
 export default () => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [sagaMiddleware];
-  const composeEnhancers = composeWithDevTools({
-
-  });
+  const composeEnhancers = composeWithDevTools({});
   const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(...middleware),
   ));

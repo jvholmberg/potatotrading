@@ -18,10 +18,12 @@ const FormikInput = ({ name, formProps, ...rest }) => {
   const error = touched && formProps.errors[name];
   return (
     <Field
+      {...formProps}
       name={name}
       render={({ field }) => (
         <TextField
-          {...{ field, rest }}
+          {...rest}
+          {...field}
           margin="normal"
           variant="outlined"
           error={!!error}
@@ -37,9 +39,7 @@ FormikInput.propTypes = {
   formProps: PropTypes.shape({
     touched: PropTypes.object,
     errors: PropTypes.object,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onBlur: PropTypes.func.isRequired,
+    values: PropTypes.object,
   }).isRequired,
 };
 

@@ -4,7 +4,7 @@ import { selectIsDesktop } from '../../../sagas/ui/selectors';
 
 export const mapStateToProps = createSelector(
   [selectIsDesktop],
-  isDesktop => ({ isDesktop })
+  isDesktop => ({ shift: isDesktop })
 );
 
 export const mapDispatchToProps = dispatch =>

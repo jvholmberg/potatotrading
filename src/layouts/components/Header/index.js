@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import InputIcon from '@material-ui/icons/Input';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,14 +12,7 @@ import NotificationsButton from '../../../components/Buttons/Notifications';
 import MenuButton from '../../../components/Buttons/Menu';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
-const useStyles = makeStyles(theme => ({
-  flexGrow: {
-    flexGrow: 1
-  },
-  signOutButton: {
-    marginLeft: theme.spacing(1)
-  }
-}));
+import useStyles from './styles';
 
 const Header = ({
   accessToken, destroyJwt, noMenuButton,

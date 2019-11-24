@@ -38,7 +38,7 @@ const Sidebar = ({ isDesktop, sidebarOpen, setSidebarOpen }) => {
       classes={{ paper: classes.drawer }}
       onClose={() => setSidebarOpen(false)}
       open={isDesktop || sidebarOpen}>
-      sidesdadadsd
+        asd
     </Drawer>
   );
 };

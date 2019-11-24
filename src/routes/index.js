@@ -47,7 +47,7 @@ const Routes = ({ isLoggedIn }) => (
         to="/dashboard"
         component={Login} />
       <ControlledRoute
-        check={isLoggedIn}
+        check={!isLoggedIn}
         path="/dashboard"
         to="/"
         component={Dashboard} />

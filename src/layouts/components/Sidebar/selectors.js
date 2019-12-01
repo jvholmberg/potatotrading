@@ -1,15 +1,15 @@
 import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 
-import { selectAccessToken } from '../../../sagas/auth/selectors';
+import { selectIsLoggedIn } from '../../../sagas/auth/selectors';
 import { destroyJwt } from '../../../sagas/auth/actions';
 import { selectSidebarOpen, selectIsDesktop } from '../../../sagas/ui/selectors';
 import { setSidebarOpen } from '../../../sagas/ui/actions';
 
 export const mapStateToProps = createSelector(
-  [selectAccessToken, selectSidebarOpen, selectIsDesktop],
-  (accessToken, sidebarOpen, isDesktop) => ({
-    accessToken,
+  [selectIsLoggedIn, selectSidebarOpen, selectIsDesktop],
+  (isLoggedIn, sidebarOpen, isDesktop) => ({
+    isLoggedIn,
     sidebarOpen,
     isDesktop,
   })

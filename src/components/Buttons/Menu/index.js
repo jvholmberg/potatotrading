@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 /**
- * Menu button with a badge. Used to display Menu which user may interract with.
+ * Button for opening menu
  *
  * @param {boolean} props.sidebarOpen - State of sidebar
  * @param {Function} props.setSidebarOpen - Open/Close sidebar

@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RouterLink from 'react-router-dom/NavLink';
-import ListItem from '@material-ui/core/ListItem';
-import Button from '@material-ui/core/Button';
-import useStyles from './styles';
+import { NavLink as RouterLink } from 'react-router-dom';
+import { ListItem, Button } from '@material-ui/core';
+import { useLinkItemStyles as useStyles } from './styles';
 
 const LinkItem = ({ to, children, icon: IconComponent }) => {
   const classes = useStyles();
   return (
-    <ListItem>
+    <ListItem className={classes.item}>
       <Button
         activeClassName={classes.active}
         className={classes.button}
@@ -24,7 +23,7 @@ const LinkItem = ({ to, children, icon: IconComponent }) => {
 }
 
 LinkItem.propTypes = {
-  icon: PropTypes.node,
+  icon: PropTypes.element,
   to: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
 };

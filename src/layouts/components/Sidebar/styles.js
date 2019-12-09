@@ -1,7 +1,7 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { colors } from '@material-ui/core';
 
-export const LinkSectionStyles = makeStyles(theme => ({
+export const useLinkItemStyles = makeStyles(theme => ({
   root: {},
   item: {
     display: 'flex',
@@ -37,7 +37,7 @@ export const LinkSectionStyles = makeStyles(theme => ({
 export default makeStyles(theme => ({
   drawer: {
     width: 240,
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       marginTop: 64,
       height: 'calc(100% - 64px)'
     }

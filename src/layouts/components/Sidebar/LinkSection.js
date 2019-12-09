@@ -1,11 +1,17 @@
 import React from 'react';
 import List from '@material-ui/core/List';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import AppsIcon from '@material-ui/icons/Apps';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
+import SettingsIcon from '@material-ui/icons/Settings';
 import LinkItem from './LinkItem';
 
 const LinkSection = () => (
   <List>
-    <LinkItem icon={LockOpenIcon} to="/">Landing</LinkItem>
+    <LinkItem icon={AppsIcon} to="/dashboard">Dashboard</LinkItem>
+    <LinkItem icon={SettingsIcon} to="/settings">Settings</LinkItem>
+    <LinkItem icon={FitnessCenterIcon} to="/exercises">Exercises</LinkItem>
+    <LinkItem icon={RestaurantIcon} to="/nutrition">Nutrition</LinkItem>
   </List>
 );
 

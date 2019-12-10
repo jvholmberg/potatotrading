@@ -51,7 +51,7 @@ const NotLoggedInRoutes = [
 ];
 
 const Routes = ({ isLoggedIn }) => {
-  const Layout = isLoggedIn
+  const Layout = !isLoggedIn
     ? MainLayout
     : MinimalLayout;
   return (
@@ -59,12 +59,12 @@ const Routes = ({ isLoggedIn }) => {
       <ScreenSpy />
       <Switch>
         <Route exact path="/" component={Landing} />
-        {isLoggedIn ? LoggedInRoutes : NotLoggedInRoutes}
+        {!isLoggedIn ? LoggedInRoutes : NotLoggedInRoutes}
         <Route component={NotFound} />
       </Switch>
     </Layout>
   );
-}; 
+};
 
 Routes.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

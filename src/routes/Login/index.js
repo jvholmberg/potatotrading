@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import LoginForm from './LoginForm';
-import MinimalLayout from '../../layouts/Minimal';
 import BackButton from '../../components/Buttons/Back';
 
 const useStyles = makeStyles(theme => ({
@@ -50,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
   return (
-    <MinimalLayout noFooter>
+    <>
       <Grid
         container
         className={classes.root}
@@ -72,7 +71,7 @@ const Login = () => {
           </div>
         </Grid>
       </Grid>
-    </MinimalLayout>
+    </>
   );
 };
 

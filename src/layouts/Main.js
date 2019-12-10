@@ -6,25 +6,23 @@ import Sidebar from './components/Sidebar';
 import ConnectedContent from './components/Content';
 import Footer from './components/Footer';
 
-const Main = ({ children, noFooter }) => (
+const Main = ({ children }) => (
   <>
     <Header />
     <Sidebar />
     <ConnectedContent>
       {children}
-      {!noFooter && (<Footer />)}
+      <Footer />
     </ConnectedContent>
   </>
 );
 
 Main.propTypes = {
   children: PropTypes.node,
-  noFooter: PropTypes.bool,
 };
 
 Main.defaultProps = {
   children: null,
-  noFooter: false,
 };
 
 export default Main;

@@ -5,11 +5,17 @@ import { connect } from 'react-redux';
 
 import { mapStateToProps } from './selectors';
 
+import MainLayout from '../layouts/Main';
+import MinimalLayout from '../layouts/Minimal';
+
 import ScreenSpy from '../components/ScreenSpy';
 import Landing from './Landing';
 import Register from './Register';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import Exercises from './Dashboard';
+import Nutrition from './Dashboard';
+import Settings from './Dashboard';
 import NotFound from './NotFound';
 
 const ControlledRoute = ({
@@ -31,30 +37,34 @@ ControlledRoute.defaultProps = {
   push: false,
 };
 
-const Routes = ({ isLoggedIn }) => (
-  <>
-    <ScreenSpy />
-    <Switch>
-      <Route exact path="/" component={Landing} />
-      <ControlledRoute
-        check={!isLoggedIn}
-        path="/register"
-        to="/dashboard"
-        component={Register} />
-      <ControlledRoute
-        check={!isLoggedIn}
-        path="/login"
-        to="/dashboard"
-        component={Login} />
-      <ControlledRoute
-        check={!isLoggedIn}
-        path="/dashboard"
-        to="/"
-        component={Dashboard} />
-      <Route component={NotFound} />
-    </Switch>
-  </>
-);
+const LoggedInRoutes = [
+  <Route path="/dashboard" component={Dashboard} />,
+  <Route path="/exercises" component={Exercises} />,
+  <Route path="/nutrition" component={Nutrition} />,
+  <Route path="/settings" component={Settings} />,
+  <Route component={NotFound} />,
+];
+const NotLoggedInRoutes = [
+  <Route path="/register" component={Register} />,
+  <Route path="/login" component={Login} />,
+  <Route component={NotFound} />,
+];
+
+const Routes = ({ isLoggedIn }) => {
+  const Layout = isLoggedIn
+    ? MainLayout
+    : MinimalLayout;
+  return (
+    <Layout>
+      <ScreenSpy />
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        {isLoggedIn ? LoggedInRoutes : NotLoggedInRoutes}
+        <Route component={NotFound} />
+      </Switch>
+    </Layout>
+  );
+}; 
 
 Routes.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

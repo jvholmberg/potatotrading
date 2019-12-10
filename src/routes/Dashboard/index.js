@@ -1,9 +1,7 @@
 import React from 'react';
 
-import MainLayout from '../../layouts/Main';
-
 const Login = () => (
-  <MainLayout />
+  null
 );
 
 export default Login;

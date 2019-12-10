@@ -51,10 +51,10 @@ InlineDatePicker.propTypes = {
 };
 
 InlineDatePicker.defaultProps = {
-  minDate: null,
-  maxDate: null,
-  minDateMessage: null,
-  maxDateMessage: null,
+  minDate: new Date('1900-01-01'),
+  maxDate: new Date('2100-01-01'),
+  minDateMessage: 'Date should not be before minimal date',
+  maxDateMessage: 'Date should not be after maximal date',
   label: 'Set date',
 };
 

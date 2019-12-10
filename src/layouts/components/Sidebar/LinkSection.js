@@ -8,7 +8,7 @@ import LinkItem from './LinkItem';
 
 const LinkSection = () => (
   <List>
-    <LinkItem icon={AppsIcon} to="/dashboard">Dashboard</LinkItem>
+    <LinkItem icon={AppsIcon} to="/overview">Overview</LinkItem>
     <LinkItem icon={SettingsIcon} to="/settings">Settings</LinkItem>
     <LinkItem icon={FitnessCenterIcon} to="/exercises">Exercises</LinkItem>
     <LinkItem icon={RestaurantIcon} to="/nutrition">Nutrition</LinkItem>

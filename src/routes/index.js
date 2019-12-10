@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { mapStateToProps } from './selectors';
@@ -12,33 +12,14 @@ import ScreenSpy from '../components/ScreenSpy';
 import Landing from './Landing';
 import Register from './Register';
 import Login from './Login';
-import Dashboard from './Dashboard';
-import Exercises from './Dashboard';
-import Nutrition from './Dashboard';
-import Settings from './Dashboard';
+import Overview from './Overview';
+import Exercises from './Exercises';
+import Nutrition from './Nutrition';
+import Settings from './Settings';
 import NotFound from './NotFound';
 
-const ControlledRoute = ({
-  check, path, to, component, push,
-}) => {
-  if (check) return <Route {...{ path, component }} />;
-  return <Redirect {...{ to, push }} />;
-}
-
-ControlledRoute.propTypes = {
-  check: PropTypes.bool.isRequired,
-  path: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
-  component: PropTypes.node.isRequired,
-  push: PropTypes.bool,
-};
-
-ControlledRoute.defaultProps = {
-  push: false,
-};
-
 const LoggedInRoutes = [
-  <Route path="/dashboard" component={Dashboard} />,
+  <Route path="/overview" component={Overview} />,
   <Route path="/exercises" component={Exercises} />,
   <Route path="/nutrition" component={Nutrition} />,
   <Route path="/settings" component={Settings} />,

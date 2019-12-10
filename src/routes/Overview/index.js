@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from '../../components/Pickers/InlineDate';
 
-const Login = () => {
+const Overview = () => {
   const [date, setDate] = useState(new Date());
 
   return (
@@ -11,4 +11,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Overview;

@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns';
 import theme from './theme';
 
 import configureStore from './store';
@@ -15,11 +17,13 @@ import * as serviceWorker from './serviceWorker';
 const store = configureStore();
 ReactDOM.render((
   <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <Router>
-        <Routes />
-      </Router>
-    </Provider>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Provider store={store}>
+        <Router>
+          <Routes />
+        </Router>
+      </Provider>
+    </MuiPickersUtilsProvider>
   </ThemeProvider>
 ), document.getElementById('root'));
 

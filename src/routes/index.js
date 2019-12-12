@@ -13,15 +13,13 @@ import Landing from './Landing';
 import Register from './Register';
 import Login from './Login';
 import Overview from './Overview';
-import Exercises from './Exercises';
-import Nutrition from './Nutrition';
+import Diary from './Diary';
 import Settings from './Settings';
 import NotFound from './NotFound';
 
 const LoggedInRoutes = [
   <Route path="/overview" component={Overview} />,
-  <Route path="/exercises" component={Exercises} />,
-  <Route path="/nutrition" component={Nutrition} />,
+  <Route path="/diary" component={Diary} />,
   <Route path="/settings" component={Settings} />,
   <Route component={NotFound} />,
 ];

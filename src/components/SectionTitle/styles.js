@@ -6,5 +6,6 @@ export default makeStyles(theme => ({
   },
   body: {
     margin: theme.spacing(2, 4, 4),
+    maxWidth: '35rem',
   },
 }));

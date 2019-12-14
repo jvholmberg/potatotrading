@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
 /**
- * Inline date-picker
+ * Date-picker
  *
  * @param {object} props -
  * @param {object} props.variant -
@@ -15,7 +15,7 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
  * @param {object} props.maxDateMessage -
  * @param {object} props.onChange -
  */
-const InlineDatePicker = ({
+const DatePicker = ({
   variant,
   label,
   selectedDate,
@@ -41,7 +41,7 @@ const InlineDatePicker = ({
     }} />
 );
 
-InlineDatePicker.propTypes = {
+DatePicker.propTypes = {
   variant: PropTypes.string,
   selectedDate: PropTypes.instanceOf(Date).isRequired,
   minDate: PropTypes.instanceOf(Date),
@@ -52,7 +52,7 @@ InlineDatePicker.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-InlineDatePicker.defaultProps = {
+DatePicker.defaultProps = {
   variant: 'inline',
   minDate: new Date('1900-01-01'),
   maxDate: new Date('2100-01-01'),
@@ -61,4 +61,4 @@ InlineDatePicker.defaultProps = {
   label: 'Set date',
 };
 
-export default InlineDatePicker;
+export default DatePicker;

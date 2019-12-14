@@ -12,6 +12,7 @@
     "clsx": "^1.0.4",
     "date-fns": "^2.8.1",
     "formik": "^1.5.8",
+    "formik-material-ui": "^1.0.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",

@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik, Form } from 'formik';
+import {
+  Formik, Form, Field,
+} from 'formik';
 import * as Yup from 'yup';
+import { Paper, Grid } from '@material-ui/core';
+import { TextField } from 'formik-material-ui';
 
-import GeneralSection from './GeneralSection';
-import ExercisesSection from './ExercisesSection';
+import Title from '../../../components/SectionTitle';
+
+import Exercises from './Exercises';
+import useStyles from './styles';
 
 const SessionSchema = Yup.object().shape({
   name: Yup.string()
@@ -16,6 +22,30 @@ const SessionSchema = Yup.object().shape({
   }))
 });
 
+const Session = ({ submitting }) => {
+  const classes = useStyles();
+  return (
+    <Grid>
+      <Paper className={classes.general}>
+        <Field
+          name="name"
+          label="Name"
+          fullWidth
+          component={TextField}
+          disabled={submitting} />
+      </Paper>
+    </Grid>
+  );
+};
+
+Session.propTypes = {
+  submitting: PropTypes.bool,
+};
+
+Session.defaultProps = {
+  submitting: false,
+};
+
 const SessionForm = ({ onSubmit, submitting }) => (
   <Formik
     initialValues={{
@@ -24,10 +54,17 @@ const SessionForm = ({ onSubmit, submitting }) => (
     }}
     validationSchema={SessionSchema}
     onSubmit={onSubmit}
-    render={({ values }) => (
+    render={({ values: { exercises } }) => (
       <Form>
-        <GeneralSection submitting={submitting} />
-        <ExercisesSection submitting={submitting} values={values} />
+        <Title title="New Session">
+          Add a new entry to your diary.
+          Give it a type and name to make it easier to find and compare it to similar sessions.
+        </Title>
+        <Session {...{ submitting }} />
+        <Title title="Add Exercises">
+          Add exercises to your session. Dont forget to fill in sets.
+        </Title>
+        <Exercises {...{ submitting, exercises }} />
       </Form>
     )} />
 );

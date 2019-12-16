@@ -12,27 +12,29 @@ import useStyles from './styles';
 const Exercise = ({ submitting, exercise: { sets }, exerciseIndex }) => {
   const classes = useStyles();
   return (
-    <Paper className={classes.exercise}>
-      <Grid xs="12">
+    <Grid xs={12} sm={6} lg={4}>
+      <Paper className={classes.exercise}>
         <Grid>
-          <Field
-            name={`exercises.${exerciseIndex}.name`}
-            label="Name"
-            component={TextField}
-            disabled={submitting} />
+          <Grid>
+            <Field
+              name={`exercises.${exerciseIndex}.name`}
+              label="Name"
+              fullWidth
+              component={TextField}
+              disabled={submitting} />
+          </Grid>
+          <Grid>
+            <Field
+              name={`exercises.${exerciseIndex}.comment`}
+              label="Comment"
+              fullWidth
+              component={TextField}
+              disabled={submitting} />
+          </Grid>
         </Grid>
-        <Grid>
-          <Field
-            name={`exercises.${exerciseIndex}.comment`}
-            label="Comment"
-            component={TextField}
-            disabled={submitting} />
-        </Grid>
-      </Grid>
-      <Grid>
         <Sets {...{ submitting, exerciseIndex, sets }} />
-      </Grid>
-    </Paper>
+      </Paper>
+    </Grid>
   );
 };
 
@@ -50,24 +52,29 @@ Exercise.defaultProps = {
 
 const Exercises = ({ submitting, exercises }) => {
   const [count, setCount] = useState(0);
+  const classes = useStyles();
   return (
     <Grid>
       <FieldArray
         name="exercises"
         render={arrayHelper => (
-          <>
-            <AddButton
-              onClick={() => {
-                arrayHelper.push({ key: count, sets: [] });
-                setCount(count + 1);
-              }}
-              disabled={submitting} />
+          <Grid container>
             {exercises.map((exercise, exerciseIndex) => (
               <Exercise {...{
                 key: exercise.key, submitting, exercise, exerciseIndex,
               }} />
             ))}
-          </>
+            <Grid xs={12} sm={6} lg={4}>
+              <Paper className={classes.exercise}>
+                <AddButton
+                  onClick={() => {
+                    arrayHelper.push({ key: count, sets: [] });
+                    setCount(count + 1);
+                  }}
+                  disabled={submitting} />
+              </Paper>
+            </Grid>
+          </Grid>
         )} />
     </Grid>
   );

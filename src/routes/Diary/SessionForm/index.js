@@ -25,7 +25,7 @@ const SessionSchema = Yup.object().shape({
 const Session = ({ submitting }) => {
   const classes = useStyles();
   return (
-    <Grid>
+    <Grid xs={12} sm={8} lg={6}>
       <Paper className={classes.general}>
         <Field
           name="name"

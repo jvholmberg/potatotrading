@@ -35,7 +35,7 @@ SingleSet.defaultProps = {
 const AllSets = ({ submitting, exerciseIndex, sets }) => {
   const [count, setCount] = useState(0);
   return (
-    <Grid>
+    <Grid md={6}>
       <FieldArray
         name={`exercises.${exerciseIndex}.sets`}
         render={arrayHelper => (

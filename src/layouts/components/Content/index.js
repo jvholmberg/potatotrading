@@ -6,12 +6,10 @@ import { mapStateToProps } from './selectors';
 
 const useStyles = makeStyles(() => ({
   noShift: {
-    paddingTop: 64,
     height: '100%',
     boxSizing: 'border-box',
   },
   shift: {
-    paddingTop: 64,
     paddingLeft: 240,
     height: '100%',
     boxSizing: 'border-box',

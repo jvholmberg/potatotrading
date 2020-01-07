@@ -19,7 +19,7 @@ const Header = ({
 }) => {
   const classes = useStyles();
   return (
-    <AppBar variant="primary">
+    <AppBar position="sticky" variant="primary">
       <Toolbar>
         <RouterLink to="/">
           <img alt="Logo" src="/logo.svg" />

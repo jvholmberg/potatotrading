@@ -12,24 +12,22 @@ import Footer from './components/Footer';
  * @param {node} props.children -
  * @param {bool} props.noFooter -
  */
-const Minimal = ({ children, noFooter }) => (
+const Minimal = ({ children }) => (
   <>
     <Header noMenuButton />
     <Content>
       {children}
-      <Footer {...{ noFooter }} />
+      <Footer />
     </Content>
   </>
 );
 
 Minimal.propTypes = {
   children: PropTypes.node,
-  noFooter: PropTypes.bool,
 };
 
 Minimal.defaultProps = {
   children: null,
-  noFooter: false,
 };
 
 export default Minimal;

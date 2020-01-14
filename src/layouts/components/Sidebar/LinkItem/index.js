@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink as RouterLink } from 'react-router-dom';
 import { ListItem, Button } from '@material-ui/core';
-import { useLinkItemStyles as useStyles } from './styles';
+import useStyles from './styles';
 
 const LinkItem = ({ to, children, icon: IconComponent }) => {
   const classes = useStyles();
@@ -14,7 +14,9 @@ const LinkItem = ({ to, children, icon: IconComponent }) => {
         component={RouterLink}
         to={to}>
         {IconComponent && (
-          <div className={classes.icon}><IconComponent /></div>
+          <div className={classes.icon}>
+            <IconComponent />
+          </div>
         )}
         {children}
       </Button>

@@ -14,9 +14,7 @@ import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 import useStyles from './styles';
 
-const Header = ({
-  accessToken, destroyJwt, noMenuButton,
-}) => {
+const Header = ({ isLoggedIn, destroyJwt, noMenuButton }) => {
   const classes = useStyles();
   return (
     <AppBar position="sticky" variant="primary">
@@ -25,7 +23,7 @@ const Header = ({
           <img alt="Logo" src="/logo.svg" />
         </RouterLink>
         <div className={classes.flexGrow} />
-        {accessToken ? (
+        {isLoggedIn ? (
           <Hidden xsDown>
             <NotificationsButton length={1} />
             <IconButton color="inherit" className={classes.signOutButton} onClick={destroyJwt}>
@@ -52,13 +50,12 @@ const Header = ({
 };
 
 Header.propTypes = {
-  accessToken: PropTypes.string,
+  isLoggedIn: PropTypes.bool.isRequired,
   destroyJwt: PropTypes.func,
   noMenuButton: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  accessToken: null,
   destroyJwt: null,
   noMenuButton: false,
 };

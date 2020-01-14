@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import LinkComponent from '@material-ui/core/Link';
@@ -11,12 +10,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Footer = ({ noFooter }) => {
+const Footer = () => {
   const classes = useStyles();
-  if (noFooter) return (null);
-
   return (
-    <div className={classes.root}>
+    <footer className={classes.root}>
       <Typography variant="body1">
         &copy;
         {' '}
@@ -29,16 +26,8 @@ const Footer = ({ noFooter }) => {
         Created with love for the environment. By designers and developers who
         love to work together in offices!
       </Typography>
-    </div>
+    </footer>
   );
-};
-
-Footer.propTypes = {
-  noFooter: PropTypes.bool,
-};
-
-Footer.defaultProps = {
-  noFooter: false,
 };
 
 export default Footer;

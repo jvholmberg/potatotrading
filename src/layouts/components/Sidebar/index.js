@@ -26,13 +26,9 @@ const Sidebar = ({
 
 Sidebar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  isDesktop: PropTypes.bool,
+  isDesktop: PropTypes.bool.isRequired,
   sidebarOpen: PropTypes.bool.isRequired,
   setSidebarOpen: PropTypes.func.isRequired
-};
-
-Sidebar.defaultProps = {
-  isDesktop: true,
 };
 
 export default connect(

@@ -16,22 +16,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const Content = ({ shift, children }) => {
+export const Content = ({ isDesktop, children }) => {
   const classes = useStyles();
   return (
-    <div className={shift ? classes.shift : classes.noShift}>
+    <main className={isDesktop ? classes.shift : classes.noShift}>
       {children}
-    </div>
+    </main>
   );
 };
 
 Content.propTypes = {
-  shift: PropTypes.bool,
+  isDesktop: PropTypes.bool,
   children: PropTypes.node,
 };
 
 Content.defaultProps = {
-  shift: false,
+  isDesktop: false,
   children: null,
 };
 

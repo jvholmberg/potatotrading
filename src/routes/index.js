@@ -17,28 +17,27 @@ import Diary from './Diary';
 import Settings from './Settings';
 import NotFound from './NotFound';
 
-const LoggedInRoutes = [
+const loggedInConfig = [MainLayout, [
   <Route path="/overview" component={Overview} />,
   <Route path="/diary" component={Diary} />,
   <Route path="/settings" component={Settings} />,
   <Route component={NotFound} />,
-];
-const NotLoggedInRoutes = [
+]];
+
+const notLoggedInConfig = [MinimalLayout, [
   <Route path="/register" component={Register} />,
   <Route path="/login" component={Login} />,
   <Route component={NotFound} />,
-];
+]];
 
 const Routes = ({ isLoggedIn }) => {
-  const Layout = !isLoggedIn
-    ? MainLayout
-    : MinimalLayout;
+  const [Layout, ReachableRoutes] = isLoggedIn ? loggedInConfig : notLoggedInConfig;
   return (
     <Layout>
       <ScreenSpy />
       <Switch>
         <Route exact path="/" component={Landing} />
-        {!isLoggedIn ? LoggedInRoutes : NotLoggedInRoutes}
+        {ReachableRoutes}
         <Route component={NotFound} />
       </Switch>
     </Layout>

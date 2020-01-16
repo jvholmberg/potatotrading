@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
-import mapDispatchToProps from './selectors';
+import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const getScreenSize = (xs, sm, md, lg, xl) => {
   if (xl) return 'xl';
@@ -11,7 +10,7 @@ const getScreenSize = (xs, sm, md, lg, xl) => {
   if (md) return 'md';
   if (sm) return 'sm';
   if (xs) return 'xs';
-  return 'xs';
+  return null;
 }
 
 /**
@@ -19,7 +18,7 @@ const getScreenSize = (xs, sm, md, lg, xl) => {
  *
  * @param {Function} props.setScreenSize - Action to set screenSize in store
  */
-const ScreenSpy = ({ setScreenSize }) => {
+const ScreenSpy = ({ screenSize: prevScreenSize, setScreenSize }) => {
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.up('xs'));
   const sm = useMediaQuery(theme.breakpoints.up('sm'));
@@ -27,10 +26,10 @@ const ScreenSpy = ({ setScreenSize }) => {
   const lg = useMediaQuery(theme.breakpoints.up('lg'));
   const xl = useMediaQuery(theme.breakpoints.up('xl'));
 
-  useEffect(() => {
-    const screenSize = getScreenSize(xs, sm, md, lg, xl);
+  const screenSize = getScreenSize(xs, sm, md, lg, xl);
+  if (prevScreenSize !== screenSize && screenSize) {
     setScreenSize(screenSize);
-  });
+  }
 
   return null;
 };
@@ -40,6 +39,6 @@ ScreenSpy.propTypes = {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(ScreenSpy);

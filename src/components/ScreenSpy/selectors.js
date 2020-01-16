@@ -1,6 +1,14 @@
-import { bindActionCreators } from 'redux';
+import { createSelector } from 'reselect';
+import { selectScreenSize } from '../../sagas/ui/selectors';
 import { setScreenSize } from '../../sagas/ui/actions';
 
-export default dispatch => bindActionCreators({
+export const mapStateToProps = createSelector(
+  [selectScreenSize],
+  screenSize => ({
+    screenSize,
+  }),
+);
+
+export const mapDispatchToProps = {
   setScreenSize,
-}, dispatch);
+};

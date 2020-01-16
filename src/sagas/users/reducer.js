@@ -1,21 +1,44 @@
 import { fromJS } from 'immutable';
-import { CREATE_USER, DELETE_USER } from './actions';
+import {
+  CREATE_USER, GET_USER, UPDATE_USER, DELETE_USER,
+} from './actions';
+import {
+  getActionName, getActionStatus, PENDING, SUCCESS, FAILED,
+} from '../actionCreator'
 
 export const defaultState = fromJS({
   user: null,
+  userList: null,
   requests: {
     [CREATE_USER]: { pending: false, done: false, error: null },
+    [GET_USER]: { pending: false, done: false, error: null },
+    [UPDATE_USER]: { pending: false, done: false, error: null },
     [DELETE_USER]: { pending: false, done: false, error: null },
   },
 });
 
-export default (state = defaultState, { type, payload }) => {
-  switch (type) {
+export default (state = defaultState, action) => {
+  const { type, payload } = action || {};
+  const { error, ...rest } = payload || {};
+  const actionName = getActionName(type);
+  const actionStatus = getActionStatus(type);
+  switch (actionName) {
   case CREATE_USER:
-    return fromJS({ ...state, auth: { ...state.auth, ...payload } });
+  case GET_USER:
+  case UPDATE_USER:
   case DELETE_USER:
-    // TODO: implement this
-    return fromJS({ ...state, auth: { ...state.auth, ...payload } });
+    return fromJS({
+      ...state.toJS(),
+      ...rest,
+      requests: {
+        ...state.toJS().requests,
+        [actionName]: {
+          pending: actionStatus === PENDING,
+          done: actionStatus === SUCCESS || actionStatus === FAILED,
+          error: error || null,
+        },
+      },
+    });
   default:
     return state;
   }

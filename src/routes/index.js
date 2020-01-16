@@ -18,26 +18,24 @@ import Settings from './Settings';
 import NotFound from './NotFound';
 
 const loggedInConfig = [MainLayout, [
-  <Route path="/overview" component={Overview} />,
-  <Route path="/diary" component={Diary} />,
-  <Route path="/settings" component={Settings} />,
-  <Route component={NotFound} />,
+  { path: '/overview', component: Overview },
+  { path: '/diary', component: Diary },
+  { path: '/settings', component: Settings },
 ]];
 
 const notLoggedInConfig = [MinimalLayout, [
-  <Route path="/register" component={Register} />,
-  <Route path="/login" component={Login} />,
-  <Route component={NotFound} />,
+  { path: '/register', component: Register },
+  { path: '/login', component: Login },
 ]];
 
 const Routes = ({ isLoggedIn }) => {
-  const [Layout, ReachableRoutes] = isLoggedIn ? loggedInConfig : notLoggedInConfig;
+  const [Layout, routesConfig] = isLoggedIn ? loggedInConfig : notLoggedInConfig;
   return (
     <Layout>
       <ScreenSpy />
       <Switch>
         <Route exact path="/" component={Landing} />
-        {ReachableRoutes}
+        {routesConfig.map(({ path, component }, key) => <Route {...{ key, path, component }} />)}
         <Route component={NotFound} />
       </Switch>
     </Layout>

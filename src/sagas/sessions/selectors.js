@@ -1,7 +1,12 @@
-import { CREATE_SESSION, GET_SESSIONS } from './actions';
+import { createSelector } from 'reselect';
+import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
 
+// Data
 const selectReducer = state => state.sessions;
-export const selectSessions = state => selectReducer(state).get('sessions');
+export const selectSessions = createSelector(selectReducer, s => s.get('sessions'));
+export const selectSessionTypes = createSelector(selectReducer, s => s.get('types'));
 
-export const selectCreateSessionReq = state => selectReducer(state).getIn(['requests', CREATE_SESSION]);
-export const selectGetSessionsReq = state => selectReducer(state).getIn(['requests', GET_SESSIONS]);
+// Requests
+export const selectCreateSessionReq = createSelector(selectReducer, s => s.getIn(['requests', CREATE_SESSION]));
+export const selectGetSessionsReq = createSelector(selectReducer, s => s.getIn(['requests', GET_SESSIONS]));
+export const selectGetSessionTypesReq = createSelector(selectReducer, s => s.getIn(['requests', GET_SESSION_TYPES]));

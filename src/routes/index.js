@@ -28,6 +28,7 @@ const loggedInConfig = [MainLayout, [
 const notLoggedInConfig = [MinimalLayout, [
   { path: '/register', component: Register },
   { path: '/login', component: Login },
+  { path: '/diary', component: Diary },
 ]];
 
 const Routes = ({ isLoggedIn }) => {

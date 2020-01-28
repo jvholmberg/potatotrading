@@ -9,6 +9,8 @@ import MainLayout from '../layouts/Main';
 import MinimalLayout from '../layouts/Minimal';
 
 import ScreenSpy from '../components/ScreenSpy';
+import ScrollTop from '../components/ScrollTop';
+
 import Landing from './Landing';
 import Register from './Register';
 import Login from './Login';
@@ -33,6 +35,7 @@ const Routes = ({ isLoggedIn }) => {
   return (
     <Layout>
       <ScreenSpy />
+      <ScrollTop />
       <Switch>
         <Route exact path="/" component={Landing} />
         {routesConfig.map(({ path, component }, key) => <Route {...{ key, path, component }} />)}

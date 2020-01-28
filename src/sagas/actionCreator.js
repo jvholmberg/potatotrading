@@ -18,6 +18,7 @@ export const getActionStatus = action => action.split('/')[1];
 export const PENDING = 'PENDING';
 export const SUCCESS = 'SUCCESS';
 export const FAILED = 'FAILED';
+export const ABORTED = 'ABORTED';
 
 export const CREATE = 'CREATE';
 export const READ = 'READ';

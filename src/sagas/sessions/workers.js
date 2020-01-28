@@ -1,11 +1,14 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
+import { selectGetSessionTypesReq } from './selectors';
 import {
-  createRequestAction, PENDING, SUCCESS, FAILED
+  createRequestAction, PENDING, SUCCESS, FAILED, ABORTED
 } from '../actionCreator';
 import { getAccessToken } from '../storage';
 import * as Api from '../../utils/api';
 
-import { CREATE_SESSION, GET_SESSIONS } from './actions';
+import {
+  CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES,
+} from './actions';
 
 export function* workerCreateSession(action) {
   try {
@@ -39,5 +42,30 @@ export function* workerGetSessions({ from, to }) {
     yield put({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createRequestAction(GET_SESSIONS, FAILED), error: err })
+  }
+}
+
+export function* workerGetSessionTypes({ from, to }) {
+  try {
+    // Abort worker?
+    const request = yield select(selectGetSessionTypesReq);
+    if (request.get('done') && !request.get('error')) {
+      yield put({ type: createRequestAction(GET_SESSION_TYPES, ABORTED), payload: null });
+      return;
+    }
+    yield put({ type: createRequestAction(GET_SESSION_TYPES, PENDING), payload: null });
+    const accessToken = yield call(getAccessToken);
+    const { data } = yield call(Api.instance, {
+      method: 'get',
+      url: '/sessions/types',
+      headers: Api.generateHeaders(accessToken),
+      params: {
+        from,
+        to,
+      },
+    });
+    yield put({ type: createRequestAction(GET_SESSION_TYPES, SUCCESS), payload: { types: data } });
+  } catch (err) {
+    yield put({ type: createRequestAction(GET_SESSION_TYPES, FAILED), error: err })
   }
 }

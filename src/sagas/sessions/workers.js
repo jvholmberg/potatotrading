@@ -12,6 +12,7 @@ import {
 
 export function* workerCreateSession(action) {
   try {
+    console.log(action);
     yield put({ type: createRequestAction(CREATE_SESSION, PENDING), payload: null });
     const accessToken = yield call(getAccessToken);
     const { data } = yield call(Api.instance, {

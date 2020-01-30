@@ -2,25 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import {
-  Formik, Form, FieldArray,
-} from 'formik';
-import * as Yup from 'yup';
-import { Paper, Grid, FormControl, InputLabel, MenuItem } from '@material-ui/core';
+import { Formik, Form } from 'formik';
 import { TextField, Select } from 'formik-material-ui';
+import { KeyboardDatePicker } from 'formik-material-ui-pickers'
+import * as Yup from 'yup';
+import {
+  Paper, FormControl, InputLabel, MenuItem, Button
+} from '@material-ui/core';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
+  date: Yup.date()
     .required('Required'),
   type: Yup.number()
+    .required('Required'),
+  name: Yup.string()
     .required('Required'),
   comment: Yup.string()
     .required('Required'),
 });
 
 const initialValues = {
+  date: new Date(),
+  type: '',
   name: '',
-  entries: [],
+  comment: '',
 };
 
 const SessionForm = ({
@@ -29,32 +34,49 @@ const SessionForm = ({
   onSubmit,
   sessionTypes,
 }) => (
-  <Formik {...{ initialValues, validationSchema, onSubmit }}>
-    {formProps => (
-      <Form>
-        <FormControl fullWidth>
-          <InputLabel>Type</InputLabel>
-          <Select
-            name="type"
+  <Paper>
+    <Formik {...{ initialValues, validationSchema, onSubmit }}>
+      {formProps => (
+        <Form>
+          <FormControl fullWidth>
+            <KeyboardDatePicker
+              name="date"
+              label="Date"
+              format="dd/MM/yyyy" />
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel>Type</InputLabel>
+            <Select
+              name="type"
+              disabled={submitting}>
+              {sessionTypes.map((type, index) => (
+                <MenuItem {...{ key: index, value: type.get('id') }}>{type.get('name')}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField
+              name="name"
+              label="Name"
+              disabled={submitting} />
+          </FormControl>
+          <FormControl fullWidth>
+            <TextField
+              name="comment"
+              label="Comment"
+              disabled={submitting} />
+          </FormControl>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
             disabled={submitting}>
-            {sessionTypes.map((type, idx) => (
-              <MenuItem {...{ key: idx, value: type.get('id') }}>{type.get('name')}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <TextField
-          name="name"
-          label="Name"
-          fullWidth
-          disabled={submitting} />
-        <TextField
-          name="comment"
-          label="Comment"
-          fullWidth
-          disabled={submitting} />
-      </Form>
-    )}
-  </Formik>
+            Save
+          </Button>
+        </Form>
+      )}
+    </Formik>
+  </Paper>
 );
 
 SessionForm.propTypes = {

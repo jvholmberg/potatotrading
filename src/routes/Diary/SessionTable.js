@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import {
-  Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, LinearProgress,
+  TableContainer, Table, TableHead, TableBody, TableRow, TableCell, LinearProgress,
 } from '@material-ui/core';
 
 const SessionTable = ({ loading, error, data }) => (
-  <TableContainer component={Paper}>
+  <TableContainer>
     <Table>
       <TableHead>
         <TableRow>

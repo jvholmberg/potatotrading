@@ -2,13 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import {
-  ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Grid, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 import SessionForm from './SessionForm';
 import SessionTable from './SessionTable';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  paper: {
+    padding: theme.spacing(2),
+  }
+}));
 
 const Diary = ({
   createSessionReq,
@@ -25,27 +34,47 @@ const Diary = ({
     getSessions();
   }, [getSessionTypes, getSessions]);
 
+  const classes = useStyles();
+
   return (
-    <>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>New session</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+    <Grid
+      container
+      className={classes.root}
+      spacing={2}
+      direction="row"
+      justify="flex-start"
+      alignItems="stretch"
+      alignContent="stretch">
+      <Grid item lg={4} md={6} xs={12}>
+        <Paper className={classes.paper}>
           <SessionForm {...{
             submitting: createSessionReq.get('pending'),
             error: createSessionReq.get('error'),
             onSubmit: createSession,
             sessionTypes,
           }} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-      <SessionTable {...{
-        loading: getSessionsReq.get('pending'),
-        error: getSessionsReq.get('error'),
-        data: sessions,
-      }} />
-    </>
+        </Paper>
+      </Grid>
+      <Grid item lg={4} md={6} xs={12}>
+        <Paper className={classes.paper}>
+          1
+        </Paper>
+      </Grid>
+      <Grid item lg={4} md={6} xs={12}>
+        <Paper className={classes.paper}>
+          2
+        </Paper>
+      </Grid>
+      <Grid item lg={12} md={12} xs={12}>
+        <Paper className={classes.paper}>
+          <SessionTable {...{
+            loading: getSessionsReq.get('pending'),
+            error: getSessionsReq.get('error'),
+            data: sessions,
+          }} />
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -29,17 +29,14 @@ const SessionTable = ({
         {error && (
           null
         )}
-        {!loading && !error && sessions && sessions.map(entry => {
-          const sessionType = sessionTypes.find(type => type.get('id') === entry.get('typeId'));
-          return (
-            <TableRow key={entry.get('id')}>
-              <TableCell>{sessionTypes && sessionType.get('name')}</TableCell>
-              <TableCell>Datum</TableCell>
-              <TableCell>{entry.get('name')}</TableCell>
-              <TableCell>{entry.get('comment')}</TableCell>
-            </TableRow>
-          );
-        })}
+        {!loading && !error && sessions && sessions.map(entry => (
+          <TableRow key={entry.get('id')}>
+            <TableCell>{entry.getIn(['type', 'name'])}</TableCell>
+            <TableCell>Datum</TableCell>
+            <TableCell>{entry.get('name')}</TableCell>
+            <TableCell>{entry.get('comment')}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   </TableContainer>

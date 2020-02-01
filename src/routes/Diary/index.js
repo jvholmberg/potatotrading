@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 import SessionForm from './SessionForm';
 import SessionTable from './SessionTable';
+import BalanceChart from './BalanceChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,7 +58,7 @@ const Diary = ({
       </Grid>
       <Grid item lg={4} md={6} xs={12}>
         <Paper className={classes.paper}>
-          1
+          <BalanceChart {...{ sessions }} />
         </Paper>
       </Grid>
       <Grid item lg={4} md={6} xs={12}>
@@ -71,7 +72,6 @@ const Diary = ({
             loading: getSessionsReq.get('pending') || getSessionTypesReq.get('pending'),
             error: getSessionsReq.get('error') || getSessionTypesReq.get('error'),
             sessions,
-            sessionTypes,
           }} />
         </Paper>
       </Grid>

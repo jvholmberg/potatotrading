@@ -9,3 +9,9 @@ export const setSidebarOpen = open => ({
   type: SIDEBAR_OPEN,
   payload: open,
 });
+
+export const SESSION_FORM_OPEN = 'SESSION_FORM_OPEN';
+export const setSessionFormOpen = open => ({
+  type: SESSION_FORM_OPEN,
+  payload: open,
+});

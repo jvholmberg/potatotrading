@@ -5,6 +5,7 @@ import { workerScreenSize, workerSidebarOpen } from './workers';
 function* watcherScreenSize() {
   yield takeEvery(SCREEN_SIZE, workerScreenSize);
 }
+
 function* watcherSidebarOpen() {
   yield takeEvery(SIDEBAR_OPEN, workerSidebarOpen);
 }

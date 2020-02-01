@@ -5,7 +5,7 @@ import {
 } from '../actionCreator'
 
 export const defaultState = fromJS({
-  sessions: [],
+  data: [],
   types: [],
   requests: {
     [CREATE_SESSION]: { pending: false, done: false, error: null },

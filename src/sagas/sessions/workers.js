@@ -12,7 +12,6 @@ import {
 
 export function* workerCreateSession(action) {
   try {
-    console.log(action);
     yield put({ type: createRequestAction(CREATE_SESSION, PENDING), payload: null });
     const accessToken = yield call(getAccessToken);
     const { data } = yield call(Api.instance, {
@@ -40,7 +39,7 @@ export function* workerGetSessions({ from, to }) {
         to,
       },
     });
-    yield put({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: data });
+    yield put({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: { data } });
   } catch (err) {
     yield put({ type: createRequestAction(GET_SESSIONS, FAILED), error: err })
   }

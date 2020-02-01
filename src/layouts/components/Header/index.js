@@ -17,7 +17,7 @@ import useStyles from './styles';
 const Header = ({ isLoggedIn, destroyJwt, noMenuButton }) => {
   const classes = useStyles();
   return (
-    <AppBar position="sticky" variant="primary">
+    <AppBar position="sticky" color="primary">
       <Toolbar>
         <RouterLink to="/">
           <img alt="Logo" src="/logo.svg" />

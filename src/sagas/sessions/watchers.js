@@ -5,15 +5,15 @@ import {
   workerCreateSession, workerGetSessions, workerGetSessionTypes,
 } from './workers';
 
-export function* watcherCreateSession() {
+function* watcherCreateSession() {
   yield takeLatest(CREATE_SESSION, workerCreateSession);
 }
 
-export function* watcherGetSessions() {
+function* watcherGetSessions() {
   yield takeLatest(GET_SESSIONS, workerGetSessions);
 }
 
-export function* watcherGetSessionTypes() {
+function* watcherGetSessionTypes() {
   yield takeLatest(GET_SESSION_TYPES, workerGetSessionTypes);
 }
 

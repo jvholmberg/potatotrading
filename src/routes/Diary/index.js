@@ -68,9 +68,10 @@ const Diary = ({
       <Grid item lg={12} md={12} xs={12}>
         <Paper className={classes.paper}>
           <SessionTable {...{
-            loading: getSessionsReq.get('pending'),
-            error: getSessionsReq.get('error'),
-            data: sessions,
+            loading: getSessionsReq.get('pending') || getSessionTypesReq.get('pending'),
+            error: getSessionsReq.get('error') || getSessionTypesReq.get('error'),
+            sessions,
+            sessionTypes,
           }} />
         </Paper>
       </Grid>

@@ -5,32 +5,41 @@ import {
   TableContainer, Table, TableHead, TableBody, TableRow, TableCell, LinearProgress,
 } from '@material-ui/core';
 
-const SessionTable = ({ loading, error, data }) => (
+const SessionTable = ({
+  loading, error, sessions, sessionTypes,
+}) => (
   <TableContainer>
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>Datum</TableCell>
-          <TableCell>Typ</TableCell>
-          <TableCell>namn</TableCell>
+          <TableCell>Type</TableCell>
+          <TableCell>Date</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Comment</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {loading && (
           <TableRow>
-            <TableCell colSpan="3">
+            <TableCell colSpan="4">
               <LinearProgress color="secondary" />
             </TableCell>
           </TableRow>
         )}
-        {data.map(entry => (
-          <TableRow key={entry.get('id')}>
-            <TableCell>Datum</TableCell>
-            <TableCell>{entry.get('name')}</TableCell>
-            <TableCell>{entry.get('comment')}</TableCell>
-          </TableRow>
-        ))}
-
+        {error && (
+          null
+        )}
+        {!loading && !error && sessions && sessions.map(entry => {
+          const sessionType = sessionTypes.find(type => type.get('id') === entry.get('typeId'));
+          return (
+            <TableRow key={entry.get('id')}>
+              <TableCell>{sessionTypes && sessionType.get('name')}</TableCell>
+              <TableCell>Datum</TableCell>
+              <TableCell>{entry.get('name')}</TableCell>
+              <TableCell>{entry.get('comment')}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
     </Table>
   </TableContainer>
@@ -39,12 +48,14 @@ const SessionTable = ({ loading, error, data }) => (
 SessionTable.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
-  data: PropTypes.instanceOf(Immutable.List),
+  sessions: PropTypes.instanceOf(Immutable.List),
+  sessionTypes: PropTypes.instanceOf(Immutable.List),
 };
 
 SessionTable.defaultProps = {
   loading: false,
-  data: new Immutable.List(),
+  sessions: new Immutable.List(),
+  sessionTypes: new Immutable.List(),
   error: null,
 };
 

@@ -29,14 +29,14 @@ const initialValues = {
   comment: '',
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
   },
 }));
 const SessionForm = ({
   submitting,
-  error,
+  // error,
   onSubmit,
   sessionTypes,
 }) => {

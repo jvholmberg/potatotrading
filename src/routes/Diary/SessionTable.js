@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 
 const SessionTable = ({
-  loading, error, sessions, sessionTypes,
+  loading, error, sessions,
 }) => (
   <TableContainer>
     <Table>
@@ -46,13 +46,11 @@ SessionTable.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
   sessions: PropTypes.instanceOf(Immutable.List),
-  sessionTypes: PropTypes.instanceOf(Immutable.List),
 };
 
 SessionTable.defaultProps = {
   loading: false,
   sessions: new Immutable.List(),
-  sessionTypes: new Immutable.List(),
   error: null,
 };
 

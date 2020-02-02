@@ -1,0 +1,26 @@
+[
+	{
+		"id": 0,
+		"typeId": 0,
+		"name": "Running",
+		"comment": "3km 5m."
+	},
+	{
+		"id": 1,
+		"typeId": 1,
+		"name": "Chest day",
+		"comment": "went really well"
+	},
+	{
+		"id": 2,
+		"typeId": 2,
+		"name": "Yoga",
+		"comment": "got rid of sore back"
+	},
+	{
+		"id": 3,
+		"typeId": 2,
+		"name": "Yoga",
+		"comment": "piss"
+	}
+]

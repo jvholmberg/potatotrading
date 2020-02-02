@@ -8,7 +8,7 @@ export const generateHeaders = accessToken => ({
 });
 
 export const instance = axios.create({
-  baseURL: 'https://a3bd246b-1e27-48ce-a0a5-581c6db6046b.mock.pstmn.io',
+  baseURL: '',
   timeout: 5000,
 });
 

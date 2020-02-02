@@ -29,6 +29,19 @@ const renderActiveShape = ({
   </g>
 );
 
+renderActiveShape.propTypes = {
+  innerRadius: PropTypes.number.isRequired,
+  outerRadius: PropTypes.number.isRequired,
+  cx: PropTypes.number.isRequired,
+  cy: PropTypes.number.isRequired,
+  startAngle: PropTypes.number.isRequired,
+  endAngle: PropTypes.number.isRequired,
+  fill: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  // value: PropTypes.number.isRequired,
+  percent: PropTypes.number.isRequired,
+};
+
 const CustomPieChart = ({
   width,
   height,

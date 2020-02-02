@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:mock": "node src/server.js",
+    "start:mock": "node src/server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:once": "react-scripts test --watchAll=false --passWithNoTests",

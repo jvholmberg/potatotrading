@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const BalanceChart = ({ sessions }) => {
+const ComparisonChart = ({ sessions }) => {
   const classes = useStyles();
   const jsSessions = sessions.toJS();
   const data = jsSessions.reduce((ret, val) => {
@@ -30,7 +30,7 @@ const BalanceChart = ({ sessions }) => {
 
   return (
     <>
-      <Typography variant="h3" align="center">Balance</Typography>
+      <Typography variant="h3" align="center">Comparison</Typography>
       <Box>
         <PieChart {...{
           className: classes.center,
@@ -45,12 +45,12 @@ const BalanceChart = ({ sessions }) => {
   );
 };
 
-BalanceChart.propTypes = {
+ComparisonChart.propTypes = {
   sessions: PropTypes.instanceOf(Immutable.List),
 };
 
-BalanceChart.defaultProps = {
+ComparisonChart.defaultProps = {
   sessions: Immutable.List(),
 };
 
-export default React.memo(BalanceChart);
+export default React.memo(ComparisonChart);

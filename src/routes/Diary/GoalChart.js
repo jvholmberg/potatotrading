@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const BalanceChart = ({ sessions }) => {
+const GoalChart = ({ sessions, periodLength }) => {
   const classes = useStyles();
   const jsSessions = sessions.toJS();
   const data = jsSessions.reduce((ret, val) => {
@@ -30,7 +30,7 @@ const BalanceChart = ({ sessions }) => {
 
   return (
     <>
-      <Typography variant="h3" align="center">Balance</Typography>
+      <Typography variant="h3" align="center">Goal</Typography>
       <Box>
         <PieChart {...{
           className: classes.center,
@@ -45,12 +45,14 @@ const BalanceChart = ({ sessions }) => {
   );
 };
 
-BalanceChart.propTypes = {
+GoalChart.propTypes = {
   sessions: PropTypes.instanceOf(Immutable.List),
+  periodLength: PropTypes.string,
 };
 
-BalanceChart.defaultProps = {
+GoalChart.defaultProps = {
   sessions: Immutable.List(),
+  periodLength: 'week',
 };
 
-export default React.memo(BalanceChart);
+export default React.memo(GoalChart);

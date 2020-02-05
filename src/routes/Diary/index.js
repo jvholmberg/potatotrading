@@ -8,6 +8,8 @@ import { mapStateToProps, mapDispatchToProps } from './selectors';
 import SessionForm from './SessionForm';
 import SessionTable from './SessionTable';
 import BalanceChart from './BalanceChart';
+import ComparisonChart from './ComparisonChart';
+import GoalChart from './GoalChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +29,11 @@ const Diary = ({
   createSession,
   getSessionTypes,
   getSessions,
-  sessions,
+  allSessions,
+  thisMonthsSessions,
+  thisWeeksSessions,
+  lastMonthSessions,
+  lastWeeksSessions,
   sessionTypes,
 }) => {
   React.useEffect(() => {
@@ -36,7 +42,6 @@ const Diary = ({
   }, [getSessionTypes, getSessions]);
 
   const classes = useStyles();
-
   return (
     <Grid
       container
@@ -56,14 +61,19 @@ const Diary = ({
           }} />
         </Paper>
       </Grid>
-      <Grid item lg={4} md={6} xs={12}>
+      <Grid item lg={2} md={3} sm={6} xs={12}>
         <Paper className={classes.paper}>
-          <BalanceChart {...{ sessions }} />
+          <BalanceChart {...{ sessions: thisMonthsSessions }} />
         </Paper>
       </Grid>
-      <Grid item lg={4} md={6} xs={12}>
+      <Grid item lg={2} md={3} sm={6} xs={12}>
         <Paper className={classes.paper}>
-          2
+          <ComparisonChart />
+        </Paper>
+      </Grid>
+      <Grid item lg={2} md={3} sm={6} xs={12}>
+        <Paper className={classes.paper}>
+          <GoalChart />
         </Paper>
       </Grid>
       <Grid item lg={12} md={12} xs={12}>
@@ -71,7 +81,7 @@ const Diary = ({
           <SessionTable {...{
             loading: getSessionsReq.get('pending') || getSessionTypesReq.get('pending'),
             error: getSessionsReq.get('error') || getSessionTypesReq.get('error'),
-            sessions,
+            sessions: allSessions,
           }} />
         </Paper>
       </Grid>
@@ -84,7 +94,11 @@ Diary.propTypes = {
   getSessionsReq: PropTypes.instanceOf(Immutable.Map).isRequired,
   getSessionTypesReq: PropTypes.instanceOf(Immutable.Map).isRequired,
   sessionTypes: PropTypes.instanceOf(Immutable.List),
-  sessions: PropTypes.instanceOf(Immutable.List),
+  allSessions: PropTypes.instanceOf(Immutable.List),
+  thisMonthsSessions: PropTypes.instanceOf(Immutable.List),
+  thisWeeksSessions: PropTypes.instanceOf(Immutable.List),
+  lastMonthSessions: PropTypes.instanceOf(Immutable.List),
+  lastWeeksSessions: PropTypes.instanceOf(Immutable.List),
   createSession: PropTypes.func.isRequired,
   getSessions: PropTypes.func.isRequired,
   getSessionTypes: PropTypes.func.isRequired,
@@ -92,7 +106,11 @@ Diary.propTypes = {
 
 Diary.defaultProps = {
   sessionTypes: new Immutable.List(),
-  sessions: new Immutable.List(),
+  allSessions: new Immutable.List(),
+  thisMonthsSessions: new Immutable.List(),
+  thisWeeksSessions: new Immutable.List(),
+  lastMonthSessions: new Immutable.List(),
+  lastWeeksSessions: new Immutable.List(),
 };
 
 export default connect(

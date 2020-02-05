@@ -51,18 +51,17 @@ const CustomPieChart = ({
   data,
   dataKey,
   nameKey,
+  className,
 }) => {
   const [activeIndex, setActiveIndex] = React.useState(null);
 
   return (
-    <PieChart {...{ width, height }}>
+    <PieChart {...{ className, width, height }}>
       <Pie {...{
         activeIndex,
         activeShape: renderActiveShape,
         innerRadius,
         outerRadius,
-        cx: width / 2,
-        cy: height / 2,
         fill,
         data,
         dataKey,
@@ -75,6 +74,7 @@ const CustomPieChart = ({
 };
 
 CustomPieChart.propTypes = {
+  className: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
   fill: PropTypes.string,
@@ -86,6 +86,7 @@ CustomPieChart.propTypes = {
 };
 
 CustomPieChart.defaultProps = {
+  className: '',
   width: 400,
   height: 400,
   fill: '#8884d8',

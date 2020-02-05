@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import {
   TableContainer, Table, TableHead, TableBody, TableRow, TableCell, LinearProgress,
 } from '@material-ui/core';
+import { format } from 'date-fns';
 
 const SessionTable = ({
   loading, error, sessions,
@@ -32,7 +33,7 @@ const SessionTable = ({
         {!loading && !error && sessions && sessions.map(entry => (
           <TableRow key={entry.get('id')}>
             <TableCell>{entry.getIn(['type', 'name'])}</TableCell>
-            <TableCell>Datum</TableCell>
+            <TableCell>{format(new Date(entry.get('timestamp')), 'dd/MM/yyyy')}</TableCell>
             <TableCell>{entry.get('name')}</TableCell>
             <TableCell>{entry.get('comment')}</TableCell>
           </TableRow>

@@ -3,7 +3,7 @@ import {
 } from './actions';
 
 // Data
-const selectReducer = state => state.auth;
+const selectReducer = state => state.get('auth');
 export const selectAccessToken = state => selectReducer(state).get('accessToken');
 export const selectRefreshToken = state => selectReducer(state).get('refreshToken');
 export const selectValidUntil = state => selectReducer(state).get('validUntil');

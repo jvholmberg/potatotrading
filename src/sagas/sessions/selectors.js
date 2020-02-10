@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import Immutable, { fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 import {
   isWithinInterval, lastDayOfMonth, lastDayOfWeek, startOfMonth, startOfWeek, addMonths, addWeeks,
 } from 'date-fns';
@@ -14,7 +14,7 @@ const mergeSessionWithSessionType = (session, sessionTypes) => {
 }
 
 // Data
-const selectReducer = state => state.sessions;
+const selectReducer = state => state.get('sessions');
 export const selectSessions = createSelector(selectReducer, s => s.get('data'));
 export const selectSessionTypes = createSelector(selectReducer, s => s.get('types'));
 

@@ -1,4 +1,4 @@
-const selectReducer = state => state.ui;
+const selectReducer = state => state.get('ui');
 export const selectScreen = state => selectReducer(state).get('screen');
 export const selectScreenSize = state => selectScreen(state).get('size');
 

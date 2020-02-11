@@ -20,12 +20,7 @@ export const selectSessionTypes = createSelector(selectReducer, s => s.get('type
 
 export const selectSessionsForPeriod = (start, end) => createSelector(
   selectSessions,
-  sessions => fromJS(sessions.reduce((ret, val) => {
-    if (isWithinInterval(new Date(val.get('timestamp')), { start, end })) {
-      ret.push(val);
-    }
-    return ret;
-  }, [])),
+  sessions => fromJS(sessions.filter(val => isWithinInterval(new Date(val.get('timestamp')), { start, end }))),
 );
 
 export const selectSessionsWithType = createSelector(

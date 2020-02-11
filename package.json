@@ -38,10 +38,10 @@
     "start:mock": "node src/server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "yarn run test -- --coverage --watchAll=false",
     "test:once": "yarn run test --watchAll=false",
+    "test:coverage": "yarn run test:once -- --coverage",
     "lint": "eslint src",
-    "check": "yarn run lint && yarn run test:once",
+    "check": "yarn run lint && yarn run test:coverage",
     "clean": "rm -rf node_modules && yarn install"
   },
   "eslintConfig": {
@@ -55,10 +55,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 10,
-        "functions": 10,
-        "lines": 10,
-        "statements": 10
+        "branches": 15,
+        "functions": 15,
+        "lines": 15,
+        "statements": 15
       }
     }
   },

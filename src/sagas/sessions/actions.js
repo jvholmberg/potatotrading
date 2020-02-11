@@ -8,11 +8,9 @@ export const createSession = session => ({
 export const GET_SESSIONS = 'GET_SESSIONS';
 export const getSessions = () => ({
   type: GET_SESSIONS,
-  payload: null,
 });
 
 export const GET_SESSION_TYPES = 'GET_SESSION_TYPES';
 export const getSessionTypes = () => ({
   type: GET_SESSION_TYPES,
-  payload: null,
 });

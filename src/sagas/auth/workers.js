@@ -13,6 +13,7 @@ import {
 import * as Api from '../../utils/api';
 
 export function* workerGetJwt(action) {
+  console.log('dsf');
   try {
     yield put({ type: createRequestAction(GET_JWT, PENDING) });
     const { data } = yield call(Api.instance, {

@@ -11,9 +11,9 @@ export const createStorageAction = (actionType, suffix = '') =>
   `${STORAGE}:${actionType.toUpperCase()}/${suffix.toUpperCase()}`;
 export const createUiAction = actionType => `${UI}:${actionType.toUpperCase()}`;
 
-export const getActionType = action => action.split(':')[0];
-export const getActionName = action => action.split(/[://]+/)[1];
-export const getActionStatus = action => action.split('/')[1];
+export const getActionType = (action = '') => action.split(':')[0];
+export const getActionName = (action = '') => action.split(/[://]+/)[1];
+export const getActionStatus = (action = '') => action.split('/')[1];
 
 export const isREQ = action => getActionType(action) === REQ;
 export const isCRUD = action => getActionType(action) === CRUD;

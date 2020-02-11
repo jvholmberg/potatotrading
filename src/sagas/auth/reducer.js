@@ -2,15 +2,16 @@ import { fromJS } from 'immutable';
 import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
-import {
-  getActionName, getActionStatus, PENDING, SUCCESS, FAILED
-} from '../actionCreator'
+import { getActionName, getActionStatus } from '../actionCreator'
+import { createInitialState, updateRequest } from '../reducerCreator';
 
-export const defaultState = fromJS({
-  accessToken: null,
-  refreshToken: null,
-  validUntil: null,
-  expiresIn: null,
+export const defaultState = createInitialState({
+  token: {
+    accessToken: null,
+    refreshToken: null,
+    validUntil: null,
+    expiresIn: null,
+  },
   requests: {
     [GET_JWT]: { pending: false, done: false, error: null },
     [VALIDATE_JWT]: { pending: false, done: false, error: null },
@@ -19,28 +20,26 @@ export const defaultState = fromJS({
   },
 });
 
-export default (state = defaultState, action) => {
-  const { type, payload } = action || {};
-  const { error, ...rest } = payload || {};
+export default (state = defaultState, action = {}) => {
+  const { type, payload = {}, error } = action;
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
   switch (actionName) {
   case GET_JWT:
+    return state.withMutations(s => s
+      .set('token', fromJS(payload) || defaultState.get('token'))
+      .setIn(['requests', GET_JWT], updateRequest(actionStatus, error)));
   case VALIDATE_JWT:
+    return state.withMutations(s => s
+      .setIn(['token', 'validUntil'], fromJS(payload.validUntil || null))
+      .setIn(['token', 'expiresIn'], fromJS(payload.expiresIn || null))
+      .setIn(['requests', VALIDATE_JWT], updateRequest(actionStatus, error)));
   case REFRESH_JWT:
+    return state.withMutations(s => s
+      .set('token', fromJS(payload) || defaultState.get('token'))
+      .setIn(['requests', REFRESH_JWT], updateRequest(actionStatus, error)));
   case DESTROY_JWT:
-    return fromJS({
-      ...state.toJS(),
-      ...rest,
-      requests: {
-        ...state.toJS().requests,
-        [actionName]: {
-          pending: actionStatus === PENDING,
-          done: actionStatus === SUCCESS || actionStatus === FAILED,
-          error: error || null,
-        },
-      },
-    });
+    return defaultState.setIn(['requests', DESTROY_JWT], updateRequest(actionStatus, error));
   default:
     return state;
   }

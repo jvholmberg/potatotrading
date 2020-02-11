@@ -5,6 +5,11 @@ export const createUser = values => ({
   payload: values,
 });
 
+export const GET_MY_USER = 'GET_MY_USER';
+export const getMyUser = () => ({
+  type: GET_MY_USER,
+});
+
 export const GET_USER = 'GET_USER';
 export const getUser = id => ({
   type: GET_USER,

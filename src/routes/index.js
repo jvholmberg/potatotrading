@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { mapStateToProps } from './selectors';
+import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 import MainLayout from '../layouts/Main';
 import MinimalLayout from '../layouts/Minimal';
@@ -31,8 +31,13 @@ const notLoggedInConfig = [MinimalLayout, [
   { path: '/diary', component: Diary },
 ]];
 
-const Routes = ({ isLoggedIn }) => {
+const Routes = ({ isLoggedIn, getMyUser }) => {
   const [Layout, routesConfig] = isLoggedIn ? loggedInConfig : notLoggedInConfig;
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      getMyUser()
+    }
+  }, [isLoggedIn, getMyUser]);
   return (
     <Layout>
       <ScreenSpy />
@@ -48,9 +53,10 @@ const Routes = ({ isLoggedIn }) => {
 
 Routes.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
+  getMyUser: PropTypes.func.isRequired,
 };
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(Routes);

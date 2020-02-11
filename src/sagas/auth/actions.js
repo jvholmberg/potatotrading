@@ -5,19 +5,16 @@ export const getJwt = values => ({
 });
 
 export const VALIDATE_JWT = 'VALIDATE_JWT';
-export const validateJwt = values => ({
+export const validateJwt = () => ({
   type: VALIDATE_JWT,
-  payload: values,
 });
 
 export const REFRESH_JWT = 'REFRESH_JWT';
-export const refreshJwt = values => ({
+export const refreshJwt = () => ({
   type: REFRESH_JWT,
-  payload: values,
 });
 
 export const DESTROY_JWT = 'DESTROY_JWT';
-export const destroyJwt = values => ({
+export const destroyJwt = () => ({
   type: DESTROY_JWT,
-  payload: values,
 });

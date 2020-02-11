@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 import { selectIsLoggedIn } from '../sagas/auth/selectors';
+import { getMyUser } from '../sagas/users/actions';
 
 export const mapStateToProps = createSelector(
   [selectIsLoggedIn],
@@ -9,5 +10,5 @@ export const mapStateToProps = createSelector(
 
 export const mapDispatchToProps = dispatch =>
   bindActionCreators({
-
+    getMyUser,
   }, dispatch);

@@ -1,12 +1,15 @@
-import _ from 'lodash';
-import { CREATE_USER, DELETE_USER } from './actions';
+import {
+  CREATE_USER, GET_MY_USER, GET_USER, UPDATE_USER, DELETE_USER,
+} from './actions';
 
-export const reqCreateUser = state => _.get(state, `requests.${CREATE_USER}`, {});
-export const resCreateUser = state => _.get(state, `requests.${CREATE_USER}.response`);
-export const errCreateUser = state => _.get(state, `requests.${CREATE_USER}.error`);
+// Data
+const selectReducer = state => state.get('users');
+export const selectMyUser = state => selectReducer(state).get('my');
+export const selectOtherUsers = state => selectReducer(state).get('others');
 
-export const reqDeleteUser = state => _.get(state, `requests.${DELETE_USER}`, {});
-export const resDeleteUser = state => _.get(state, `requests.${DELETE_USER}.response`);
-export const errDeleteUser = state => _.get(state, `requests.${DELETE_USER}.error`);
-
-// TODO: Remove lodash. It should not be used and we should add imutable here
+// Requests
+export const selectCreateUserReq = state => selectReducer(state).getIn(['requests', CREATE_USER]);
+export const selectGetMyUserReq = state => selectReducer(state).getIn(['requests', GET_MY_USER]);
+export const selectGetUserReq = state => selectReducer(state).getIn(['requests', GET_USER]);
+export const selectUpdateUserReq = state => selectReducer(state).getIn(['requests', UPDATE_USER]);
+export const selectDeleteUserReq = state => selectReducer(state).getIn(['requests', DELETE_USER]);

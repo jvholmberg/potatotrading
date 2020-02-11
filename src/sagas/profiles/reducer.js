@@ -18,11 +18,11 @@ export default (state = defaultState, action) => {
   case GET_PROFILE:
     return state
       .set('profile', payload)
-      .setIn(['requests', GET_PROFILE], updateRequest(actionStatus, error))
+      .setIn(['requests', GET_PROFILE], updateRequest(actionStatus, error));
   case UPDATE_PROFILE:
     return state
       .set('profile', payload)
-      .setIn(['requests', UPDATE_PROFILE], updateRequest(actionStatus, error))
+      .setIn(['requests', UPDATE_PROFILE], updateRequest(actionStatus, error));
   default:
     return state;
   }

@@ -15,6 +15,11 @@ export const getActionType = action => action.split(':')[0];
 export const getActionName = action => action.split(/[://]+/)[1];
 export const getActionStatus = action => action.split('/')[1];
 
+export const isREQ = action => getActionType(action) === REQ;
+export const isCRUD = action => getActionType(action) === CRUD;
+export const isSTORAGE = action => getActionType(action) === STORAGE;
+export const isUI = action => getActionType(action) === UI;
+
 export const PENDING = 'PENDING';
 export const SUCCESS = 'SUCCESS';
 export const FAILED = 'FAILED';

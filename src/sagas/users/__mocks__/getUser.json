@@ -1,5 +1,6 @@
 {
-  "email": "johan@forkyfork.com",
-  "firstName": "Johan",
-  "lastName": "Holmberg"
+  "id": 2,
+  "email": "user@example.com",
+  "firstName": "Other",
+  "lastName": "User"
 }

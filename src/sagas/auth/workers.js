@@ -2,7 +2,6 @@ import { call, put } from 'redux-saga/effects';
 import {
   createRequestAction, PENDING, SUCCESS, FAILED
 } from '../actionCreator';
-import { defaultState } from './reducer';
 import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
@@ -15,7 +14,7 @@ import * as Api from '../../utils/api';
 
 export function* workerGetJwt(action) {
   try {
-    yield put({ type: createRequestAction(GET_JWT, PENDING), payload: null });
+    yield put({ type: createRequestAction(GET_JWT, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/users/auth',
@@ -29,7 +28,7 @@ export function* workerGetJwt(action) {
 
 export function* workerValidateJwt() {
   try {
-    yield put({ type: createRequestAction(VALIDATE_JWT, PENDING), payload: null });
+    yield put({ type: createRequestAction(VALIDATE_JWT, PENDING) });
     const accessToken = yield call(getAccessToken);
     const { data } = yield call(Api.instance, {
       method: 'get',
@@ -44,13 +43,13 @@ export function* workerValidateJwt() {
 
 export function* workerRefreshJwt() {
   try {
-    yield put({ type: createRequestAction(REFRESH_JWT, PENDING), payload: null });
+    yield put({ type: createRequestAction(REFRESH_JWT, PENDING) });
     const accessToken = yield call(getAccessToken);
     const refreshToken = yield call(getRefreshToken);
     const { data } = yield call(Api.instance, {
       method: 'get',
       url: `/users/auth/${refreshToken}`,
-      headers: Api.generateHeaders(accessToken)
+      headers: Api.generateHeaders(accessToken),
     });
     yield call(setAccessToken, data.accessToken);
     yield call(setRefreshToken, data.refreshToken);
@@ -62,7 +61,7 @@ export function* workerRefreshJwt() {
 
 export function* workerDestroyJwt() {
   try {
-    yield put({ type: createRequestAction(DESTROY_JWT, PENDING), payload: null });
+    yield put({ type: createRequestAction(DESTROY_JWT, PENDING) });
     const accessToken = yield call(getAccessToken);
     yield call(Api.instance, {
       method: 'delete',
@@ -71,7 +70,7 @@ export function* workerDestroyJwt() {
     });
     yield call(deleteAccessToken);
     yield call(deleteRefreshToken);
-    yield put({ type: createRequestAction(DESTROY_JWT, SUCCESS), payload: defaultState.toJS() });
+    yield put({ type: createRequestAction(DESTROY_JWT, SUCCESS) });
   } catch (err) {
     yield put({ type: createRequestAction(DESTROY_JWT, FAILED), error: err });
   }

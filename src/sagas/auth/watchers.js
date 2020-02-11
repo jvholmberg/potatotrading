@@ -6,7 +6,6 @@ import {
   workerGetJwt, workerValidateJwt, workerRefreshJwt, workerDestroyJwt
 } from './workers';
 
-
 function* watcherGetJwt() {
   yield takeLatest(GET_JWT, workerGetJwt);
 }

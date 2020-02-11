@@ -7,6 +7,11 @@ module.exports = (app) => {
     res.json(mockFile);
   });
 
+  app.get('/users/my', (req, res) => {
+    const mockFile = require('../../sagas/users/__mocks__/getMyUser.json');
+    res.json(mockFile);
+  });
+
   app.get('/users/:userId', (req, res) => {
     const mockFile = require('../../sagas/users/__mocks__/getUser.json');
     res.json(mockFile);

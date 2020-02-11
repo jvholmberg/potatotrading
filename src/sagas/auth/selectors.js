@@ -4,10 +4,10 @@ import {
 
 // Data
 const selectReducer = state => state.get('auth');
-export const selectAccessToken = state => selectReducer(state).get('accessToken');
-export const selectRefreshToken = state => selectReducer(state).get('refreshToken');
-export const selectValidUntil = state => selectReducer(state).get('validUntil');
-export const selectExpiresIn = state => selectReducer(state).get('expiresIn');
+export const selectAccessToken = state => selectReducer(state).getIn(['token', 'accessToken']);
+export const selectRefreshToken = state => selectReducer(state).getIn(['token', 'refreshToken']);
+export const selectValidUntil = state => selectReducer(state).getIn(['token', 'validUntil']);
+export const selectExpiresIn = state => selectReducer(state).getIn(['token', 'expiresIn']);
 
 // Utils
 export const selectIsLoggedIn = state => selectAccessToken(state) !== null;

@@ -3,7 +3,7 @@ import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
 import { getActionName, getActionStatus } from '../actionCreator'
-import { pipe, updateRequest } from '../reducerCreator';
+import { updateRequest } from '../reducerCreator';
 
 export const defaultState = fromJS({
   token: {

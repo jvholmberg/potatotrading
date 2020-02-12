@@ -1,8 +1,7 @@
 import { fromJS } from 'immutable';
 import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
-import {
-  getActionName, getActionStatus, PENDING, SUCCESS, FAILED, ABORTED
-} from '../actionCreator'
+import { getActionName, getActionStatus } from '../actionCreator'
+import { updateRequest } from '../reducerCreator';
 
 export const defaultState = fromJS({
   data: [],
@@ -14,27 +13,23 @@ export const defaultState = fromJS({
   },
 });
 
-export default (state = defaultState, action) => {
-  const { type, payload } = action || {};
-  const { error, ...rest } = payload || {};
+export default (state = defaultState, action = {}) => {
+  const { type, payload, error = null } = action;
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
   switch (actionName) {
   case CREATE_SESSION:
+    return state.withMutations(s => s
+      .set('data', payload ? fromJS(payload) : state.get('data'))
+      .setIn(['requests', CREATE_SESSION], updateRequest(actionStatus, error)));
   case GET_SESSIONS:
+    return state.withMutations(s => s
+      .set('data', payload ? fromJS(payload) : defaultState.get('data'))
+      .setIn(['requests', GET_SESSIONS], updateRequest(actionStatus, error)));
   case GET_SESSION_TYPES:
-    return fromJS({
-      ...state.toJS(),
-      ...rest,
-      requests: {
-        ...state.toJS().requests,
-        [actionName]: {
-          pending: actionStatus === PENDING,
-          done: actionStatus === SUCCESS || actionStatus === FAILED || actionStatus === ABORTED,
-          error: error || null,
-        },
-      },
-    });
+    return state.withMutations(s => s
+      .set('types', payload ? fromJS(payload) : defaultState.get('types'))
+      .setIn(['requests', GET_SESSION_TYPES], updateRequest(actionStatus, error)));
   default:
     return state;
   }

@@ -51,14 +51,15 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/serviceWorker.js",
+      "!src/theme/**/*.{js,jsx,ts,tsx}",
       "!src/server/**/*.{js,jsx,ts,tsx}"
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 15,
+        "statements": 15,
+        "branches": 25,
         "functions": 15,
-        "lines": 15,
-        "statements": 15
+        "lines": 15
       }
     }
   },

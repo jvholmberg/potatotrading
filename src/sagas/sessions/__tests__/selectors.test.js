@@ -6,7 +6,7 @@ import {
 } from '../actions';
 import * as selectors from '../selectors';
 
-describe('sagas/auth/selectors.js', () => {
+describe('sagas/sessions/selectors.js', () => {
   const data = [
     { id: 0, timestamp: new Date('2020-01-01'), typeId: 0, name: 'name 0', comment: 'comment 0' },
     { id: 1, timestamp: new Date('2020-01-15'), typeId: 1, name: 'name 1', comment: 'comment 1' },

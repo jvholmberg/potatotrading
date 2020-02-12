@@ -1,7 +1,30 @@
-{
-  "id": 0,
-  "timestamp": 1580252400000,
-  "typeId": 0,
-  "name": "Running",
-  "comment": "3km 5m."
-}
+[
+	{
+    "id": 0,
+    "timestamp": 1580252400000,
+		"typeId": 0,
+		"name": "Running",
+		"comment": "3km 5m."
+	},
+	{
+		"id": 1,
+    "timestamp": 1580338800000,
+		"typeId": 1,
+		"name": "Chest day",
+		"comment": "went really well"
+	},
+	{
+		"id": 2,
+		"typeId": 2,
+    "timestamp": 1580511600000,
+		"name": "Yoga",
+		"comment": "got rid of sore back"
+	},
+	{
+		"id": 3,
+    "timestamp": 1580598000000,
+		"typeId": 2,
+		"name": "Yoga",
+		"comment": "piss"
+	}
+]

@@ -1,9 +1,12 @@
 import { runSaga } from 'redux-saga';
 
-export async function recordSaga(saga, initialAction) {
+export async function recordSaga(saga, initialState, initialAction) {
   const dispatched = [];
   await runSaga(
-    { dispatch: action => dispatched.push(action) },
+    {
+      getState: () => initialState,
+      dispatch: action => dispatched.push(action),
+    },
     saga,
     initialAction
   ).done;

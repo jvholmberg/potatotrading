@@ -12,7 +12,7 @@ import {
 
 export function* workerCreateSession(action) {
   try {
-    yield put({ type: createRequestAction(CREATE_SESSION, PENDING), payload: null });
+    yield put({ type: createRequestAction(CREATE_SESSION, PENDING) });
     const accessToken = yield call(getAccessToken);
     const { data } = yield call(Api.instance, {
       method: 'post',
@@ -28,7 +28,7 @@ export function* workerCreateSession(action) {
 
 export function* workerGetSessions({ from, to }) {
   try {
-    yield put({ type: createRequestAction(GET_SESSIONS, PENDING), payload: null });
+    yield put({ type: createRequestAction(GET_SESSIONS, PENDING) });
     const accessToken = yield call(getAccessToken);
     const { data } = yield call(Api.instance, {
       method: 'get',
@@ -45,26 +45,23 @@ export function* workerGetSessions({ from, to }) {
   }
 }
 
-export function* workerGetSessionTypes({ from, to }) {
+export function* workerGetSessionTypes() {
   try {
     // Abort worker?
     const request = yield select(selectGetSessionTypesReq);
-    if (request.get('done') && !request.get('error')) {
-      yield put({ type: createRequestAction(GET_SESSION_TYPES, ABORTED), payload: null });
-      return;
+    const shouldAbort = request.get('done') && !request.get('error');
+    if (shouldAbort) {
+      yield put({ type: createRequestAction(GET_SESSION_TYPES, ABORTED) });
+    } else {
+      yield put({ type: createRequestAction(GET_SESSION_TYPES, PENDING) });
+      const accessToken = yield call(getAccessToken);
+      const { data } = yield call(Api.instance, {
+        method: 'get',
+        url: '/sessions/types',
+        headers: Api.generateHeaders(accessToken),
+      });
+      yield put({ type: createRequestAction(GET_SESSION_TYPES, SUCCESS), payload: data });
     }
-    yield put({ type: createRequestAction(GET_SESSION_TYPES, PENDING), payload: null });
-    const accessToken = yield call(getAccessToken);
-    const { data } = yield call(Api.instance, {
-      method: 'get',
-      url: '/sessions/types',
-      headers: Api.generateHeaders(accessToken),
-      params: {
-        from,
-        to,
-      },
-    });
-    yield put({ type: createRequestAction(GET_SESSION_TYPES, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createRequestAction(GET_SESSION_TYPES, FAILED), error: err });
   }

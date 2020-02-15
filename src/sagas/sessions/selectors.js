@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect';
 import { fromJS } from 'immutable';
-import {
-  isWithinInterval, lastDayOfMonth, lastDayOfWeek, startOfMonth, startOfWeek, addMonths, addWeeks,
-} from 'date-fns';
+import { isWithinInterval } from 'date-fns';
 import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
 
 const mergeSessionWithSessionType = (session, sessionTypes) => {
@@ -32,44 +30,6 @@ export const selectSessionsWithTypeForPeriod = (start, end) => createSelector(
   selectSessionsForPeriod(start, end), selectSessionTypes,
   (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
 );
-
-export const selectSessionsWithTypeForThisMonth = (() => {
-  const now = new Date();
-  return createSelector(
-    selectSessionsForPeriod(startOfMonth(now), lastDayOfMonth(now)), selectSessionTypes,
-    (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
-  );
-})();
-
-export const selectSessionsWithTypeForThisWeek = (() => {
-  const now = new Date();
-  return createSelector(
-    selectSessionsForPeriod(
-      startOfWeek(now, { weekStartsOn: 1 }),
-      lastDayOfWeek(now, { weekStartsOn: 1 })
-    ), selectSessionTypes,
-    (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
-  );
-})();
-
-export const selectSessionsWithTypeForLastMonth = (() => {
-  const previousMonth = addMonths(new Date(), -1);
-  return createSelector(
-    selectSessionsForPeriod(startOfMonth(previousMonth), lastDayOfMonth(previousMonth)), selectSessionTypes,
-    (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
-  );
-})();
-
-export const selectSessionsWithTypeForLastWeek = (() => {
-  const previousWeek = addWeeks(new Date(), -1);
-  return createSelector(
-    selectSessionsForPeriod(
-      startOfWeek(previousWeek, { weekStartsOn: 1 }),
-      lastDayOfWeek(previousWeek, { weekStartsOn: 1 })
-    ), selectSessionTypes,
-    (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
-  );
-})();
 
 // Requests
 export const selectCreateSessionReq = createSelector(

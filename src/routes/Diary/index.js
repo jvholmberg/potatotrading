@@ -29,11 +29,7 @@ const Diary = ({
   createSession,
   getSessionTypes,
   getSessions,
-  allSessions,
-  thisMonthsSessions,
-  thisWeeksSessions,
-  lastMonthSessions,
-  lastWeeksSessions,
+  sessions,
   sessionTypes,
 }) => {
   React.useEffect(() => {
@@ -63,7 +59,7 @@ const Diary = ({
       </Grid>
       <Grid item lg={2} md={3} sm={6} xs={12}>
         <Paper className={classes.paper}>
-          <BalanceChart {...{ sessions: thisMonthsSessions }} />
+          <BalanceChart {...{ sessions }} />
         </Paper>
       </Grid>
       <Grid item lg={2} md={3} sm={6} xs={12}>
@@ -81,7 +77,7 @@ const Diary = ({
           <SessionTable {...{
             loading: getSessionsReq.get('pending') || getSessionTypesReq.get('pending'),
             error: getSessionsReq.get('error') || getSessionTypesReq.get('error'),
-            sessions: allSessions,
+            sessions,
           }} />
         </Paper>
       </Grid>
@@ -94,11 +90,7 @@ Diary.propTypes = {
   getSessionsReq: PropTypes.instanceOf(Immutable.Map).isRequired,
   getSessionTypesReq: PropTypes.instanceOf(Immutable.Map).isRequired,
   sessionTypes: PropTypes.instanceOf(Immutable.List),
-  allSessions: PropTypes.instanceOf(Immutable.List),
-  thisMonthsSessions: PropTypes.instanceOf(Immutable.List),
-  thisWeeksSessions: PropTypes.instanceOf(Immutable.List),
-  lastMonthSessions: PropTypes.instanceOf(Immutable.List),
-  lastWeeksSessions: PropTypes.instanceOf(Immutable.List),
+  sessions: PropTypes.instanceOf(Immutable.List),
   createSession: PropTypes.func.isRequired,
   getSessions: PropTypes.func.isRequired,
   getSessionTypes: PropTypes.func.isRequired,
@@ -106,11 +98,7 @@ Diary.propTypes = {
 
 Diary.defaultProps = {
   sessionTypes: new Immutable.List(),
-  allSessions: new Immutable.List(),
-  thisMonthsSessions: new Immutable.List(),
-  thisWeeksSessions: new Immutable.List(),
-  lastMonthSessions: new Immutable.List(),
-  lastWeeksSessions: new Immutable.List(),
+  sessions: new Immutable.List(),
 };
 
 export default connect(

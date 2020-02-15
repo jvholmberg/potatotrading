@@ -22,7 +22,7 @@ export function* workerCreateSession(action) {
     });
     yield put({ type: createRequestAction(CREATE_SESSION, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createRequestAction(CREATE_SESSION, FAILED), error: err })
+    yield put({ type: createRequestAction(CREATE_SESSION, FAILED), error: err });
   }
 }
 
@@ -39,9 +39,9 @@ export function* workerGetSessions({ from, to }) {
         to,
       },
     });
-    yield put({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: { data } });
+    yield put({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createRequestAction(GET_SESSIONS, FAILED), error: err })
+    yield put({ type: createRequestAction(GET_SESSIONS, FAILED), error: err });
   }
 }
 
@@ -64,8 +64,8 @@ export function* workerGetSessionTypes({ from, to }) {
         to,
       },
     });
-    yield put({ type: createRequestAction(GET_SESSION_TYPES, SUCCESS), payload: { types: data } });
+    yield put({ type: createRequestAction(GET_SESSION_TYPES, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createRequestAction(GET_SESSION_TYPES, FAILED), error: err })
+    yield put({ type: createRequestAction(GET_SESSION_TYPES, FAILED), error: err });
   }
 }

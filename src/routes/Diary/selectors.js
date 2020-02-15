@@ -7,10 +7,6 @@ import {
   selectGetSessionsReq,
   selectSessionTypes,
   selectSessionsWithType,
-  selectSessionsWithTypeForThisMonth,
-  selectSessionsWithTypeForThisWeek,
-  selectSessionsWithTypeForLastMonth,
-  selectSessionsWithTypeForLastWeek
 } from '../../sagas/sessions/selectors';
 
 export const mapStateToProps = createSelector(
@@ -20,31 +16,19 @@ export const mapStateToProps = createSelector(
     selectGetSessionTypesReq,
     selectSessionTypes,
     selectSessionsWithType,
-    selectSessionsWithTypeForThisMonth,
-    selectSessionsWithTypeForThisWeek,
-    selectSessionsWithTypeForLastMonth,
-    selectSessionsWithTypeForLastWeek,
   ],
   (
     createSessionReq,
     getSessionsReq,
     getSessionTypesReq,
     sessionTypes,
-    allSessions,
-    thisMonthsSessions,
-    thisWeeksSessions,
-    lastMonthSessions,
-    lastWeeksSessions,
+    sessions,
   ) => ({
     createSessionReq,
     getSessionsReq,
     getSessionTypesReq,
     sessionTypes,
-    allSessions,
-    thisMonthsSessions,
-    thisWeeksSessions,
-    lastMonthSessions,
-    lastWeeksSessions,
+    sessions,
   })
 );
 

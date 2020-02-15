@@ -1,9 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Immutable from 'immutable';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import toJS from '../../components/toJS';
 import PieChart from '../../components/PieChart';
 
 const useStyles = makeStyles(() => ({
@@ -12,10 +13,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const GoalChart = ({ sessions, periodLength }) => {
+const GoalChart = ({ sessions }) => {
   const classes = useStyles();
-  const jsSessions = sessions.toJS();
-  const data = jsSessions.reduce((ret, val) => {
+  const data = sessions.reduce((ret, val) => {
     const idx = _.findIndex(ret, e => e.name === val.type.name);
 
     if (idx === -1) {
@@ -46,13 +46,16 @@ const GoalChart = ({ sessions, periodLength }) => {
 };
 
 GoalChart.propTypes = {
-  sessions: PropTypes.instanceOf(Immutable.List),
-  periodLength: PropTypes.string,
+  sessions: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    timestamp: PropTypes.number,
+    name: PropTypes.string,
+    comment: PropTypes.string,
+  })),
 };
 
 GoalChart.defaultProps = {
-  sessions: Immutable.List(),
-  periodLength: 'week',
+  sessions: [],
 };
 
-export default React.memo(GoalChart);
+export default toJS(GoalChart);

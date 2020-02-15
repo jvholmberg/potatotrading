@@ -1,10 +1,10 @@
 import { takeLatest } from 'redux-saga/effects';
 
 import {
-  CREATE_USER, GET_MY_USER, GET_USER, UPDATE_USER, DELETE_USER,
+  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
 } from './actions';
 import {
-  workerCreateUser, workerGetUser, workerUpdateUser, workerDeleteUser, workerGetMyUser,
+  workerCreateUser, workerGetUsers, workerUpdateUser, workerDeleteUser, workerGetMyUser,
 } from './workers';
 
 export function* watcherCreateUser() {
@@ -15,8 +15,8 @@ export function* watcherGetMyUser() {
   yield takeLatest(GET_MY_USER, workerGetMyUser);
 }
 
-export function* watcherGetUser() {
-  yield takeLatest(GET_USER, workerGetUser);
+export function* watcherGetUsers() {
+  yield takeLatest(GET_USERS, workerGetUsers);
 }
 
 export function* watcherUpdateUser() {
@@ -30,7 +30,7 @@ export function* watcherDeleteUser() {
 export default [
   watcherCreateUser(),
   watcherGetMyUser(),
-  watcherGetUser(),
+  watcherGetUsers(),
   watcherUpdateUser(),
   watcherDeleteUser(),
 ];

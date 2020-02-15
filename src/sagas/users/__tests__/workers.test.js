@@ -3,7 +3,7 @@ import { recordSaga } from '../../../utils/reduxSaga';
 import * as Api from '../../../utils/api';
 import * as workers from '../workers';
 import {
-  GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT,
+  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
 } from '../actions';
 import {
   createRequestAction, PENDING, SUCCESS, FAILED,
@@ -23,44 +23,64 @@ describe('sagas/auth/workers.js', () => {
     sinon.restore();
   });
 
-  it('Get jwt-token', async () => {
+  it('Create user', async () => {
     const input = { username: 'user@domain.com', password: '123' };
-    let dispatched = await recordSaga(workers.workerGetJwt, {}, input);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_JWT, SUCCESS), payload: successResponse.data });
+    let dispatched = await recordSaga(workers.workerCreateUser, {}, input);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(CREATE_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(CREATE_USER, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workers.workerGetJwt, {}, input);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workers.workerCreateUser, {}, input);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(CREATE_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(CREATE_USER, FAILED), error: failedResponse });
   });
 
-  it('Validate jwt-token', async () => {
-    let dispatched = await recordSaga(workers.workerValidateJwt);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(VALIDATE_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(VALIDATE_JWT, SUCCESS), payload: successResponse.data });
+  it('Get my user', async () => {
+    let dispatched = await recordSaga(workers.workerGetMyUser);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_MY_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_MY_USER, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workers.workerValidateJwt);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(VALIDATE_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(VALIDATE_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workers.workerGetMyUser);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_MY_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_MY_USER, FAILED), error: failedResponse });
   });
 
-  it('Refresh jwt-token', async () => {
-    let dispatched = await recordSaga(workers.workerRefreshJwt);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(REFRESH_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(REFRESH_JWT, SUCCESS), payload: successResponse.data });
+  it('Get users', async () => {
+    let dispatched = await recordSaga(workers.workerGetUsers);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_USERS, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_USERS, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workers.workerRefreshJwt);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(REFRESH_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(REFRESH_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workers.workerGetUsers);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_USERS, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_USERS, FAILED), error: failedResponse });
   });
 
-  it('Destroy jwt-token', async () => {
-    let dispatched = await recordSaga(workers.workerDestroyJwt);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(DESTROY_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(DESTROY_JWT, SUCCESS) });
+  it('Update user', async () => {
+    const action = {
+      payload: {
+        id: 0,
+        values: {
+          username: 'updated@domain.com',
+          password: '123',
+        },
+      },
+    };
+    let dispatched = await recordSaga(workers.workerUpdateUser, {}, action);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(UPDATE_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(UPDATE_USER, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workers.workerDestroyJwt);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(DESTROY_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(DESTROY_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workers.workerUpdateUser, {}, action);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(UPDATE_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(UPDATE_USER, FAILED), error: failedResponse });
+  });
+
+  it('Delete user', async () => {
+    const action = { payload: 0 };
+    let dispatched = await recordSaga(workers.workerDeleteUser, {}, action);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(DELETE_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(DELETE_USER, SUCCESS) });
+
+    dispatched = await recordSaga(workers.workerDeleteUser, {}, action);
+    expect(dispatched[0]).toEqual({ type: createRequestAction(DELETE_USER, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createRequestAction(DELETE_USER, FAILED), error: failedResponse });
   });
 });

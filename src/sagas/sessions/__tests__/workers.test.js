@@ -1,4 +1,5 @@
 import sinon from 'sinon';
+import { fromJS } from 'immutable';
 import { recordSaga } from '../../../utils/reduxSaga';
 import * as Api from '../../../utils/api';
 import * as workers from '../workers';
@@ -8,7 +9,6 @@ import {
 import {
   createRequestAction, PENDING, SUCCESS, FAILED, ABORTED,
 } from '../../actionCreator';
-import { fromJS } from 'immutable';
 import { updateRequest } from '../../reducerCreator';
 
 describe('sagas/sessions/workers.js', () => {

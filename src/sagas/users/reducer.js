@@ -1,10 +1,9 @@
 import { fromJS } from 'immutable';
 import {
-  CREATE_USER, GET_MY_USER, GET_USER, UPDATE_USER, DELETE_USER,
+  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
 } from './actions';
-import {
-  getActionName, getActionStatus, PENDING, SUCCESS, FAILED,
-} from '../actionCreator'
+import { getActionName, getActionStatus } from '../actionCreator'
+import { updateRequest } from '../reducerCreator';
 
 export const defaultState = fromJS({
   my: null,
@@ -12,35 +11,35 @@ export const defaultState = fromJS({
   requests: {
     [CREATE_USER]: { pending: false, done: false, error: null },
     [GET_MY_USER]: { pending: false, done: false, error: null },
-    [GET_USER]: { pending: false, done: false, error: null },
+    [GET_USERS]: { pending: false, done: false, error: null },
     [UPDATE_USER]: { pending: false, done: false, error: null },
     [DELETE_USER]: { pending: false, done: false, error: null },
   },
 });
 
-export default (state = defaultState, action) => {
-  const { type, payload } = action || {};
-  const { error, ...rest } = payload || {};
+export default (state = defaultState, action = {}) => {
+  const { type, payload, error = null } = action;
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
   switch (actionName) {
   case CREATE_USER:
+    return state
+      .setIn(['requests', CREATE_USER], updateRequest(actionStatus, error));
   case GET_MY_USER:
-  case GET_USER:
+    return state.withMutations(s => s
+      .set('my', payload ? fromJS(payload) : defaultState.get('my'))
+      .setIn(['requests', GET_MY_USER], updateRequest(actionStatus, error)));
+  case GET_USERS:
+    return state.withMutations(s => s
+      .set('others', payload ? fromJS(payload) : defaultState.get('others'))
+      .setIn(['requests', GET_USERS], updateRequest(actionStatus, error)));
   case UPDATE_USER:
+    return state.withMutations(s => s
+      .set('others', payload ? fromJS(payload) : defaultState.get('others'))
+      .setIn(['requests', UPDATE_USER], updateRequest(actionStatus, error)));
   case DELETE_USER:
-    return fromJS({
-      ...state.toJS(),
-      ...rest,
-      requests: {
-        ...state.toJS().requests,
-        [actionName]: {
-          pending: actionStatus === PENDING,
-          done: actionStatus === SUCCESS || actionStatus === FAILED,
-          error: error || null,
-        },
-      },
-    });
+    return state
+      .setIn(['requests', DELETE_USER], updateRequest(actionStatus, error));
   default:
     return state;
   }

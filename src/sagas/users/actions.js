@@ -10,10 +10,9 @@ export const getMyUser = () => ({
   type: GET_MY_USER,
 });
 
-export const GET_USER = 'GET_USER';
-export const getUser = id => ({
-  type: GET_USER,
-  payload: id,
+export const GET_USERS = 'GET_USERS';
+export const getUsers = () => ({
+  type: GET_USERS,
 });
 
 export const UPDATE_USER = 'UPDATE_USER';

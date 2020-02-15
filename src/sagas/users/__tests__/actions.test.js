@@ -14,10 +14,9 @@ describe('sagas/users/actions.js', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('Get user', () => {
-    const input = 0;
-    const actual = actions.getUser(input);
-    const expected = { type: actions.GET_USER, payload: input };
+  it('Get users', () => {
+    const actual = actions.getUsers();
+    const expected = { type: actions.GET_USERS };
     expect(actual).toEqual(expected);
   });
 

@@ -8,7 +8,7 @@ import reducer, { defaultState } from '../reducer';
 import * as actions from '../actions';
 
 
-describe('sagas/auth/reducer.js', () => {
+describe('sagas/users/reducer.js', () => {
   it('returns initial state', () => {
     // eslint-disable-next-line no-undefined
     const actual = reducer(undefined, undefined);
@@ -16,167 +16,194 @@ describe('sagas/auth/reducer.js', () => {
     expect(actual).toEqual(expected);
   });
 
-  describe('GET_JWT', () => {
+  describe('CREATE_USER', () => {
     it('returns pending state', () => {
-      const action = { type: createRequestAction(actions.GET_JWT, PENDING) };
+      const action = { type: createRequestAction(actions.CREATE_USER, PENDING) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.GET_JWT], updateRequest(PENDING, null));
+      const expected = defaultState.setIn(['requests', actions.CREATE_USER], updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
       // eslint-disable-next-line global-require
-      const mockResponse = require('../__mocks__/getJwt.json');
-      const action = { type: createRequestAction(actions.GET_JWT, SUCCESS), payload: mockResponse };
+      const mockResponse = require('../__mocks__/createUser.json');
+      const action = { type: createRequestAction(actions.CREATE_USER, SUCCESS), payload: mockResponse };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.withMutations(s => s
-        .set('token', fromJS(mockResponse))
-        .setIn(['requests', actions.GET_JWT], updateRequest(SUCCESS, null)));
+      const expected = defaultState
+        .setIn(['requests', actions.CREATE_USER], updateRequest(SUCCESS, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
-      const action = { type: createRequestAction(actions.GET_JWT, FAILED), error };
+      const action = { type: createRequestAction(actions.CREATE_USER, FAILED), error };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.GET_JWT], updateRequest(FAILED, error));
+      const expected = defaultState.setIn(['requests', actions.CREATE_USER], updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
     it('returns aborted state', () => {
-      const action = { type: createRequestAction(actions.GET_JWT, ABORTED) };
+      const action = { type: createRequestAction(actions.CREATE_USER, ABORTED) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.GET_JWT], updateRequest(ABORTED, null));
+      const expected = defaultState.setIn(['requests', actions.CREATE_USER], updateRequest(ABORTED, null));
       expect(actual).toEqual(expected);
     });
   });
 
-  describe('VALIDATE_JWT', () => {
+  describe('GET_MY_USER', () => {
     it('returns pending state', () => {
-      const action = { type: createRequestAction(actions.VALIDATE_JWT, PENDING) };
+      const action = { type: createRequestAction(actions.GET_MY_USER, PENDING) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.VALIDATE_JWT], updateRequest(PENDING, null));
+      const expected = defaultState.setIn(['requests', actions.GET_MY_USER], updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
       // eslint-disable-next-line global-require
-      const mockResponse = require('../__mocks__/validateJwt.json');
-      const action = { type: createRequestAction(actions.VALIDATE_JWT, SUCCESS), payload: mockResponse };
+      const mockResponse = require('../__mocks__/getMyUser.json');
+      const action = { type: createRequestAction(actions.GET_MY_USER, SUCCESS), payload: mockResponse };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
       const expected = defaultState.withMutations(s => s
-        .setIn(['token', 'validUntil'], fromJS(mockResponse.validUntil))
-        .setIn(['token', 'expiresIn'], fromJS(mockResponse.expiresIn))
-        .setIn(['requests', actions.VALIDATE_JWT], updateRequest(SUCCESS, null)));
+        .set('my', fromJS(mockResponse))
+        .setIn(['requests', actions.GET_MY_USER], updateRequest(SUCCESS, null)));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
-      const action = { type: createRequestAction(actions.VALIDATE_JWT, FAILED), error };
+      const action = { type: createRequestAction(actions.GET_MY_USER, FAILED), error };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.VALIDATE_JWT], updateRequest(FAILED, error));
+      const expected = defaultState.setIn(['requests', actions.GET_MY_USER], updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
     it('returns aborted state', () => {
-      const action = { type: createRequestAction(actions.VALIDATE_JWT, ABORTED) };
+      const action = { type: createRequestAction(actions.GET_MY_USER, ABORTED) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.VALIDATE_JWT], updateRequest(ABORTED, null));
+      const expected = defaultState.setIn(['requests', actions.GET_MY_USER], updateRequest(ABORTED, null));
       expect(actual).toEqual(expected);
     });
   });
 
-  describe('REFRESH_JWT', () => {
+  describe('GET_USERS', () => {
     it('returns pending state', () => {
-      const action = { type: createRequestAction(actions.REFRESH_JWT, PENDING) };
+      const action = { type: createRequestAction(actions.GET_USERS, PENDING) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.REFRESH_JWT], updateRequest(PENDING, null));
+      const expected = defaultState.setIn(['requests', actions.GET_USERS], updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
       // eslint-disable-next-line global-require
-      const mockResponse = require('../__mocks__/refreshJwt.json');
-      const action = { type: createRequestAction(actions.REFRESH_JWT, SUCCESS), payload: mockResponse };
+      const mockResponse = require('../__mocks__/getUsers.json');
+      const action = { type: createRequestAction(actions.GET_USERS, SUCCESS), payload: mockResponse };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
       const expected = defaultState.withMutations(s => s
-        .set('token', fromJS(mockResponse))
-        .setIn(['requests', actions.REFRESH_JWT], updateRequest(SUCCESS, null)));
+        .set('others', fromJS(mockResponse))
+        .setIn(['requests', actions.GET_USERS], updateRequest(SUCCESS, null)));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
-      const action = { type: createRequestAction(actions.REFRESH_JWT, FAILED), error };
+      const action = { type: createRequestAction(actions.GET_USERS, FAILED), error };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.REFRESH_JWT], updateRequest(FAILED, error));
+      const expected = defaultState.setIn(['requests', actions.GET_USERS], updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
     it('returns aborted state', () => {
-      const action = { type: createRequestAction(actions.REFRESH_JWT, ABORTED) };
+      const action = { type: createRequestAction(actions.GET_USERS, ABORTED) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.REFRESH_JWT], updateRequest(ABORTED, null));
+      const expected = defaultState.setIn(['requests', actions.GET_USERS], updateRequest(ABORTED, null));
       expect(actual).toEqual(expected);
     });
   });
 
-  describe('DESTROY_JWT', () => {
-    let mockState;
-
-    beforeAll(() => {
-      // eslint-disable-next-line global-require
-      const mockResponse = require('../__mocks__/getJwt.json');
-      const action = { type: createRequestAction(actions.GET_JWT, SUCCESS), payload: mockResponse };
-      // eslint-disable-next-line no-undefined
-      mockState = reducer(undefined, action);
-    });
-
+  describe('UPDATE_USER', () => {
     it('returns pending state', () => {
-      const action = { type: createRequestAction(actions.DESTROY_JWT, PENDING) };
+      const action = { type: createRequestAction(actions.UPDATE_USER, PENDING) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(PENDING, null));
+      const expected = defaultState.setIn(['requests', actions.UPDATE_USER], updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
       // eslint-disable-next-line global-require
-      const mockResponse = require('../__mocks__/destroyJwt.json');
-      const action = { type: createRequestAction(actions.DESTROY_JWT, SUCCESS), payload: mockResponse };
+      const mockResponse = require('../__mocks__/updateUser.json');
+      const action = { type: createRequestAction(actions.UPDATE_USER, SUCCESS), payload: mockResponse };
       // eslint-disable-next-line no-undefined
-      const actual = reducer(mockState, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(SUCCESS, null));
+      const actual = reducer(undefined, action);
+      const expected = defaultState.withMutations(s => s
+        .set('others', fromJS(mockResponse))
+        .setIn(['requests', actions.UPDATE_USER], updateRequest(SUCCESS, null)));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
-      const action = { type: createRequestAction(actions.DESTROY_JWT, FAILED), error };
+      const action = { type: createRequestAction(actions.UPDATE_USER, FAILED), error };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(FAILED, error));
+      const expected = defaultState.setIn(['requests', actions.UPDATE_USER], updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
     it('returns aborted state', () => {
-      const action = { type: createRequestAction(actions.DESTROY_JWT, ABORTED) };
+      const action = { type: createRequestAction(actions.UPDATE_USER, ABORTED) };
       // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(ABORTED, null));
+      const expected = defaultState.setIn(['requests', actions.UPDATE_USER], updateRequest(ABORTED, null));
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('DELETE_USER', () => {
+    it('returns pending state', () => {
+      const action = { type: createRequestAction(actions.DELETE_USER, PENDING) };
+      // eslint-disable-next-line no-undefined
+      const actual = reducer(undefined, action);
+      const expected = defaultState.setIn(['requests', actions.DELETE_USER], updateRequest(PENDING, null));
+      expect(actual).toEqual(expected);
+    });
+
+    it('returns success state', () => {
+      // eslint-disable-next-line global-require
+      const mockResponse = require('../__mocks__/deleteUser.json');
+      const action = { type: createRequestAction(actions.DELETE_USER, SUCCESS), payload: mockResponse };
+      // eslint-disable-next-line no-undefined
+      const actual = reducer(undefined, action);
+      const expected = defaultState.setIn(['requests', actions.DELETE_USER], updateRequest(SUCCESS, null));
+      expect(actual).toEqual(expected);
+    });
+
+    it('returns failed state', () => {
+      const error = 'error';
+      const action = { type: createRequestAction(actions.DELETE_USER, FAILED), error };
+      // eslint-disable-next-line no-undefined
+      const actual = reducer(undefined, action);
+      const expected = defaultState.setIn(['requests', actions.DELETE_USER], updateRequest(FAILED, error));
+      expect(actual).toEqual(expected);
+    });
+
+    it('returns aborted state', () => {
+      const action = { type: createRequestAction(actions.DELETE_USER, ABORTED) };
+      // eslint-disable-next-line no-undefined
+      const actual = reducer(undefined, action);
+      const expected = defaultState.setIn(['requests', actions.DELETE_USER], updateRequest(ABORTED, null));
       expect(actual).toEqual(expected);
     });
   });

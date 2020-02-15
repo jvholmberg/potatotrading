@@ -1,81 +1,65 @@
 import { fromJS } from 'immutable';
 import {
-  GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT,
+  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
 } from '../actions';
 import * as selectors from '../selectors';
 
-describe('sagas/auth/selectors.js', () => {
+describe('sagas/users/selectors.js', () => {
   const mockState = fromJS({
-    auth: {
-      token: {
-        accessToken: 'accessToken',
-        refreshToken: 'refreshToken',
-        expiresIn: 3600000,
-        validUntil: '2020-01-01'
-      },
+    users: {
+      my: null,
+      others: null,
       requests: {
-        [GET_JWT]: { pending: true, done: false, error: null },
-        [VALIDATE_JWT]: { pending: false, done: true, error: null },
-        [REFRESH_JWT]: { pending: false, done: false, error: null },
-        [DESTROY_JWT]: { pending: false, done: true, error: 'error' },
+        [CREATE_USER]: { pending: false, done: false, error: null },
+        [GET_MY_USER]: { pending: false, done: false, error: null },
+        [GET_USERS]: { pending: false, done: false, error: null },
+        [UPDATE_USER]: { pending: false, done: false, error: null },
+        [DELETE_USER]: { pending: false, done: false, error: null },
       },
     },
   });
 
   // Data
-  it('selectAccessToken()', () => {
-    const actual = selectors.selectAccessToken(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'accessToken']);
-    expect(actual).toEqual(expected);
+  it('Selects my user', () => {
+    const actual = selectors.selectMyUser(mockState);
+    const expected = mockState.getIn(['users', 'my']);
+    expect(actual).toBe(expected);
   });
 
-  it('selectRefreshToken()', () => {
-    const actual = selectors.selectRefreshToken(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'refreshToken']);
-    expect(actual).toEqual(expected);
-  });
-
-  it('selectValidUntil()', () => {
-    const actual = selectors.selectValidUntil(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'validUntil']);
-    expect(actual).toEqual(expected);
-  });
-
-  it('selectExpiresIn()', () => {
-    const actual = selectors.selectExpiresIn(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'expiresIn']);
-    expect(actual).toEqual(expected);
-  });
-
-  // Utils
-  it('selectIsLoggedIn()', () => {
-    const actual = selectors.selectIsLoggedIn(mockState);
-    const expected = true
-    expect(actual).toEqual(expected);
+  it('Select other users', () => {
+    const actual = selectors.selectOtherUsers(mockState);
+    const expected = mockState.getIn(['users', 'others']);
+    expect(actual).toBe(expected);
   });
 
   // Requests
-  it('selectGetJwtReq()', () => {
-    const actual = selectors.selectGetJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', GET_JWT]);
+  it('Select request for creating user', () => {
+    const actual = selectors.selectCreateUserReq(mockState);
+    const expected = mockState.getIn(['users', 'requests', CREATE_USER]);
     expect(actual).toEqual(expected);
   });
 
-  it('selectValidateJwtReq()', () => {
-    const actual = selectors.selectValidateJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', VALIDATE_JWT]);
+  it('Select request for getting my user', () => {
+    const actual = selectors.selectGetMyUserReq(mockState);
+    const expected = mockState.getIn(['users', 'requests', GET_MY_USER]);
     expect(actual).toEqual(expected);
   });
 
-  it('selectRefreshJwtReq()', () => {
-    const actual = selectors.selectRefreshJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', REFRESH_JWT]);
+  it('Select request for getting users', () => {
+    const actual = selectors.selectGetUsersReq(mockState);
+    const expected = mockState.getIn(['users', 'requests', GET_USERS]);
     expect(actual).toEqual(expected);
   });
 
-  it('selectDestroyJwtReq()', () => {
-    const actual = selectors.selectDestroyJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', DESTROY_JWT]);
+  it('Selects request for updating user', () => {
+    const actual = selectors.selectUpdateUserReq(mockState);
+    const expected = mockState.getIn(['users', 'requests', UPDATE_USER]);
+    expect(actual).toEqual(expected);
+  });
+
+  it('Selects request for deleting user', () => {
+    const actual = selectors.selectDeleteUserReq(mockState);
+    const expected = mockState.getIn(['users', 'requests', DELETE_USER]);
     expect(actual).toEqual(expected);
   });
 });

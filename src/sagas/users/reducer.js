@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import {
   CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
 } from './actions';
-import { getActionName, getActionStatus } from '../actionCreator'
+import { getActionName, getActionStatus, ABORTED } from '../actionCreator'
 import { updateRequest } from '../reducerCreator';
 
 export const defaultState = fromJS({
@@ -21,6 +21,9 @@ export default (state = defaultState, action = {}) => {
   const { type, payload, error = null } = action;
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
+  if (actionStatus === ABORTED) {
+    return state;
+  }
   switch (actionName) {
   case CREATE_USER:
     return state

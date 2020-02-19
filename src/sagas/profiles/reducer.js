@@ -1,5 +1,5 @@
 import { GET_PROFILE, UPDATE_PROFILE } from './actions';
-import { getActionName, getActionStatus } from '../actionCreator'
+import { getActionName, getActionStatus, ABORTED } from '../actionCreator'
 import { createInitialState, updateRequest } from '../reducerCreator';
 
 export const defaultState = createInitialState({
@@ -14,6 +14,9 @@ export default (state = defaultState, action) => {
   const { type, payload, error } = action || {};
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
+  if (actionStatus === ABORTED) {
+    return state;
+  }
   switch (actionName) {
   case GET_PROFILE:
     return state

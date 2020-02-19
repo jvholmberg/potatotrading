@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
-import { getActionName, getActionStatus } from '../actionCreator'
+import { getActionName, getActionStatus, ABORTED } from '../actionCreator'
 import { updateRequest } from '../reducerCreator';
 
 export const defaultState = fromJS({
@@ -24,6 +24,9 @@ export default (state = defaultState, action = {}) => {
   const { type, payload, error = null } = action;
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
+  if (actionStatus === ABORTED) {
+    return state;
+  }
   switch (actionName) {
   case GET_JWT:
     return state.withMutations(s => s

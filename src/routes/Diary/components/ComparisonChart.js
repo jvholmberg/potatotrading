@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Immutable from 'immutable';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import PieChart from '../../components/PieChart';
+import PieChart from '../../../components/PieChart';
 
 const useStyles = makeStyles(() => ({
   center: {

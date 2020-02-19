@@ -1,11 +1,10 @@
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import toJS from '../../components/toJS';
-import PieChart from '../../components/PieChart';
+import { Box, Typography } from '@material-ui/core';
+import toJS from '../../../components/toJS';
+import PieChart from '../../../components/PieChart';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -13,7 +12,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const GoalChart = ({ sessions }) => {
+const BalanceChart = ({ sessions }) => {
   const classes = useStyles();
   const data = sessions.reduce((ret, val) => {
     const idx = _.findIndex(ret, e => e.name === val.type.name);
@@ -30,7 +29,7 @@ const GoalChart = ({ sessions }) => {
 
   return (
     <>
-      <Typography variant="h3" align="center">Goal</Typography>
+      <Typography variant="h3" align="center">Balance</Typography>
       <Box>
         <PieChart {...{
           className: classes.center,
@@ -45,17 +44,14 @@ const GoalChart = ({ sessions }) => {
   );
 };
 
-GoalChart.propTypes = {
+BalanceChart.propTypes = {
   sessions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    timestamp: PropTypes.number,
-    name: PropTypes.string,
-    comment: PropTypes.string,
   })),
 };
 
-GoalChart.defaultProps = {
+BalanceChart.defaultProps = {
   sessions: [],
 };
 
-export default toJS(GoalChart);
+export default toJS(BalanceChart);

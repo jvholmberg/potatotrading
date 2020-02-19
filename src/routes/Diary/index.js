@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
-import SessionForm from './SessionForm';
-import SessionTable from './SessionTable';
-import BalanceChart from './BalanceChart';
-import ComparisonChart from './ComparisonChart';
-import GoalChart from './GoalChart';
+import SessionForm from './components/SessionForm';
+import SessionTable from './components/SessionTable';
+import BalanceChart from './components/BalanceChart';
+import ComparisonChart from './components/ComparisonChart';
+import GoalChart from './components/GoalChart';
 
 const useStyles = makeStyles(theme => ({
   root: {

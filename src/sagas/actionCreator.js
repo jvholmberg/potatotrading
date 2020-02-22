@@ -1,8 +1,10 @@
+// Prefix
 export const REQ = 'REQ';
 export const CRUD = 'CRUD';
 export const STORAGE = 'STORAGE';
 export const UI = 'UI';
 
+// Action creators
 export const createRequestAction = (actionType, suffix = '') =>
   `${REQ}:${actionType.toUpperCase()}/${suffix.toUpperCase()}`;
 export const createCrudAction = (actionType, suffix = '') =>
@@ -11,6 +13,7 @@ export const createStorageAction = (actionType, suffix = '') =>
   `${STORAGE}:${actionType.toUpperCase()}/${suffix.toUpperCase()}`;
 export const createUiAction = actionType => `${UI}:${actionType.toUpperCase()}`;
 
+// Utils
 export const getActionType = (action = '') => action.split(':')[0];
 export const getActionName = (action = '') => action.split(/[://]+/)[1];
 export const getActionStatus = (action = '') => action.split('/')[1];
@@ -20,6 +23,7 @@ export const isCRUD = action => getActionType(action) === CRUD;
 export const isSTORAGE = action => getActionType(action) === STORAGE;
 export const isUI = action => getActionType(action) === UI;
 
+// Suffix
 export const PENDING = 'PENDING';
 export const SUCCESS = 'SUCCESS';
 export const FAILED = 'FAILED';

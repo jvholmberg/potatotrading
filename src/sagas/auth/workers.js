@@ -12,13 +12,16 @@ import {
 } from '../storage';
 import * as Api from '../../utils/api';
 
-export function* workerGetJwt(action) {
+export function* workerGetJwt({ email, password }) {
   try {
     yield put({ type: createRequestAction(GET_JWT, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/users/auth',
-      data: action.payload,
+      data: {
+        email,
+        password,
+      },
     });
     yield put({ type: createRequestAction(GET_JWT, SUCCESS), payload: data });
   } catch (err) {

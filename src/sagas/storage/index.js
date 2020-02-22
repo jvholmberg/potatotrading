@@ -4,17 +4,19 @@ import { SET_LOCAL_STORAGE, GET_LOCAL_STORAGE, DELETE_LOCAL_STORAGE } from './ac
  * Application specific storage actions
  */
 
-export const setAccessToken = () => ({
+export const setAccessToken = accessToken => ({
   type: SET_LOCAL_STORAGE,
   payload: {
-    key: 'accessToken'
+    key: 'accessToken',
+    value: accessToken,
   },
 });
 
-export const setRefreshToken = () => ({
+export const setRefreshToken = refreshToken => ({
   type: SET_LOCAL_STORAGE,
   payload: {
-    key: 'refreshToken'
+    key: 'refreshToken',
+    value: refreshToken,
   },
 });
 

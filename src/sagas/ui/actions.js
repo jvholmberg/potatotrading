@@ -9,13 +9,3 @@ export const setSidebarOpen = open => ({
   type: SIDEBAR_OPEN,
   payload: open,
 });
-
-export const REDIRECT = 'REDIRECT';
-export const redirect = ({ url, pathname, query }) => ({
-  type: REDIRECT,
-  payload: {
-    url,
-    pathname,
-    query,
-  },
-});

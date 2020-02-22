@@ -2,14 +2,14 @@ import './reset.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@material-ui/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns';
 import theme from './theme';
 
-import configureStore from './store';
+import configureStore, { history } from './store';
 import Routes from './routes';
 
 import * as serviceWorker from './serviceWorker';
@@ -19,9 +19,9 @@ ReactDOM.render((
   <ThemeProvider theme={theme}>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Provider store={store}>
-        <Router>
+        <ConnectedRouter history={history}>
           <Routes />
-        </Router>
+        </ConnectedRouter>
       </Provider>
     </MuiPickersUtilsProvider>
   </ThemeProvider>

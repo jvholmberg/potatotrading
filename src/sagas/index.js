@@ -1,3 +1,4 @@
+import { connectRouter } from 'connected-react-router'
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 
@@ -14,7 +15,8 @@ import storageSagas from './storage/watchers';
 import usersSagas from './users/watchers';
 import uiSagas from './ui/watchers';
 
-export const rootReducer = combineReducers({
+export const rootReducer = history => combineReducers({
+  router: connectRouter(history),
   auth: authReducer,
   profiles: profilesReducer,
   sessions: sessionsReducer,

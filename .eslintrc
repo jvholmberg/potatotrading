@@ -37,6 +37,7 @@
     "no-sync": "error",
     "no-undefined": "error",
     "prefer-const": "error",
+    "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-closing-bracket-location": [1, {
       "nonEmpty": false,

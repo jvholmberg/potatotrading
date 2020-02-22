@@ -44,9 +44,7 @@ const ComparisonChart = ({ sessions }) => {
 };
 
 ComparisonChart.propTypes = {
-  sessions: PropTypes.arrayOf(PropTypes.shape({
-    
-  })),
+  sessions: PropTypes.arrayOf(),
 };
 
 ComparisonChart.defaultProps = {

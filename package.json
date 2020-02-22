@@ -40,7 +40,7 @@
     "test:once": "yarn run test --watchAll=false",
     "test:coverage": "yarn run test:once -- --coverage",
     "lint": "eslint src",
-    "check": "yarn run lint && yarn run test:coverage",
+    "verify": "yarn run lint && yarn run test:coverage",
     "clean": "rm -rf node_modules && yarn install"
   },
   "eslintConfig": {

@@ -85,14 +85,19 @@ const Diary = ({
 };
 
 Diary.propTypes = {
-  getSessionsReq: PropTypes.object,
-  getSessionTypesReq: PropTypes.object,
+  createSessionReq: PropTypes.object.isRequired,
+  getSessionsReq: PropTypes.object.isRequired,
+  getSessionTypesReq: PropTypes.object.isRequired,
   createSession: PropTypes.func.isRequired,
   getSessions: PropTypes.func.isRequired,
   getSessionTypes: PropTypes.func.isRequired,
+  sessions: PropTypes.array,
+  sessionTypes: PropTypes.array,
 }
 
 Diary.defaultProps = {
+  sessions: [],
+  sessionTypes: [],
 };
 
 export default connect(

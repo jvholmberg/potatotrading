@@ -73,6 +73,7 @@ export function* workerDestroyJwt() {
     yield call([localStorage, 'removeItem'], 'accessToken');
     yield call([localStorage, 'removeItem'], 'refreshToken');
     yield put({ type: createRequestAction(DESTROY_JWT, SUCCESS) });
+    yield call([history, 'push'], '/');
   } catch (err) {
     yield put({ type: createRequestAction(DESTROY_JWT, FAILED), error: err });
   }

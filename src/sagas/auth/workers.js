@@ -1,4 +1,5 @@
 import { call, put } from 'redux-saga/effects';
+import { history } from '../../store';
 import {
   createRequestAction, PENDING, SUCCESS, FAILED
 } from '../actionCreator';
@@ -20,6 +21,7 @@ export function* workerGetJwt({ email, password }) {
     });
     yield call([localStorage, 'setItem'], 'accessToken', data.accessToken);
     yield call([localStorage, 'setItem'], 'refreshToken', data.refreshToken);
+    yield call([history, 'push'], '/diary');
     yield put({ type: createRequestAction(GET_JWT, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createRequestAction(GET_JWT, FAILED), error: err });

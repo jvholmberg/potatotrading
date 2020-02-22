@@ -5,11 +5,6 @@ import {
 import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
-import {
-  setAccessToken, setRefreshToken,
-  getAccessToken, getRefreshToken,
-  deleteAccessToken, deleteRefreshToken,
-} from '../storage';
 import * as Api from '../../utils/api';
 
 export function* workerGetJwt({ email, password }) {
@@ -23,6 +18,8 @@ export function* workerGetJwt({ email, password }) {
         password,
       },
     });
+    yield call([localStorage, 'setItem'], 'accessToken', data.accessToken);
+    yield call([localStorage, 'setItem'], 'refreshToken', data.refreshToken);
     yield put({ type: createRequestAction(GET_JWT, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createRequestAction(GET_JWT, FAILED), error: err });
@@ -32,7 +29,7 @@ export function* workerGetJwt({ email, password }) {
 export function* workerValidateJwt() {
   try {
     yield put({ type: createRequestAction(VALIDATE_JWT, PENDING) });
-    const accessToken = yield call(getAccessToken);
+    const accessToken = yield call([localStorage, 'getItem'], 'accessToken');
     const { data } = yield call(Api.instance, {
       method: 'get',
       url: '/users/auth',
@@ -47,15 +44,15 @@ export function* workerValidateJwt() {
 export function* workerRefreshJwt() {
   try {
     yield put({ type: createRequestAction(REFRESH_JWT, PENDING) });
-    const accessToken = yield call(getAccessToken);
-    const refreshToken = yield call(getRefreshToken);
+    const accessToken = yield call([localStorage, 'getItem'], 'accessToken');
+    const refreshToken = yield call([localStorage, 'getItem'], 'refreshToken');
     const { data } = yield call(Api.instance, {
       method: 'get',
       url: `/users/auth/${refreshToken}`,
       headers: Api.generateHeaders(accessToken),
     });
-    yield call(setAccessToken, data.accessToken);
-    yield call(setRefreshToken, data.refreshToken);
+    yield call([localStorage, 'setItem'], 'accessToken', data.accessToken);
+    yield call([localStorage, 'setItem'], 'refreshToken', data.refreshToken);
     yield put({ type: createRequestAction(REFRESH_JWT, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createRequestAction(REFRESH_JWT, FAILED), error: err });
@@ -65,14 +62,14 @@ export function* workerRefreshJwt() {
 export function* workerDestroyJwt() {
   try {
     yield put({ type: createRequestAction(DESTROY_JWT, PENDING) });
-    const accessToken = yield call(getAccessToken);
+    const accessToken = yield call([localStorage, 'getItem'], 'accessToken');
     yield call(Api.instance, {
       method: 'delete',
       url: '/users/auth',
       headers: Api.generateHeaders(accessToken),
     });
-    yield call(deleteAccessToken);
-    yield call(deleteRefreshToken);
+    yield call([localStorage, 'removeItem'], 'accessToken');
+    yield call([localStorage, 'removeItem'], 'refreshToken');
     yield put({ type: createRequestAction(DESTROY_JWT, SUCCESS) });
   } catch (err) {
     yield put({ type: createRequestAction(DESTROY_JWT, FAILED), error: err });

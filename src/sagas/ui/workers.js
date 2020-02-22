@@ -9,3 +9,7 @@ export function* workerScreenSize({ payload }) {
 export function* workerSidebarOpen({ payload }) {
   yield put({ type: createUiAction(SIDEBAR_OPEN), payload });
 }
+
+export function* workerRedirect({ payload }) {
+  yield put({ type: createUiAction(SIDEBAR_OPEN), payload });
+}

@@ -48,9 +48,6 @@ export default produce((draft = getInitialState(), action = {}) => {
   case DELETE_USER:
     _.set(draft, `requests.${DELETE_USER}`, updateRequest(actionStatus, error));
     break;
-  default:
-    _.set(draft, `requests.${DELETE_USER}`, updateRequest(actionStatus, error));
-    break;
   }
   return draft;
 });

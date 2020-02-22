@@ -38,7 +38,7 @@ export function* workerDeleteSessionStorage(action) {
 export function* workerSetLocalStorage(action) {
   try {
     const { key, value } = action;
-    window.sessionStorage.setItem(key, value);
+    window.localStorage.setItem(key, value);
     yield put({ type: createStorageAction(SET_LOCAL_STORAGE, SUCCESS) });
   } catch (err) {
     yield put({ type: createStorageAction(SET_LOCAL_STORAGE, FAILED), error: err });
@@ -48,7 +48,7 @@ export function* workerSetLocalStorage(action) {
 export function* workerGetLocalStorage(action) {
   try {
     const { key } = action;
-    const data = window.sessionStorage.getItem(key);
+    const data = window.localStorage.getItem(key);
     yield put({ type: createStorageAction(GET_LOCAL_STORAGE, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createStorageAction(GET_LOCAL_STORAGE, FAILED), error: err });
@@ -58,7 +58,7 @@ export function* workerGetLocalStorage(action) {
 export function* workerDeleteLocalStorage(action) {
   try {
     const { key } = action;
-    window.sessionStorage.removeItem(key);
+    window.localStorage.removeItem(key);
     yield put({ type: createStorageAction(DELETE_LOCAL_STORAGE, SUCCESS) });
   } catch (err) {
     yield put({ type: createStorageAction(DELETE_LOCAL_STORAGE, FAILED), error: err });

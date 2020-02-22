@@ -1,11 +1,15 @@
-import { fromJS } from 'immutable';
+/* eslint-disable default-case */
+import produce from 'immer';
+import _ from 'lodash';
 import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
-import { getActionName, getActionStatus, ABORTED } from '../actionCreator'
+import {
+  getActionName, getActionStatus, ABORTED, getActionType, REQ, SUCCESS,
+} from '../actionCreator'
 import { updateRequest } from '../reducerCreator';
 
-export const defaultState = fromJS({
+export const getInitialState = () => ({
   token: {
     accessToken: null,
     refreshToken: null,
@@ -19,31 +23,33 @@ export const defaultState = fromJS({
     [DESTROY_JWT]: { pending: false, done: false, error: null },
   },
 });
-
-export default (state = defaultState, action = {}) => {
+export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
+  const actionType = getActionType(type);
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
-  if (actionStatus === ABORTED) {
-    return state;
+  if (actionType !== REQ || actionStatus === ABORTED) {
+    return draft;
   }
   switch (actionName) {
   case GET_JWT:
-    return state.withMutations(s => s
-      .set('token', payload ? fromJS(payload) : defaultState.get('token'))
-      .setIn(['requests', GET_JWT], updateRequest(actionStatus, error)));
+    if (actionStatus === SUCCESS) _.set(draft, 'token', payload);
+    _.set(draft, `requests.${GET_JWT}`, updateRequest(actionStatus, error));
+    break;
   case VALIDATE_JWT:
-    return state.withMutations(s => s
-      .setIn(['token', 'validUntil'], fromJS(payload ? payload.validUntil : null))
-      .setIn(['token', 'expiresIn'], fromJS(payload ? payload.expiresIn : null))
-      .setIn(['requests', VALIDATE_JWT], updateRequest(actionStatus, error)));
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'token.validUntil', payload.validUntil);
+      _.set(draft, 'token.expiresIn', payload.expiresIn);
+    }
+    _.set(draft, `requests.${VALIDATE_JWT}`, updateRequest(actionStatus, error));
+    break;
   case REFRESH_JWT:
-    return state.withMutations(s => s
-      .set('token', payload ? fromJS(payload) : state.get('token'))
-      .setIn(['requests', REFRESH_JWT], updateRequest(actionStatus, error)));
+    if (actionStatus === SUCCESS) _.set(draft, 'token', payload);
+    _.set(draft, `requests.${REFRESH_JWT}`, updateRequest(actionStatus, error));
+    break;
   case DESTROY_JWT:
-    return defaultState.setIn(['requests', DESTROY_JWT], updateRequest(actionStatus, error));
-  default:
-    return state;
+    _.set(draft, `requests.${DESTROY_JWT}`, updateRequest(actionStatus, error));
+    break;
   }
-};
+  return draft;
+});

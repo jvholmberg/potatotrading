@@ -2,18 +2,22 @@ import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
 } from './actions';
 
+const selectReducer = state => state.auth;
+
 // Data
-const selectReducer = state => state.get('auth');
-export const selectAccessToken = state => selectReducer(state).getIn(['token', 'accessToken']);
-export const selectRefreshToken = state => selectReducer(state).getIn(['token', 'refreshToken']);
-export const selectValidUntil = state => selectReducer(state).getIn(['token', 'validUntil']);
-export const selectExpiresIn = state => selectReducer(state).getIn(['token', 'expiresIn']);
+const selectToken = state => selectReducer(state).token;
+export const selectAccessToken = state => selectToken(state).accessToken;
+export const selectRefreshToken = state => selectToken(state).refreshToken;
+export const selectValidUntil = state => selectToken(state).validUntil;
+export const selectExpiresIn = state => selectToken(state).expiresIn;
 
 // Utils
 export const selectIsLoggedIn = state => selectAccessToken(state) !== null;
 
 // Requests
-export const selectGetJwtReq = state => selectReducer(state).getIn(['requests', GET_JWT]);
-export const selectValidateJwtReq = state => selectReducer(state).getIn(['requests', VALIDATE_JWT]);
-export const selectRefreshJwtReq = state => selectReducer(state).getIn(['requests', REFRESH_JWT]);
-export const selectDestroyJwtReq = state => selectReducer(state).getIn(['requests', DESTROY_JWT]);
+const selectRequests = state => selectReducer(state).requests;
+const selectRequestsFor = (state, req) => selectRequests(state)[req];
+export const selectGetJwtReq = state => selectRequestsFor(state, GET_JWT);
+export const selectValidateJwtReq = state => selectRequestsFor(state, VALIDATE_JWT);
+export const selectRefreshJwtReq = state => selectRequestsFor(state, REFRESH_JWT);
+export const selectDestroyJwtReq = state => selectRequestsFor(state, DESTROY_JWT);

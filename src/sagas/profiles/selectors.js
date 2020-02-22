@@ -1,9 +1,12 @@
 import { GET_PROFILE, UPDATE_PROFILE } from './actions';
 
+const selectReducer = state => state.profile;
+
 // Data
-const selectReducer = state => state.get('profile');
-export const selectProfile = state => selectReducer(state).get('profile');
+export const selectProfile = state => selectReducer(state).profile;
 
 // Requests
-export const selectGetProfileReq = state => selectReducer(state).getIn(['requests', GET_PROFILE]);
-export const selectUpdateProfileReq = state => selectReducer(state).getIn(['requests', UPDATE_PROFILE]);
+const selectRequests = state => selectReducer(state).requests;
+const selectRequestsFor = (state, req) => selectRequests(state)[req];
+export const selectGetProfileReq = state => selectRequestsFor(state, GET_PROFILE);
+export const selectUpdateProfileReq = state => selectRequestsFor(state, UPDATE_PROFILE);

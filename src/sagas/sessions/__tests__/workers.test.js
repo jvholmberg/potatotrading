@@ -1,5 +1,4 @@
 import sinon from 'sinon';
-import { fromJS } from 'immutable';
 import { recordSaga } from '../../../utils/reduxSaga';
 import * as Api from '../../../utils/api';
 import * as workers from '../workers';
@@ -51,13 +50,13 @@ describe('sagas/sessions/workers.js', () => {
   });
 
   it('Get session-types', async () => {
-    const initialState = fromJS({
+    const initialState = {
       sessions: {
         requests: {
           [GET_SESSION_TYPES]: { pending: false, done: false, error: null },
         },
       },
-    });
+    };
     let dispatched = await recordSaga(workers.workerGetSessionTypes, initialState);
     expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSION_TYPES, PENDING) });
     expect(dispatched[1]).toEqual({
@@ -71,13 +70,13 @@ describe('sagas/sessions/workers.js', () => {
   });
 
   it('Get session-types, existing already exists', async () => {
-    const initialState = fromJS({
+    const initialState = {
       sessions: {
         requests: {
           [GET_SESSION_TYPES]: updateRequest(SUCCESS),
         },
       },
-    });
+    };
     const dispatched = await recordSaga(workers.workerGetSessionTypes, initialState);
     expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSION_TYPES, ABORTED) });
     expect(dispatched.length).toBe(1);

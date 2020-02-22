@@ -1,11 +1,11 @@
-import { fromJS } from 'immutable';
+import _ from 'lodash';
 import {
   GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT,
 } from '../actions';
 import * as selectors from '../selectors';
 
 describe('sagas/auth/selectors.js', () => {
-  const mockState = fromJS({
+  const mockState = {
     auth: {
       token: {
         accessToken: 'accessToken',
@@ -20,62 +20,62 @@ describe('sagas/auth/selectors.js', () => {
         [DESTROY_JWT]: { pending: false, done: true, error: 'error' },
       },
     },
-  });
+  };
 
   // Data
-  it('selectAccessToken()', () => {
+  it('selects accesstoken', () => {
     const actual = selectors.selectAccessToken(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'accessToken']);
+    const expected = _.get(mockState, 'auth.token.accessToken');
     expect(actual).toEqual(expected);
   });
 
-  it('selectRefreshToken()', () => {
+  it('selects refreshtoken', () => {
     const actual = selectors.selectRefreshToken(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'refreshToken']);
+    const expected = _.get(mockState, 'auth.token.refreshToken');
     expect(actual).toEqual(expected);
   });
 
-  it('selectValidUntil()', () => {
+  it('selects validuntil', () => {
     const actual = selectors.selectValidUntil(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'validUntil']);
+    const expected = _.get(mockState, 'auth.token.validUntil');
     expect(actual).toEqual(expected);
   });
 
-  it('selectExpiresIn()', () => {
+  it('selects expiresin', () => {
     const actual = selectors.selectExpiresIn(mockState);
-    const expected = mockState.getIn(['auth', 'token', 'expiresIn']);
+    const expected = _.get(mockState, 'auth.token.expiresIn');
     expect(actual).toEqual(expected);
   });
 
   // Utils
-  it('selectIsLoggedIn()', () => {
+  it('determine if loggedin', () => {
     const actual = selectors.selectIsLoggedIn(mockState);
     const expected = true
     expect(actual).toEqual(expected);
   });
 
   // Requests
-  it('selectGetJwtReq()', () => {
+  it('select request for login', () => {
     const actual = selectors.selectGetJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', GET_JWT]);
+    const expected = _.get(mockState, `auth.requests.${GET_JWT}`);
     expect(actual).toEqual(expected);
   });
 
-  it('selectValidateJwtReq()', () => {
+  it('select request for validate login', () => {
     const actual = selectors.selectValidateJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', VALIDATE_JWT]);
+    const expected = _.get(mockState, `auth.requests.${VALIDATE_JWT}`);
     expect(actual).toEqual(expected);
   });
 
-  it('selectRefreshJwtReq()', () => {
+  it('select request for refreshing login', () => {
     const actual = selectors.selectRefreshJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', REFRESH_JWT]);
+    const expected = _.get(mockState, `auth.requests.${REFRESH_JWT}`);
     expect(actual).toEqual(expected);
   });
 
-  it('selectDestroyJwtReq()', () => {
+  it('select request for logout', () => {
     const actual = selectors.selectDestroyJwtReq(mockState);
-    const expected = mockState.getIn(['auth', 'requests', DESTROY_JWT]);
+    const expected = _.get(mockState, `auth.requests.${DESTROY_JWT}`);
     expect(actual).toEqual(expected);
   });
 });

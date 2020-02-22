@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { TextField, Select } from 'formik-material-ui';
@@ -56,7 +55,7 @@ const SessionForm = ({
             name="type"
             disabled={submitting}>
             {sessionTypes.map((type, index) => (
-              <MenuItem {...{ key: index, value: type.get('id') }}>{type.get('name')}</MenuItem>
+              <MenuItem {...{ key: index, value: type.id }}>{type.name}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -88,7 +87,10 @@ SessionForm.propTypes = {
   submitting: PropTypes.bool,
   error: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
-  sessionTypes: PropTypes.instanceOf(Immutable.List),
+  sessionTypes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+  })),
 };
 
 SessionForm.defaultProps = {

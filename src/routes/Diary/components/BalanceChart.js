@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { makeStyles } from '@material-ui/styles';
 import { Box, Typography } from '@material-ui/core';
-import toJS from '../../../components/toJS';
 import PieChart from '../../../components/PieChart';
 
 const useStyles = makeStyles(() => ({
@@ -54,4 +53,4 @@ BalanceChart.defaultProps = {
   sessions: [],
 };
 
-export default toJS(BalanceChart);
+export default BalanceChart;

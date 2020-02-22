@@ -1,56 +1,55 @@
+/* eslint-disable global-require */
+/* eslint-disable no-undefined */
 /* eslint-disable max-lines-per-function */
-import { fromJS } from 'immutable';
+import produce from 'immer';
+import _ from 'lodash';
 import {
   createRequestAction, SUCCESS, PENDING, FAILED, ABORTED,
 } from '../../actionCreator';
 import { updateRequest } from '../../reducerCreator';
-import reducer, { defaultState } from '../reducer';
+import reducer, { getInitialState } from '../reducer';
 import * as actions from '../actions';
 
 
 describe('sagas/auth/reducer.js', () => {
   it('returns initial state', () => {
-    // eslint-disable-next-line no-undefined
     const actual = reducer(undefined, undefined);
-    const expected = defaultState;
+    const expected = { ...getInitialState() };
     expect(actual).toEqual(expected);
   });
 
   describe('GET_JWT', () => {
     it('returns pending state', () => {
       const action = { type: createRequestAction(actions.GET_JWT, PENDING) };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.GET_JWT], updateRequest(PENDING, null));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.GET_JWT}`, updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
-      // eslint-disable-next-line global-require
       const mockResponse = require('../__mocks__/getJwt.json');
       const action = { type: createRequestAction(actions.GET_JWT, SUCCESS), payload: mockResponse };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.withMutations(s => s
-        .set('token', fromJS(mockResponse))
-        .setIn(['requests', actions.GET_JWT], updateRequest(SUCCESS, null)));
+      const expected = { ...getInitialState() };
+      _.set(expected, 'token', mockResponse);
+      _.set(expected, `requests.${actions.GET_JWT}`, updateRequest(SUCCESS, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
       const action = { type: createRequestAction(actions.GET_JWT, FAILED), error };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.GET_JWT], updateRequest(FAILED, error));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.GET_JWT}`, updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
-    it('returns aborted state', () => {
+    it('aborted request is ignored', () => {
       const action = { type: createRequestAction(actions.GET_JWT, ABORTED) };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.GET_JWT], updateRequest(ABORTED, null));
+      const expected = { ...getInitialState() };
       expect(actual).toEqual(expected);
     });
   });
@@ -58,39 +57,36 @@ describe('sagas/auth/reducer.js', () => {
   describe('VALIDATE_JWT', () => {
     it('returns pending state', () => {
       const action = { type: createRequestAction(actions.VALIDATE_JWT, PENDING) };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.VALIDATE_JWT], updateRequest(PENDING, null));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.VALIDATE_JWT}`, updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
-      // eslint-disable-next-line global-require
       const mockResponse = require('../__mocks__/validateJwt.json');
       const action = { type: createRequestAction(actions.VALIDATE_JWT, SUCCESS), payload: mockResponse };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.withMutations(s => s
-        .setIn(['token', 'validUntil'], fromJS(mockResponse.validUntil))
-        .setIn(['token', 'expiresIn'], fromJS(mockResponse.expiresIn))
-        .setIn(['requests', actions.VALIDATE_JWT], updateRequest(SUCCESS, null)));
+      const expected = { ...getInitialState() };
+      _.set(expected, 'token.validUntil', mockResponse.validUntil);
+      _.set(expected, 'token.expiresIn', mockResponse.expiresIn);
+      _.set(expected, `requests.${actions.VALIDATE_JWT}`, updateRequest(SUCCESS, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
       const action = { type: createRequestAction(actions.VALIDATE_JWT, FAILED), error };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.VALIDATE_JWT], updateRequest(FAILED, error));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.VALIDATE_JWT}`, updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
-    it('returns aborted state', () => {
+    it('aborted request is ignored', () => {
       const action = { type: createRequestAction(actions.VALIDATE_JWT, ABORTED) };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.VALIDATE_JWT], updateRequest(ABORTED, null));
+      const expected = { ...getInitialState() };
       expect(actual).toEqual(expected);
     });
   });
@@ -98,85 +94,82 @@ describe('sagas/auth/reducer.js', () => {
   describe('REFRESH_JWT', () => {
     it('returns pending state', () => {
       const action = { type: createRequestAction(actions.REFRESH_JWT, PENDING) };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.REFRESH_JWT], updateRequest(PENDING, null));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.REFRESH_JWT}`, updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
-      // eslint-disable-next-line global-require
       const mockResponse = require('../__mocks__/refreshJwt.json');
       const action = { type: createRequestAction(actions.REFRESH_JWT, SUCCESS), payload: mockResponse };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.withMutations(s => s
-        .set('token', fromJS(mockResponse))
-        .setIn(['requests', actions.REFRESH_JWT], updateRequest(SUCCESS, null)));
+      const expected = { ...getInitialState() };
+      _.set(expected, 'token', mockResponse);
+      _.set(expected, `requests.${actions.REFRESH_JWT}`, updateRequest(SUCCESS, null));
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
       const action = { type: createRequestAction(actions.REFRESH_JWT, FAILED), error };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.REFRESH_JWT], updateRequest(FAILED, error));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.REFRESH_JWT}`, updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
 
-    it('returns aborted state', () => {
+    it('aborted request is ignored', () => {
       const action = { type: createRequestAction(actions.REFRESH_JWT, ABORTED) };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.REFRESH_JWT], updateRequest(ABORTED, null));
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${actions.REFRESH_JWT}`, updateRequest(ABORTED, null));
       expect(actual).toEqual(expected);
     });
   });
 
   describe('DESTROY_JWT', () => {
+    const initialRequest = require('../__mocks__/getJwt.json');
     let mockState;
 
-    beforeAll(() => {
-      // eslint-disable-next-line global-require
-      const mockResponse = require('../__mocks__/getJwt.json');
-      const action = { type: createRequestAction(actions.GET_JWT, SUCCESS), payload: mockResponse };
-      // eslint-disable-next-line no-undefined
+    beforeEach(() => {
+      const action = { type: createRequestAction(actions.GET_JWT, SUCCESS), payload: initialRequest };
       mockState = reducer(undefined, action);
     });
 
     it('returns pending state', () => {
       const action = { type: createRequestAction(actions.DESTROY_JWT, PENDING) };
-      // eslint-disable-next-line no-undefined
-      const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(PENDING, null));
+      const actual = reducer(mockState, action);
+      const expected = produce(mockState, draftState => {
+        _.set(draftState, `requests.${actions.DESTROY_JWT}`, updateRequest(PENDING, null));
+      });
       expect(actual).toEqual(expected);
     });
 
     it('returns success state', () => {
-      // eslint-disable-next-line global-require
       const mockResponse = require('../__mocks__/destroyJwt.json');
       const action = { type: createRequestAction(actions.DESTROY_JWT, SUCCESS), payload: mockResponse };
-      // eslint-disable-next-line no-undefined
       const actual = reducer(mockState, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(SUCCESS, null));
+      const expected = produce(mockState, draftState => {
+        _.set(draftState, `requests.${actions.DESTROY_JWT}`, updateRequest(SUCCESS, null));
+      });
       expect(actual).toEqual(expected);
     });
 
     it('returns failed state', () => {
       const error = 'error';
       const action = { type: createRequestAction(actions.DESTROY_JWT, FAILED), error };
-      // eslint-disable-next-line no-undefined
-      const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(FAILED, error));
+      const actual = reducer(mockState, action);
+      const expected = produce(mockState, draftState => {
+        _.set(draftState, `requests.${actions.DESTROY_JWT}`, updateRequest(FAILED, error));
+      });
       expect(actual).toEqual(expected);
     });
 
-    it('returns aborted state', () => {
+    it('aborted request is ignored', () => {
       const action = { type: createRequestAction(actions.DESTROY_JWT, ABORTED) };
-      // eslint-disable-next-line no-undefined
-      const actual = reducer(undefined, action);
-      const expected = defaultState.setIn(['requests', actions.DESTROY_JWT], updateRequest(ABORTED, null));
+      const actual = reducer(mockState, action);
+      const expected = { ...mockState };
       expect(actual).toEqual(expected);
     });
   });

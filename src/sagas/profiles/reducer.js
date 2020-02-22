@@ -1,32 +1,36 @@
+/* eslint-disable default-case */
+import produce from 'immer';
+import _ from 'lodash';
 import { GET_PROFILE, UPDATE_PROFILE } from './actions';
-import { getActionName, getActionStatus, ABORTED } from '../actionCreator'
-import { createInitialState, updateRequest } from '../reducerCreator';
+import {
+  getActionName, getActionStatus, getActionType, ABORTED, REQ,
+} from '../actionCreator'
+import { updateRequest } from '../reducerCreator';
 
-export const defaultState = createInitialState({
+export const getInitialState = () => ({
   profile: null,
   requests: {
     [GET_PROFILE]: { pending: false, done: false, error: null },
     [UPDATE_PROFILE]: { pending: false, done: false, error: null },
   },
 });
-
-export default (state = defaultState, action) => {
-  const { type, payload, error } = action || {};
+export default produce((draft = getInitialState(), action = {}) => {
+  const { type, payload, error = null } = action;
+  const actionType = getActionType(type);
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
-  if (actionStatus === ABORTED) {
-    return state;
+  if (actionType !== REQ || actionStatus === ABORTED) {
+    return draft;
   }
   switch (actionName) {
   case GET_PROFILE:
-    return state
-      .set('profile', payload)
-      .setIn(['requests', GET_PROFILE], updateRequest(actionStatus, error));
+    _.set(draft, 'profile', payload);
+    _.set(draft, `requests.${GET_PROFILE}`, updateRequest(actionStatus, error));
+    break;
   case UPDATE_PROFILE:
-    return state
-      .set('profile', payload)
-      .setIn(['requests', UPDATE_PROFILE], updateRequest(actionStatus, error));
-  default:
-    return state;
+    _.set(draft, 'profile', payload);
+    _.set(draft, `requests.${UPDATE_PROFILE}`, updateRequest(actionStatus, error));
+    break;
   }
-};
+  return draft;
+});

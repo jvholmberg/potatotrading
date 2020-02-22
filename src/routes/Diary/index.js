@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -50,8 +49,8 @@ const Diary = ({
       <Grid item lg={4} md={6} xs={12}>
         <Paper className={classes.paper}>
           <SessionForm {...{
-            submitting: createSessionReq.get('pending'),
-            error: createSessionReq.get('error'),
+            submitting: createSessionReq.pending,
+            error: createSessionReq.error,
             onSubmit: createSession,
             sessionTypes,
           }} />
@@ -75,8 +74,8 @@ const Diary = ({
       <Grid item lg={12} md={12} xs={12}>
         <Paper className={classes.paper}>
           <SessionTable {...{
-            loading: getSessionsReq.get('pending') || getSessionTypesReq.get('pending'),
-            error: getSessionsReq.get('error') || getSessionTypesReq.get('error'),
+            loading: getSessionsReq.pending || getSessionTypesReq.pending,
+            error: getSessionsReq.error || getSessionTypesReq.error,
             sessions,
           }} />
         </Paper>
@@ -86,19 +85,14 @@ const Diary = ({
 };
 
 Diary.propTypes = {
-  createSessionReq: PropTypes.instanceOf(Immutable.Map).isRequired,
-  getSessionsReq: PropTypes.instanceOf(Immutable.Map).isRequired,
-  getSessionTypesReq: PropTypes.instanceOf(Immutable.Map).isRequired,
-  sessionTypes: PropTypes.instanceOf(Immutable.List),
-  sessions: PropTypes.instanceOf(Immutable.List),
+  getSessionsReq: PropTypes.object,
+  getSessionTypesReq: PropTypes.object,
   createSession: PropTypes.func.isRequired,
   getSessions: PropTypes.func.isRequired,
   getSessionTypes: PropTypes.func.isRequired,
 }
 
 Diary.defaultProps = {
-  sessionTypes: new Immutable.List(),
-  sessions: new Immutable.List(),
 };
 
 export default connect(

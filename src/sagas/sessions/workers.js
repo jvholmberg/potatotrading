@@ -49,7 +49,7 @@ export function* workerGetSessionTypes() {
   try {
     // Abort worker?
     const request = yield select(selectGetSessionTypesReq);
-    const shouldAbort = request.get('done') && !request.get('error');
+    const shouldAbort = request.done && !request.error;
     if (shouldAbort) {
       yield put({ type: createRequestAction(GET_SESSION_TYPES, ABORTED) });
     } else {

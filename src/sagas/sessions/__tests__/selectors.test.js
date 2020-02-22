@@ -1,5 +1,5 @@
 /* eslint-disable object-curly-newline */
-import { fromJS } from 'immutable';
+import _ from 'lodash';
 import { lastDayOfMonth, startOfMonth } from 'date-fns';
 import {
   CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES,
@@ -19,7 +19,7 @@ describe('sagas/sessions/selectors.js', () => {
     { id: 2, name: 'type 2' },
     { id: 3, name: 'type 3' },
   ];
-  const mockState = fromJS({
+  const mockState = {
     sessions: {
       data,
       types,
@@ -29,53 +29,53 @@ describe('sagas/sessions/selectors.js', () => {
         [GET_SESSION_TYPES]: { pending: false, done: true, error: null },
       },
     },
-  });
+  };
 
   // Data
-  it('selectSessions()', () => {
+  it('select sessions', () => {
     const actual = selectors.selectSessions(mockState);
-    const expected = mockState.getIn(['sessions', 'data']);
+    const expected = mockState.sessions.data;
     expect(actual).toEqual(expected);
   });
 
-  it('selectSessionTypes()', () => {
+  it('select sessiontypes', () => {
     const actual = selectors.selectSessionTypes(mockState);
-    const expected = mockState.getIn(['sessions', 'types']);
+    const expected = mockState.sessions.types;
     expect(actual).toEqual(expected);
   });
 
-  it('selectSessionsForPeriod()', () => {
+  it('select sessions for period', () => {
     const now = new Date('2020-02-11');
     const actual = selectors.selectSessionsForPeriod(
       startOfMonth(now),
       lastDayOfMonth(now),
     )(mockState);
-    const expected = fromJS([data[2], data[3]]);
+    const expected = [data[2], data[3]];
     expect(actual).toEqual(expected);
   });
 
-  it('selectSessionsWithType()', () => {
+  it('select sessions with type', () => {
     const actual = selectors.selectSessionsWithType(mockState);
-    const expected = fromJS(data.map(({ typeId, ...e }) => ({ ...e, type: types[typeId] })));
+    const expected = _.map(data, ({ typeId, ...e }) => ({ ...e, type: types[typeId] }));
     expect(actual).toEqual(expected);
   });
 
   // Requests
-  it('selectCreateSessionReq()', () => {
+  it('select request for creating session', () => {
     const actual = selectors.selectCreateSessionReq(mockState);
-    const expected = mockState.getIn(['sessions', 'requests', CREATE_SESSION]);
+    const expected = mockState.sessions.requests[CREATE_SESSION];
     expect(actual).toEqual(expected);
   });
 
-  it('selectGetSessionsReq()', () => {
+  it('select request for getting sessions', () => {
     const actual = selectors.selectGetSessionsReq(mockState);
-    const expected = mockState.getIn(['sessions', 'requests', GET_SESSIONS]);
+    const expected = mockState.sessions.requests[GET_SESSIONS];
     expect(actual).toEqual(expected);
   });
 
-  it('selectGetSessionTypesReq()', () => {
+  it('select request for getting sessiontypes', () => {
     const actual = selectors.selectGetSessionTypesReq(mockState);
-    const expected = mockState.getIn(['sessions', 'requests', GET_SESSION_TYPES]);
+    const expected = mockState.sessions.requests[GET_SESSION_TYPES];
     expect(actual).toEqual(expected);
   });
 });

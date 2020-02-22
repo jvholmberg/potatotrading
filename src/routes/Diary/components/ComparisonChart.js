@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import Immutable from 'immutable';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import PieChart from '../../../components/PieChart';
@@ -14,8 +13,7 @@ const useStyles = makeStyles(() => ({
 
 const ComparisonChart = ({ sessions }) => {
   const classes = useStyles();
-  const jsSessions = sessions.toJS();
-  const data = jsSessions.reduce((ret, val) => {
+  const data = sessions.reduce((ret, val) => {
     const idx = _.findIndex(ret, e => e.name === val.type.name);
 
     if (idx === -1) {
@@ -46,11 +44,13 @@ const ComparisonChart = ({ sessions }) => {
 };
 
 ComparisonChart.propTypes = {
-  sessions: PropTypes.instanceOf(Immutable.List),
+  sessions: PropTypes.arrayOf(PropTypes.shape({
+    
+  })),
 };
 
 ComparisonChart.defaultProps = {
-  sessions: Immutable.List(),
+  sessions: [],
 };
 
 export default React.memo(ComparisonChart);

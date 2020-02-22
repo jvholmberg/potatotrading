@@ -1,9 +1,13 @@
-import { fromJS } from 'immutable';
+/* eslint-disable default-case */
+import produce from 'immer';
+import _ from 'lodash';
 import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
-import { getActionName, getActionStatus, ABORTED } from '../actionCreator'
+import {
+  getActionName, getActionStatus, getActionType, ABORTED, SUCCESS, REQ,
+} from '../actionCreator'
 import { updateRequest } from '../reducerCreator';
 
-export const defaultState = fromJS({
+export const getInitialState = () => ({
   data: [],
   types: [],
   requests: {
@@ -13,27 +17,27 @@ export const defaultState = fromJS({
   },
 });
 
-export default (state = defaultState, action = {}) => {
+export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
+  const actionType = getActionType(type);
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
-  if (actionStatus === ABORTED) {
-    return state;
+  if (actionType !== REQ || actionStatus === ABORTED) {
+    return draft;
   }
   switch (actionName) {
   case CREATE_SESSION:
-    return state.withMutations(s => s
-      .set('data', payload ? fromJS(payload) : state.get('data'))
-      .setIn(['requests', CREATE_SESSION], updateRequest(actionStatus, error)));
+    if (actionStatus === SUCCESS) _.set(draft, 'data', payload);
+    _.set(draft, `requests.${CREATE_SESSION}`, updateRequest(actionStatus, error));
+    break;
   case GET_SESSIONS:
-    return state.withMutations(s => s
-      .set('data', payload ? fromJS(payload) : defaultState.get('data'))
-      .setIn(['requests', GET_SESSIONS], updateRequest(actionStatus, error)));
+    if (actionStatus === SUCCESS) _.set(draft, 'data', payload);
+    _.set(draft, `requests.${GET_SESSIONS}`, updateRequest(actionStatus, error));
+    break;
   case GET_SESSION_TYPES:
-    return state.withMutations(s => s
-      .set('types', payload ? fromJS(payload) : defaultState.get('types'))
-      .setIn(['requests', GET_SESSION_TYPES], updateRequest(actionStatus, error)));
-  default:
-    return state;
+    if (actionStatus === SUCCESS) _.set(draft, 'types', payload);
+    _.set(draft, `requests.${GET_SESSION_TYPES}`, updateRequest(actionStatus, error));
+    break;
   }
-};
+  return draft;
+});

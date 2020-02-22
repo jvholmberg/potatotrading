@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 
 import authReducer from './auth/reducer';

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 import {
   TableContainer, Table, TableHead, TableBody, TableRow, TableCell, LinearProgress,
 } from '@material-ui/core';
@@ -31,11 +30,11 @@ const SessionTable = ({
           null
         )}
         {!loading && !error && sessions && sessions.map(entry => (
-          <TableRow key={entry.get('id')}>
-            <TableCell>{entry.getIn(['type', 'name'])}</TableCell>
-            <TableCell>{format(new Date(entry.get('timestamp')), 'dd/MM/yyyy')}</TableCell>
-            <TableCell>{entry.get('name')}</TableCell>
-            <TableCell>{entry.get('comment')}</TableCell>
+          <TableRow key={entry.id}>
+            <TableCell>{entry.type.name}</TableCell>
+            <TableCell>{format(new Date(entry.timestamp), 'dd/MM/yyyy')}</TableCell>
+            <TableCell>{entry.name}</TableCell>
+            <TableCell>{entry.comment}</TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -46,12 +45,14 @@ const SessionTable = ({
 SessionTable.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
-  sessions: PropTypes.instanceOf(Immutable.List),
+  sessions: PropTypes.arrayOf(PropTypes.shape({
+
+  })),
 };
 
 SessionTable.defaultProps = {
   loading: false,
-  sessions: new Immutable.List(),
+  sessions: [],
   error: null,
 };
 

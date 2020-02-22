@@ -1,46 +1,49 @@
+import produce from 'immer';
+import _ from 'lodash';
 import { createSelector } from 'reselect';
-import { fromJS } from 'immutable';
 import { isWithinInterval } from 'date-fns';
 import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
 
 const mergeSessionWithSessionType = (session, sessionTypes) => {
-  const sessionType = sessionTypes.find(type => type.get('id') === session.get('typeId'));
-  const sessionWithType = sessionType && session
-    .set('type', sessionType)
-    .delete('typeId');
-  return sessionType ? sessionWithType : session;
+  const sessionType = _.find(sessionTypes, type => type.id === session.typeId);
+  return produce(session, draft => {
+    if (!sessionType) _.set(draft, 'type', { id: null, name: null });
+    else _.set(draft, 'type', sessionType);
+    _.unset(draft, 'typeId');
+  });
 }
 
+const selectReducer = state => state.sessions;
+
 // Data
-const selectReducer = state => state.get('sessions');
-export const selectSessions = createSelector(selectReducer, s => s.get('data'));
-export const selectSessionTypes = createSelector(selectReducer, s => s.get('types'));
+export const selectSessions = state => selectReducer(state).data;
+export const selectSessionTypes = state => selectReducer(state).types;
 
 export const selectSessionsForPeriod = (start, end) => createSelector(
   selectSessions,
-  sessions => fromJS(sessions.filter(val => isWithinInterval(new Date(val.get('timestamp')), { start, end }))),
+  sessions => _.filter(sessions, e => isWithinInterval(new Date(e.timestamp), { start, end })),
 );
 
 export const selectSessionsWithType = createSelector(
   selectSessions, selectSessionTypes,
-  (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
+  (sessions, sessionTypes) => _.map(sessions, e => mergeSessionWithSessionType(e, sessionTypes))
 );
 
 export const selectSessionsWithTypeForPeriod = (start, end) => createSelector(
   selectSessionsForPeriod(start, end), selectSessionTypes,
-  (sessions, sessionTypes) => sessions.map(session => mergeSessionWithSessionType(session, sessionTypes))
+  (sessions, sessionTypes) => _.map(sessions, e => mergeSessionWithSessionType(e, sessionTypes))
 );
 
 // Requests
 export const selectCreateSessionReq = createSelector(
   selectReducer,
-  state => state.getIn(['requests', CREATE_SESSION])
+  state => _.get(state, `requests.${CREATE_SESSION}`),
 );
 export const selectGetSessionsReq = createSelector(
   selectReducer,
-  state => state.getIn(['requests', GET_SESSIONS])
+  state => _.get(state, `requests.${GET_SESSIONS}`),
 );
 export const selectGetSessionTypesReq = createSelector(
   selectReducer,
-  state => state.getIn(['requests', GET_SESSION_TYPES])
+  state => _.get(state, `requests.${GET_SESSION_TYPES}`),
 );

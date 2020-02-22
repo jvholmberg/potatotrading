@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import toJS from '../../../components/toJS';
 import PieChart from '../../../components/PieChart';
 
 const useStyles = makeStyles(() => ({
@@ -58,4 +57,4 @@ GoalChart.defaultProps = {
   sessions: [],
 };
 
-export default toJS(GoalChart);
+export default GoalChart;

@@ -1,26 +1,28 @@
-import { fromJS } from 'immutable';
+/* eslint-disable default-case */
+import produce from 'immer';
+import _ from 'lodash';
 import { SIDEBAR_OPEN, SCREEN_SIZE } from './actions';
 import { getActionType, getActionName, UI } from '../actionCreator';
 
-export const defaultState = fromJS({
+export const getInitialState = () => ({
   screen: { size: null },
   sidebar: { open: false },
 });
 
-export default (state = defaultState, action) => {
-  const { type, payload } = action || {};
+export default produce((draft = getInitialState(), action = {}) => {
+  const { type, payload = null } = action;
   const actionType = getActionType(type);
-  // ignore non UI actions
-  if (actionType !== UI) {
-    return state;
-  }
   const actionName = getActionName(type);
+  if (actionType !== UI) {
+    return draft;
+  }
   switch (actionName) {
   case SCREEN_SIZE:
-    return state.setIn(['screen', 'size'], payload);
+    _.set(draft, 'screen.size', payload);
+    break;
   case SIDEBAR_OPEN:
-    return state.setIn(['sidebar', 'open'], payload);
-  default:
-    return state;
+    _.set(draft, 'sidebar.open', payload);
+    break;
   }
-};
+  return draft;
+});

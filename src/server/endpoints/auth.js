@@ -1,24 +1,23 @@
 /* eslint-disable */
 
-module.exports = (app) => {
-
-  app.post('/users/auth', (req, res) => {
+module.exports = (app, latency) => {
+  app.post('/users/auth', (req, res) => latency(() => {
     const mockFile = require('../../sagas/auth/__mocks__/getJwt.json');
-    res.json(mockFile);
-  });
+    res.send(mockFile);
+  }));
 
-  app.get('/users/auth/:refreshToken', (req, res) => {
+  app.get('/users/auth/:refreshToken', (req, res) => latency(() => {
     const mockFile = require('../../sagas/auth/__mocks__/refreshJwt.json');
-    res.json(mockFile);
-  });
+    res.send(mockFile);
+  }));
 
   app.get('/users/auth', (req, res) => {
     const mockFile = require('../../sagas/auth/__mocks__/validateJwt.json');
-    res.json(mockFile);
+    res.send(mockFile);
   });
 
-  app.delete('/users/auth', (req, res) => {
+  app.delete('/users/auth', (req, res) => latency(() => {
     const mockFile = require('../../sagas/auth/__mocks__/destroyJwt.json');
-    res.json(mockFile);
-  });
-}
+    res.send(mockFile);
+  }));
+};

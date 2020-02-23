@@ -1,14 +1,17 @@
 /* eslint-disable */
 
-
 const express = require('express');
 
 const port = process.env.PORT || 5000;
-const app = express()
+const app = express();
 
-require('./endpoints/users')(app);
-require('./endpoints/auth')(app);
-require('./endpoints/profile')(app);
-require('./endpoints/sessions')(app);
+const LATENCY_MULTIPLIER = 3000;
+const latencySim = () => Math.floor((Math.random() * LATENCY_MULTIPLIER)+1);
+const latency = (next) => setTimeout(next, latencySim());
+
+require('./endpoints/users')(app, latency);
+require('./endpoints/auth')(app, latency);
+require('./endpoints/profile')(app, latency);
+require('./endpoints/sessions')(app, latency);
 
 app.listen(port, () => console.log(`Mock listening on port ${port}!`));

@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { history } from '../../store';
+import history from '../../utils/history';
 import {
   createRequestAction, PENDING, SUCCESS, FAILED
 } from '../actionCreator';

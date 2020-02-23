@@ -48,8 +48,10 @@ export default produce((draft = getInitialState(), action = {}) => {
     _.set(draft, `requests.${REFRESH_JWT}`, updateRequest(actionStatus, error));
     break;
   case DESTROY_JWT:
-    // eslint-disable-next-line no-param-reassign
-    draft = getInitialState();
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'token', getInitialState().token);
+      _.set(draft, 'requests', getInitialState().requests);
+    }
     _.set(draft, `requests.${DESTROY_JWT}`, updateRequest(actionStatus, error));
     break;
   }

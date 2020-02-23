@@ -151,6 +151,8 @@ describe('sagas/auth/reducer.js', () => {
       const action = { type: createRequestAction(actions.DESTROY_JWT, SUCCESS), payload: mockResponse };
       const actual = reducer(mockState, action);
       const expected = produce(mockState, draftState => {
+        _.set(draftState, 'token', getInitialState().token);
+        _.set(draftState, 'requests', getInitialState().requests);
         _.set(draftState, `requests.${actions.DESTROY_JWT}`, updateRequest(SUCCESS, null));
       });
       expect(actual).toEqual(expected);

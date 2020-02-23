@@ -2,19 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Skeleton } from '@material-ui/lab';
 
-const PieChartLoading = ({ width, height }) => (
-  <Skeleton
-    {...{
-      animation: 'wave',
-      variant: 'circle',
-      width,
-      height,
-    }} />
+const PieChartLoading = ({ outerRadius }) => (
+  <Skeleton {...{
+    animation: 'wave',
+    variant: 'circle',
+    width: `${outerRadius}%`,
+    height: `${outerRadius}%`,
+    style: {
+      margin: `${(100 - outerRadius) / 2}%`,
+      boxSizing: 'border-box',
+    },
+  }} />
 );
 
 PieChartLoading.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  outerRadius: PropTypes.number.isRequired,
 };
 
-export default React.memo(PieChartLoading);
+export default PieChartLoading;

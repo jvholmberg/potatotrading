@@ -18,6 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
+    boxSizing: 'border-box',
+    minHeight: '18rem'
   }
 }));
 

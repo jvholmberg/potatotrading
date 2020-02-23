@@ -1,30 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PieChart, Pie, Sector } from 'recharts';
+import _ from 'lodash';
+import {
+  ResponsiveContainer, PieChart, Pie, Sector, Cell,
+} from 'recharts';
 
 const renderActiveShape = ({
-  innerRadius,
-  outerRadius,
   cx,
   cy,
-  startAngle,
-  endAngle,
-  fill,
   name,
-  // value,
-  percent,
+  ...rest
 }) => (
   <g>
-    <text x={cx} y={cy} dy={-4} textAnchor="middle">{name}</text>
-    <text x={cx} y={cy} dy={20} textAnchor="middle">{`${(percent * 100).toFixed(2)}%`}</text>
+    <text x={cx} y={cy} dy={4} textAnchor="middle">{name}</text>
     <Sector {...{
       cx,
       cy,
-      innerRadius,
-      outerRadius,
-      startAngle,
-      endAngle,
-      fill,
+      ...rest
     }} />
   </g>
 );
@@ -43,55 +35,44 @@ renderActiveShape.propTypes = {
 };
 
 const CustomPieChart = ({
-  width,
-  height,
-  fill,
   innerRadius,
   outerRadius,
   data,
   dataKey,
   nameKey,
-  className,
 }) => {
   const [activeIndex, setActiveIndex] = React.useState(null);
-
+  const minHeight = (outerRadius * 2) + 20
   return (
-    <PieChart {...{ className, width, height }}>
-      <Pie {...{
-        activeIndex,
-        activeShape: renderActiveShape,
-        innerRadius,
-        outerRadius,
-        fill,
-        data,
-        dataKey,
-        nameKey,
-        onMouseEnter: (...args) => setActiveIndex(args[1]),
-        onMouseLeave: setActiveIndex,
-      }} />
-    </PieChart>
+    <ResponsiveContainer {...{ minHeight }}>
+      <PieChart>
+        <Pie {...{
+          activeIndex,
+          activeShape: renderActiveShape,
+          innerRadius,
+          outerRadius,
+          paddingAngle: 5,
+          data,
+          dataKey,
+          nameKey,
+          onMouseEnter: (...args) => setActiveIndex(args[1]),
+          onMouseLeave: setActiveIndex,
+        }}>
+          {_.map(data, (entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
 
 CustomPieChart.propTypes = {
-  className: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  fill: PropTypes.string,
-  innerRadius: PropTypes.number,
-  outerRadius: PropTypes.number,
+  innerRadius: PropTypes.number.isRequired,
+  outerRadius: PropTypes.number.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   dataKey: PropTypes.string.isRequired,
   nameKey: PropTypes.string.isRequired,
 };
 
-CustomPieChart.defaultProps = {
-  className: '',
-  width: 400,
-  height: 400,
-  fill: '#8884d8',
-  innerRadius: 50,
-  outerRadius: 80,
-};
-
-export default CustomPieChart;
+export default React.memo(CustomPieChart);

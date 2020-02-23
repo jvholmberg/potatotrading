@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
 
 import PieChartLoading from './PieChart.loading';
 import PieChartEmpty from './PieChart.empty';
@@ -8,34 +7,25 @@ import PieChartIdeal from './PieChart';
 import PieChartError from './PieChart.error';
 
 const Piechart = ({
-  className,
-  width,
-  height,
-  fill,
+  loading,
+  error,
   innerRadius,
   outerRadius,
   data,
   dataKey,
   nameKey,
-  loading,
-  error,
 }) => {
   try {
-    if (error) return (<PieChartLoading {...{ error }} />);
-    if (loading) return (<PieChartLoading {...{ className, width, height }} />);
-    if (data.length === 0) return (<PieChartLoading />);
+    if (error) return (<PieChartError {...{ error, outerRadius }} />);
+    if (loading) return (<PieChartLoading {...{ outerRadius }} />);
+    if (data.length === 0) return (<PieChartEmpty {...{ outerRadius }} />);
     return (
       <PieChartIdeal {...{
-        className,
-        width,
-        height,
-        fill,
         innerRadius,
         outerRadius,
         data,
         dataKey,
         nameKey,
-
       }} />
     );
   } catch (err) {
@@ -47,13 +37,17 @@ const Piechart = ({
 Piechart.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.string,
-  data: PropTypes.array,
+  innerRadius: PropTypes.number,
+  outerRadius: PropTypes.number,
+  data: PropTypes.array.isRequired,
+  dataKey: PropTypes.string.isRequired,
+  nameKey: PropTypes.string.isRequired,
 };
 
 Piechart.defaultProps = {
   loading: false,
-  error: null,
-  data: [],
+  innerRadius: 70,
+  outerRadius: 80,
 };
 
 export default React.memo(Piechart);

@@ -1,14 +1,17 @@
 [
 	{
 		"id": 0,
-		"name": "Endurance"
+    "name": "Endurance",
+    "color": "#9c27b0"
 	},
 	{
 		"id": 1,
-		"name": "Strength"
+    "name": "Strength",
+    "color": "#2196f3"
 	},
 	{
 		"id": 2,
-		"name": "Relax"
+		"name": "Relax",
+    "color": "#64dd17"
 	}
 ]

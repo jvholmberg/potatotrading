@@ -11,17 +11,21 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const BalanceChart = ({ sessions }) => {
+const BalanceChart = ({ sessions, loading, error }) => {
   const classes = useStyles();
   const data = sessions.reduce((ret, val) => {
     const idx = _.findIndex(ret, e => e.name === val.type.name);
 
     if (idx === -1) {
       // Adding new record
-      ret.push({ name: val.type.name, value: 1 });
+      ret.push({
+        name: val.type.name,
+        color: val.type.color,
+        value: 1,
+      });
     } else {
       // Updating existing record
-      ret.splice(idx, 1, { name: val.type.name, value: ret[idx].value + 1 });
+      ret.splice(idx, 1, { name: val.type.name, value: ret[idx].value + 1, color: val.type.color });
     }
     return ret;
   }, []);
@@ -29,14 +33,20 @@ const BalanceChart = ({ sessions }) => {
   return (
     <>
       <Typography variant="h3" align="center">Balance</Typography>
-      <Box>
+      <Box {...{
+        className: classes.center,
+        width: '200px',
+        height: '200px'
+      }}>
         <PieChart {...{
           className: classes.center,
+          loading,
+          error,
           data,
           nameKey: 'name',
           dataKey: 'value',
-          width: 200,
-          height: 200,
+          innerRadius: 70,
+          outerRadius: 80,
         }} />
       </Box>
     </>

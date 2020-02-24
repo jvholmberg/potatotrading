@@ -24,19 +24,20 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Diary = ({
-  createSessionReq,
-  getSessionsReq,
-  getSessionTypesReq,
-  createSession,
-  getSessionTypes,
-  getSessions,
+  doCreateSession,
+  doGetSessionTypes,
+  doGetSessions,
+  isSubmitting,
+  isLoading,
+  submitError,
+  loadError,
   sessions,
   sessionTypes,
 }) => {
   React.useEffect(() => {
-    getSessionTypes();
-    getSessions();
-  }, [getSessionTypes, getSessions]);
+    doGetSessionTypes();
+    doGetSessions();
+  }, [doGetSessionTypes, doGetSessions]);
 
   const classes = useStyles();
   return (
@@ -51,16 +52,20 @@ const Diary = ({
       <Grid item lg={4} md={6} xs={12}>
         <Paper className={classes.paper}>
           <SessionForm {...{
-            submitting: createSessionReq.pending,
-            error: createSessionReq.error,
-            onSubmit: createSession,
+            submitting: isSubmitting,
+            error: submitError,
+            onSubmit: doCreateSession,
             sessionTypes,
           }} />
         </Paper>
       </Grid>
       <Grid item lg={2} md={3} sm={6} xs={12}>
         <Paper className={classes.paper}>
-          <BalanceChart {...{ sessions }} />
+          <BalanceChart {...{
+            loading: isLoading,
+            error: loadError,
+            sessions
+          }} />
         </Paper>
       </Grid>
       <Grid item lg={2} md={3} sm={6} xs={12}>
@@ -76,8 +81,8 @@ const Diary = ({
       <Grid item lg={12} md={12} xs={12}>
         <Paper className={classes.paper}>
           <SessionTable {...{
-            loading: getSessionsReq.pending || getSessionTypesReq.pending,
-            error: getSessionsReq.error || getSessionTypesReq.error,
+            loading: isLoading,
+            error: loadError,
             sessions,
           }} />
         </Paper>
@@ -87,17 +92,22 @@ const Diary = ({
 };
 
 Diary.propTypes = {
-  createSessionReq: PropTypes.object.isRequired,
-  getSessionsReq: PropTypes.object.isRequired,
-  getSessionTypesReq: PropTypes.object.isRequired,
-  createSession: PropTypes.func.isRequired,
-  getSessions: PropTypes.func.isRequired,
-  getSessionTypes: PropTypes.func.isRequired,
+  doCreateSession: PropTypes.func.isRequired,
+  doGetSessions: PropTypes.func.isRequired,
+  doGetSessionTypes: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  submitError: PropTypes.string,
+  loadError: PropTypes.string,
   sessions: PropTypes.array,
   sessionTypes: PropTypes.array,
 }
 
 Diary.defaultProps = {
+  isSubmitting: false,
+  isLoading: true,
+  submitError: null,
+  loadError: null,
   sessions: [],
   sessionTypes: [],
 };

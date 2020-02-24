@@ -24,16 +24,17 @@ export const mapStateToProps = createSelector(
     sessionTypes,
     sessions,
   ) => ({
-    createSessionReq,
-    getSessionsReq,
-    getSessionTypesReq,
+    isSubmitting: createSessionReq.pending,
+    isLoading: getSessionsReq.pending || getSessionTypesReq.pending,
+    submitError: createSessionReq.error,
+    loadError: getSessionsReq.error || getSessionTypesReq.error,
     sessionTypes,
     sessions,
   })
 );
 
 export const mapDispatchToProps = dispatch => bindActionCreators({
-  createSession,
-  getSessions,
-  getSessionTypes,
+  doCreateSession: createSession,
+  doGetSessions: getSessions,
+  doGetSessionTypes: getSessionTypes,
 }, dispatch);

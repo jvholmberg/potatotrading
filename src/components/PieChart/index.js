@@ -8,7 +8,8 @@ import PieChartError from './PieChart.error';
 
 const Piechart = ({
   loading,
-  error,
+  errorMessage,
+  emptyMessage,
   innerRadius,
   outerRadius,
   data,
@@ -16,9 +17,9 @@ const Piechart = ({
   nameKey,
 }) => {
   try {
-    if (error) return (<PieChartError {...{ error, outerRadius }} />);
+    if (errorMessage) return (<PieChartError {...{ errorMessage }} />);
     if (loading) return (<PieChartLoading {...{ outerRadius }} />);
-    if (data.length === 0) return (<PieChartEmpty {...{ outerRadius }} />);
+    if (data.length === 0) return (<PieChartEmpty {...{ emptyMessage }} />);
     return (
       <PieChartIdeal {...{
         innerRadius,
@@ -30,13 +31,14 @@ const Piechart = ({
     );
   } catch (err) {
     if (process.env.NODE_ENV !== 'production') console.error(err);
-    return (<PieChartError {...{ error }} />)
+    return (<PieChartError {...{ errorMessage }} />)
   }
 };
 
 Piechart.propTypes = {
   loading: PropTypes.bool,
-  error: PropTypes.string,
+  errorMessage: PropTypes.string,
+  emptyMessage: PropTypes.string,
   innerRadius: PropTypes.number,
   outerRadius: PropTypes.number,
   data: PropTypes.array.isRequired,

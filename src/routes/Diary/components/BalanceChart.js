@@ -8,6 +8,7 @@ import PieChart from '../../../components/PieChart';
 const useStyles = makeStyles(() => ({
   center: {
     margin: '0 auto',
+    width: '100%',
   }
 }));
 
@@ -41,7 +42,7 @@ const BalanceChart = ({ sessions, loading, error }) => {
         <PieChart {...{
           className: classes.center,
           loading,
-          error,
+          errorMessage: error,
           data,
           nameKey: 'name',
           dataKey: 'value',

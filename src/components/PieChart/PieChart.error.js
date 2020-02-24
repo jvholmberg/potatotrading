@@ -9,22 +9,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const PieChartError = ({ error }) => {
+const PieChartError = ({ errorMessage }) => {
   const classes = useStyles();
   return (
     <Alert {...{ className: classes.padTop, severity: 'error' }}>
       <AlertTitle>Error</AlertTitle>
-      {error}
+      {errorMessage}
     </Alert>
   );
 };
 
 PieChartError.propTypes = {
-  error: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 PieChartError.defaultProps = {
-  error: 'Something went wrong',
+  errorMessage: 'Something went wrong',
 };
 
 export default React.memo(PieChartError);

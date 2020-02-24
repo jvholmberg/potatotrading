@@ -1,22 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Skeleton } from '@material-ui/lab';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/styles';
 
-const PieChartEmpty = ({ outerRadius }) => (
-  <Skeleton {...{
-    animation: 'wave',
-    variant: 'circle',
-    width: `${outerRadius}%`,
-    height: `${outerRadius}%`,
-    style: {
-      margin: `${(100 - outerRadius) / 2}%`,
-      boxSizing: 'border-box',
-    },
-  }} />
-);
+const useStyles = makeStyles(theme => ({
+  padTop: {
+    marginTop: theme.spacing(2),
+  }
+}));
 
-PieChartEmpty.propTypes = {
-  outerRadius: PropTypes.number.isRequired,
+const PieChartEmpty = ({ emptyMessage }) => {
+  const classes = useStyles();
+  return (
+    <Alert {...{ className: classes.padTop, severity: 'info' }}>
+      <AlertTitle>Empty</AlertTitle>
+      {emptyMessage}
+    </Alert>
+  );
 };
 
-export default PieChartEmpty;
+PieChartEmpty.propTypes = {
+  emptyMessage: PropTypes.string,
+};
+
+PieChartEmpty.defaultProps = {
+  emptyMessage: 'No data could be found',
+};
+
+export default React.memo(PieChartEmpty);

@@ -41,7 +41,7 @@ TextField.defaultProps = {
   fullWidth: false,
   margin: 'dense',
   label: '',
-  helperText: ' ',
+  helperText: '',
   required: false,
 };
 

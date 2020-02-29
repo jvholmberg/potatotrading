@@ -59,7 +59,7 @@ Select.defaultProps = {
   margin: 'dense',
   fullWidth: false,
   label: '',
-  helperText: ' ',
+  helperText: '',
   required: false,
 };
 

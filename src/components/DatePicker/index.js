@@ -52,7 +52,7 @@ DatePicker.defaultProps = {
   margin: 'none',
   fullWidth: false,
   label: '',
-  helperText: ' ',
+  helperText: '',
   required: false,
   ariaLabel: 'Select date',
 };

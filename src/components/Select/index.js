@@ -4,23 +4,34 @@ import MuiFormControl from '@material-ui/core/FormControl';
 import MuiInputLabel from '@material-ui/core/InputLabel';
 import MuiFormHelperText from '@material-ui/core/FormHelperText';
 import MuiSelect from '@material-ui/core/Select';
-import Option from '@material-ui/core/MenuItem';
+import MuiOption from '@material-ui/core/MenuItem';
 import { useField } from 'formik';
 
+/**
+ * Select
+ *
+ * @param {string} name -
+ * @param {bool} fullWidth -
+ * @param {string} [margin='dense'] - One of 'none', 'dense' or 'normal'
+ * @param {string} label -
+ * @param {string} [helperText=' '] -
+ * @param {bool} [required=false] -
+ */
 const Select = ({
   fullWidth,
   margin,
   label,
+  required,
+  helperText,
   ...rest
 }) => {
   const [field, meta] = useField(rest);
   const hasError = !!(meta.touched && meta.error);
-  // eslint-disable-next-line react/destructuring-assignment
-  const helperText = hasError ? meta.error : rest.helperText;
   return (
     <MuiFormControl {...{
       fullWidth,
       margin,
+      required,
       error: hasError
     }}>
       <MuiInputLabel>{label}</MuiInputLabel>
@@ -29,7 +40,7 @@ const Select = ({
         ...rest,
       }} />
       <MuiFormHelperText>
-        {helperText}
+        {hasError ? meta.error : helperText}
       </MuiFormHelperText>
     </MuiFormControl>
   );
@@ -41,6 +52,7 @@ Select.propTypes = {
   margin: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 Select.defaultProps = {
@@ -48,7 +60,8 @@ Select.defaultProps = {
   fullWidth: false,
   label: '',
   helperText: ' ',
+  required: false,
 };
 
 export default Select;
-export { Option };
+export { MuiOption as Option };

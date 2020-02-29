@@ -55,12 +55,14 @@ const GoalChart = ({ sessions, loading, error }) => {
 };
 
 GoalChart.propTypes = {
-  sessions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-  })),
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  sessions: PropTypes.array,
 };
 
 GoalChart.defaultProps = {
+  loading: false,
+  error: false,
   sessions: [],
 };
 

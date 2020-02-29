@@ -55,12 +55,14 @@ const ComparisonChart = ({ sessions, loading, error }) => {
 };
 
 ComparisonChart.propTypes = {
-  sessions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-  })),
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  sessions: PropTypes.array,
 };
 
 ComparisonChart.defaultProps = {
+  loading: false,
+  error: false,
   sessions: [],
 };
 

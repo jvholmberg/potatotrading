@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MuiTextField from '@material-ui/core/TextField';
+import { KeyboardDatePicker as MuiKeyboardDatePicker } from '@material-ui/pickers';
 import { useField } from 'formik';
 
 /**
- * Input
+ * Date-picker
  *
  * @param {string} name -
  * @param {bool} fullWidth -
@@ -12,37 +12,49 @@ import { useField } from 'formik';
  * @param {string} label -
  * @param {string} [helperText=' '] -
  * @param {bool} [required=false] -
+ * @param {string} ariaLabel -
  */
-const TextField = props => {
-  const [field, meta] = useField(props);
+const DatePicker = ({
+  ariaLabel,
+  ...rest
+}) => {
+  const [field, meta, helpers] = useField(rest);
   const hasError = !!(meta.touched && meta.error);
   // eslint-disable-next-line react/destructuring-assignment
-  const helperText = hasError ? meta.error : props.helperText;
+  const helperText = hasError ? meta.error : rest.helperText;
   return (
-    <MuiTextField {...{
+    <MuiKeyboardDatePicker {...{
+      ...rest,
       ...field,
-      ...props,
+      onChange: helpers.setValue,
+      variant: 'inline',
+      format: 'dd/MM/yyyy',
       error: hasError,
       helperText,
+      KeyboardButtonProps: {
+        'aria-label': ariaLabel,
+      }
     }} />
   );
-};
+}
 
-TextField.propTypes = {
+DatePicker.propTypes = {
   name: PropTypes.string.isRequired,
   fullWidth: PropTypes.bool,
   margin: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.string,
   required: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 };
 
-TextField.defaultProps = {
+DatePicker.defaultProps = {
+  margin: 'none',
   fullWidth: false,
-  margin: 'dense',
   label: '',
   helperText: ' ',
   required: false,
+  ariaLabel: 'Select date',
 };
 
-export default TextField;
+export default DatePicker;

@@ -55,12 +55,14 @@ const BalanceChart = ({ sessions, loading, error }) => {
 };
 
 BalanceChart.propTypes = {
-  sessions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-  })),
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  sessions: PropTypes.array,
 };
 
 BalanceChart.defaultProps = {
+  loading: false,
+  error: false,
   sessions: [],
 };
 

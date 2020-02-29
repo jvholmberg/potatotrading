@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
+import DatePicker from '../../../components/DatePicker';
 import TextField from '../../../components/TextField';
 import Select, { Option } from '../../../components/Select';
 
@@ -44,15 +45,18 @@ const SessionForm = ({
   return (
     <Formik {...{ initialValues, validationSchema, onSubmit }}>
       <Form className={classes.root}>
-          {/* <KeyboardDatePicker
-            name="date"
-            label="Date"
-            format="dd/MM/yyyy" /> */}
+        <DatePicker
+          name="date"
+          label="Date"
+          disabled={submitting}
+          fullWidth
+          required />
         <Select
           name="type"
           disabled={submitting}
           label="Type"
-          fullWidth>
+          fullWidth
+          required>
           {sessionTypes.map((type, index) => (
             <Option {...{ key: index, value: type.id }}>{type.name}</Option>
           ))}
@@ -61,7 +65,8 @@ const SessionForm = ({
           name="name"
           label="Name"
           disabled={submitting}
-          fullWidth />
+          fullWidth
+          required />
         <TextField
           name="comment"
           label="Comment"

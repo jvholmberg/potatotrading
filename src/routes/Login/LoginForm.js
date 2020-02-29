@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/styles';
-import FormikInput from '../../components/FormikInput';
+import TextField from '../../components/TextField';
 import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 const useStyles = makeStyles(theme => ({
@@ -53,8 +53,8 @@ const LoginForm = ({ getJwt, submitting }) => {
           <Typography color="textSecondary" gutterBottom>
             Sign in to get access to all the goodies
           </Typography>
-          <FormikInput name="email" type="email" label="Email" fullWidth formProps={formProps} />
-          <FormikInput name="password" type="password" label="Password" fullWidth formProps={formProps} />
+          <TextField name="email" type="email" label="Email" fullWidth formProps={formProps} />
+          <TextField name="password" type="password" label="Password" fullWidth formProps={formProps} />
           <Button
             type="submit"
             fullWidth

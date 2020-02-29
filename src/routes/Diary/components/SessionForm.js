@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { TextField, Select } from 'formik-material-ui';
-import { KeyboardDatePicker } from 'formik-material-ui-pickers'
 import * as Yup from 'yup';
 import {
-  FormControl, InputLabel, MenuItem, Button
+  Button
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+
+import TextField from '../../../components/TextField';
+import Select, { Option } from '../../../components/Select';
 
 const validationSchema = Yup.object().shape({
   date: Yup.date()
@@ -43,34 +44,29 @@ const SessionForm = ({
   return (
     <Formik {...{ initialValues, validationSchema, onSubmit }}>
       <Form className={classes.root}>
-        <FormControl fullWidth>
-          <KeyboardDatePicker
+          {/* <KeyboardDatePicker
             name="date"
             label="Date"
-            format="dd/MM/yyyy" />
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel>Type</InputLabel>
-          <Select
-            name="type"
-            disabled={submitting}>
-            {sessionTypes.map((type, index) => (
-              <MenuItem {...{ key: index, value: type.id }}>{type.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl fullWidth>
-          <TextField
-            name="name"
-            label="Name"
-            disabled={submitting} />
-        </FormControl>
-        <FormControl fullWidth>
-          <TextField
-            name="comment"
-            label="Comment"
-            disabled={submitting} />
-        </FormControl>
+            format="dd/MM/yyyy" /> */}
+        <Select
+          name="type"
+          disabled={submitting}
+          label="Type"
+          fullWidth>
+          {sessionTypes.map((type, index) => (
+            <Option {...{ key: index, value: type.id }}>{type.name}</Option>
+          ))}
+        </Select>
+        <TextField
+          name="name"
+          label="Name"
+          disabled={submitting}
+          fullWidth />
+        <TextField
+          name="comment"
+          label="Comment"
+          disabled={submitting}
+          fullWidth />
         <Button
           type="submit"
           variant="contained"

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Box, Typography } from '@material-ui/core';
-import PieChart from '../../../components/PieChart';
+import PieChart from '../../../../components/PieChart';
+import { selectFetching, selectError, selectData } from './GoalChart.selectors';
 
 const useStyles = makeStyles(() => ({
   center: {
@@ -12,28 +13,14 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const ComparisonChart = ({ sessions, loading, error }) => {
+const GoalChart = () => {
+  const fetching = useSelector(selectFetching);
+  const error = useSelector(selectError);
+  const data = useSelector(selectData);
   const classes = useStyles();
-  const data = sessions.reduce((ret, val) => {
-    const idx = _.findIndex(ret, e => e.name === val.type.name);
-
-    if (idx === -1) {
-      // Adding new record
-      ret.push({
-        name: val.type.name,
-        color: val.type.color,
-        value: 1,
-      });
-    } else {
-      // Updating existing record
-      ret.splice(idx, 1, { name: val.type.name, value: ret[idx].value + 1, color: val.type.color });
-    }
-    return ret;
-  }, []);
-
   return (
     <>
-      <Typography variant="h3" align="center">Comparison</Typography>
+      <Typography variant="h3" align="center">Goal</Typography>
       <Box {...{
         className: classes.center,
         width: '200px',
@@ -41,7 +28,7 @@ const ComparisonChart = ({ sessions, loading, error }) => {
       }}>
         <PieChart {...{
           className: classes.center,
-          loading,
+          loading: fetching,
           errorMessage: error,
           data,
           nameKey: 'name',
@@ -54,16 +41,16 @@ const ComparisonChart = ({ sessions, loading, error }) => {
   );
 };
 
-ComparisonChart.propTypes = {
+GoalChart.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.bool,
   sessions: PropTypes.array,
 };
 
-ComparisonChart.defaultProps = {
+GoalChart.defaultProps = {
   loading: false,
   error: false,
   sessions: [],
 };
 
-export default ComparisonChart;
+export default GoalChart;

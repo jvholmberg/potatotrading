@@ -1,49 +1,49 @@
-import produce from 'immer';
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 import { isWithinInterval } from 'date-fns';
+import { reducerName } from './reducer';
 import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
 
-const mergeSessionWithSessionType = (session, sessionTypes) => {
-  const sessionType = _.find(sessionTypes, type => type.id === session.typeId);
-  return produce(session, draft => {
-    if (!sessionType) _.set(draft, 'type', { id: null, name: null });
-    else _.set(draft, 'type', sessionType);
-    _.unset(draft, 'typeId');
-  });
-}
-
-const selectReducer = state => state.sessions;
-
-// Data
-export const selectSessions = state => selectReducer(state).data;
-export const selectSessionTypes = state => selectReducer(state).types;
-
-export const selectSessionsForPeriod = (start, end) => createSelector(
-  selectSessions,
-  sessions => _.filter(sessions, e => isWithinInterval(new Date(e.timestamp), { start, end })),
-);
-
-export const selectSessionsWithType = createSelector(
-  selectSessions, selectSessionTypes,
-  (sessions, sessionTypes) => _.map(sessions, e => mergeSessionWithSessionType(e, sessionTypes))
-);
-
-export const selectSessionsWithTypeForPeriod = (start, end) => createSelector(
-  selectSessionsForPeriod(start, end), selectSessionTypes,
-  (sessions, sessionTypes) => _.map(sessions, e => mergeSessionWithSessionType(e, sessionTypes))
-);
-
 // Requests
-export const selectCreateSessionReq = createSelector(
-  selectReducer,
-  state => _.get(state, `requests.${CREATE_SESSION}`),
+export const selectCreateSessionReq = state => _.get(state, `${reducerName}.requests.${CREATE_SESSION}`);
+export const selectGetSessionsReq = state => _.get(state, `${reducerName}.requests.${GET_SESSIONS}`);
+export const selectGetSessionTypesReq = state => _.get(state, `${reducerName}.requests.${GET_SESSION_TYPES}`);
+
+// Sessions
+export const selectSessions = state => _.get(state, `${reducerName}.sessions.byId`);
+export const selectSessionIds = state => _.get(state, `${reducerName}.sessions.allIds`);
+export const selectSessionById = (state, id) => _.get(state, `${reducerName}.sessions.byId.${id}`);
+
+// Session-types
+export const selectSessionTypes = state => _.get(state, `${reducerName}.sessionTypes.byId`);
+export const selectSessionTypeIds = state => _.get(state, `${reducerName}.sessionTypes.allIds`);
+export const selectSessionTypeById = (state, id) =>
+  _.get(state, `${reducerName}.sessionTypes.byId.${id}`);
+
+// Custom
+export const selectSessionIdsForPeriod = (start, end) => createSelector(
+  selectSessionIds, selectSessions,
+  (sessionIds, sessions) => _.filter(sessionIds, id => {
+    const timestamp = _.get(sessions, `${id}.timestamp`);
+    const shouldInclude = timestamp
+      ? isWithinInterval(new Date(timestamp), { start, end })
+      : false;
+    return shouldInclude;
+  }),
 );
-export const selectGetSessionsReq = createSelector(
-  selectReducer,
-  state => _.get(state, `requests.${GET_SESSIONS}`),
+export const selectSessionIdsGroupedByType = createSelector(
+  selectSessionIds, selectSessions,
+  (sessionIds, sessions) => _.reduce(sessionIds, (result, id) => {
+    const typeId = _.get(sessions, `${id}.typeId`);
+    if (_.has(result, typeId)) _.get(result, typeId).push(id);
+    else _.set(result, typeId, [...id]);
+    return result;
+  }, {}),
 );
-export const selectGetSessionTypesReq = createSelector(
-  selectReducer,
-  state => _.get(state, `requests.${GET_SESSION_TYPES}`),
-);
+export const selectSessionIdsWithType = (state, typeId) => createSelector(
+  selectSessionIds, selectSessions,
+  (sessionIds, sessions) => _.filter(sessionIds, id => {
+    const isMatch = _.get(sessions, `${id}.typeId`) === typeId;
+    return isMatch;
+  }),
+)(state);

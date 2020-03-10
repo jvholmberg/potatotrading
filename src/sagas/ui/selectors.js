@@ -9,3 +9,6 @@ export const selectIsHandheld = state => _.includes(['md', 'sm'], selectScreenSi
 
 export const selectSidebar = state => selectReducer(state).sidebar;
 export const selectSidebarOpen = state => selectSidebar(state).open;
+
+const selectSorting = state => selectReducer(state).sorting;
+export const selectSortingDiary = state => selectSorting(state).diary;

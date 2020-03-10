@@ -5,6 +5,7 @@ import MuiTableHead from '@material-ui/core/TableHead';
 import MuiTableBody from '@material-ui/core/TableBody';
 import MuiTableRow from '@material-ui/core/TableRow';
 import MuiTableCell from '@material-ui/core/TableCell';
+import MuiTableSortLabel from '@material-ui/core/TableSortLabel';
 
 const Table = props => (
   <MuiTableContainer>
@@ -18,4 +19,5 @@ export {
   MuiTableBody as TableBody,
   MuiTableRow as TableRow,
   MuiTableCell as TableCell,
+  MuiTableSortLabel as TableSortLabel,
 };

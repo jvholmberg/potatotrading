@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import {
-  Table, TableHead, TableBody, TableRow, TableCell,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableSortLabel,
 } from '../../../../components/Table';
+import { setSortingDiary } from '../../../../sagas/ui/actions';
 import { selectSessionById, selectSessionTypeById } from '../../../../sagas/sessions/selectors';
 
 const SessionTableRow = ({ sessionId }) => {
@@ -28,29 +34,49 @@ SessionTableRow.defaultProps = {
   sessionId: null,
 };
 
-const SessionTable = ({ sessionIds }) => (
-  <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell>Type</TableCell>
-        <TableCell>Date</TableCell>
-        <TableCell>Name</TableCell>
-        <TableCell>Comment</TableCell>
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {sessionIds.map(sessionId => (
-        <SessionTableRow {... {
-          key: `session_row_${sessionId}`,
-          sessionId,
-        }} />
-      ))}
-    </TableBody>
-  </Table>
-);
+const headCells = [
+  { id: 'type.name', label: 'Type' },
+  { id: 'timestamp', label: 'Date' },
+  { id: 'name', label: 'Name' },
+  { id: 'comment', label: 'Comment' },
+];
+
+const SessionTable = ({ sorting, sessionIds }) => {
+  const dispatch = useDispatch();
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          {headCells.map(headCell => (
+            <TableCell {...{
+              key: headCell.id,
+              onClick: () => dispatch(setSortingDiary(headCell.id)),
+            }}>
+              <TableSortLabel {...{
+                active: headCell.id === sorting.key,
+                direction: sorting.direction,
+              }}>
+                {headCell.label}
+              </TableSortLabel>
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {sessionIds.map(sessionId => (
+          <SessionTableRow {... {
+            key: `session_row_${sessionId}`,
+            sessionId,
+          }} />
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
 
 SessionTable.propTypes = {
+  sorting: PropTypes.object.isRequired,
   sessionIds: PropTypes.array.isRequired,
 };
 
-export default SessionTable;
+export default memo(SessionTable);

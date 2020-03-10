@@ -9,3 +9,9 @@ export const setSidebarOpen = open => ({
   type: SIDEBAR_OPEN,
   payload: open,
 });
+
+export const SORTING_DIARY = 'SORTING_DIARY';
+export const setSortingDiary = sortKey => ({
+  type: SORTING_DIARY,
+  payload: sortKey,
+});

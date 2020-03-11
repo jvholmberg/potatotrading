@@ -30,7 +30,7 @@ export default produce((draft = getInitialState(), action = {}) => {
   switch (actionName) {
   case CREATE_SESSION:
     if (actionStatus === SUCCESS) {
-      _.set(draft, 'sessions.byIds', payload);
+      _.set(draft, `sessions.byId.${payload.id}`, payload);
       _.get(draft, 'sessions.allIds').push(payload.id);
     }
     _.set(draft, `requests.${CREATE_SESSION}`, updateRequest(actionStatus, error));

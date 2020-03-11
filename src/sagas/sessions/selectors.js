@@ -36,11 +36,11 @@ export const selectSessionIdsGroupedByType = createSelector(
   (sessionIds, sessions) => _.reduce(sessionIds, (result, id) => {
     const typeId = _.get(sessions, `${id}.typeId`);
     if (_.has(result, typeId)) _.get(result, typeId).push(id);
-    else _.set(result, typeId, [...id]);
+    else _.set(result, typeId, [id]);
     return result;
   }, {}),
 );
-export const selectSessionIdsWithType = (state, typeId) => createSelector(
+export const selectSessionIdsOfType = (state, typeId) => createSelector(
   selectSessionIds, selectSessions,
   (sessionIds, sessions) => _.filter(sessionIds, id => {
     const isMatch = _.get(sessions, `${id}.typeId`) === typeId;

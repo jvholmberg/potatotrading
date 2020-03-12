@@ -33,12 +33,18 @@
     "yup": "^0.28.1"
   },
   "devDependencies": {
+    "cypress": "^4.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "express": "^4.17.1",
     "husky": "^4.2.3",
-    "prettier": "^1.19.1"
+    "jest-enzyme": "^7.1.2",
+    "prettier": "^1.19.1",
+    "react-test-renderer": "^16.13.0",
+    "redux-mock-store": "^1.5.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,6 +52,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:once": "yarn run test --watchAll=false",
+    "cypress:open": "yarn run cypress open",
+    "cypress:run": "yarn run cypress run",
     "test:coverage": "yarn run test:once -- --coverage",
     "lint": "eslint src",
     "verify": "yarn run lint && yarn run test:coverage",

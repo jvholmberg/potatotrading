@@ -2,9 +2,25 @@
 /* eslint-disable object-curly-newline */
 import { lastDayOfMonth, startOfMonth } from 'date-fns';
 import {
-  CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES,
-} from '../actions';
-import * as selectors from '../selectors';
+  reducerName,
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from '../constants';
+import {
+  selectSessionIds,
+  selectSessionById,
+  selectSessions,
+  selectSessionIdsForPeriod,
+  selectSessionIdsOfType,
+  selectSessionIdsGroupedByType,
+  selectSessionTypeIds,
+  selectSessionTypeById,
+  selectSessionTypes,
+  selectCreateSessionReq,
+  selectGetSessionsReq,
+  selectGetSessionTypesReq,
+} from '../selectors';
 
 describe('sagas/sessions/selectors.js', () => {
   const getMockState = () => ({
@@ -35,50 +51,47 @@ describe('sagas/sessions/selectors.js', () => {
     },
   });
 
-  // Sessions
   it('select session ids', () => {
-    const actual = selectors.selectSessionIds(getMockState());
-    const expected = getMockState().sessions.sessions.allIds;
+    const actual = selectSessionIds(getMockState());
+    const expected = getMockState()[reducerName].sessions.allIds;
     expect(actual).toEqual(expected);
   });
 
   it('select sessions', () => {
-    const actual = selectors.selectSessions(getMockState());
-    const expected = getMockState().sessions.sessions.byId;
+    const actual = selectSessions(getMockState());
+    const expected = getMockState()[reducerName].sessions.byId;
     expect(actual).toEqual(expected);
   });
 
   it('select session by id', () => {
     const sessionId = 0;
-    const actual = selectors.selectSessionById(getMockState(), sessionId);
-    const expected = getMockState().sessions.sessions.byId[sessionId];
+    const actual = selectSessionById(getMockState(), sessionId);
+    const expected = getMockState()[reducerName].sessions.byId[sessionId];
     expect(actual).toEqual(expected);
   });
 
-  // Session types
   it('select session-type ids', () => {
-    const actual = selectors.selectSessionTypeIds(getMockState());
-    const expected = getMockState().sessions.sessionTypes.allIds;
+    const actual = selectSessionTypeIds(getMockState());
+    const expected = getMockState()[reducerName].sessionTypes.allIds;
     expect(actual).toEqual(expected);
   });
 
   it('select session-types', () => {
-    const actual = selectors.selectSessionTypes(getMockState());
-    const expected = getMockState().sessions.sessionTypes.byId;
+    const actual = selectSessionTypes(getMockState());
+    const expected = getMockState()[reducerName].sessionTypes.byId;
     expect(actual).toEqual(expected);
   });
 
   it('select session by id', () => {
     const sessionTypeId = 0;
-    const actual = selectors.selectSessionTypeById(getMockState(), sessionTypeId);
-    const expected = getMockState().sessions.sessionTypes.byId[sessionTypeId];
+    const actual = selectSessionTypeById(getMockState(), sessionTypeId);
+    const expected = getMockState()[reducerName].sessionTypes.byId[sessionTypeId];
     expect(actual).toEqual(expected);
   });
 
-  // Custom
   it('select session ids for period', () => {
     const now = new Date('2020-02-11');
-    const actual = selectors.selectSessionIdsForPeriod(
+    const actual = selectSessionIdsForPeriod(
       startOfMonth(now),
       lastDayOfMonth(now),
     )(getMockState());
@@ -87,34 +100,33 @@ describe('sagas/sessions/selectors.js', () => {
   });
 
   it('select session ids grouped by type', () => {
-    const actual = selectors.selectSessionIdsGroupedByType(getMockState());
+    const actual = selectSessionIdsGroupedByType(getMockState());
     const expected = { 0: [0], 1: [1], 2: [2], 3: [3] };
     expect(actual).toEqual(expected);
   });
 
   it('select session ids of type', () => {
     const typeId = 0;
-    const actual = selectors.selectSessionIdsOfType(getMockState(), typeId);
+    const actual = selectSessionIdsOfType(getMockState(), typeId);
     const expected = [0];
     expect(actual).toEqual(expected);
   });
 
-  // Requests
   it('select request for creating session', () => {
-    const actual = selectors.selectCreateSessionReq(getMockState());
-    const expected = getMockState().sessions.requests[CREATE_SESSION];
+    const actual = selectCreateSessionReq(getMockState());
+    const expected = getMockState()[reducerName].requests[CREATE_SESSION];
     expect(actual).toEqual(expected);
   });
 
   it('select request for getting sessions', () => {
-    const actual = selectors.selectGetSessionsReq(getMockState());
-    const expected = getMockState().sessions.requests[GET_SESSIONS];
+    const actual = selectGetSessionsReq(getMockState());
+    const expected = getMockState()[reducerName].requests[GET_SESSIONS];
     expect(actual).toEqual(expected);
   });
 
   it('select request for getting sessiontypes', () => {
-    const actual = selectors.selectGetSessionTypesReq(getMockState());
-    const expected = getMockState().sessions.requests[GET_SESSION_TYPES];
+    const actual = selectGetSessionTypesReq(getMockState());
+    const expected = getMockState()[reducerName].requests[GET_SESSION_TYPES];
     expect(actual).toEqual(expected);
   });
 });

@@ -6,7 +6,6 @@ import {
   CardActions,
   Divider,
   Button,
-  TextField
 } from '@material-ui/core';
 
 const Password = () => {

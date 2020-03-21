@@ -1,4 +1,13 @@
-import * as actions from '../actions';
+import {
+  createSession,
+  getSessions,
+  getSessionTypes,
+} from '../actions';
+import {
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from '../constants';
 
 describe('sagas/sessions/actions.js', () => {
   it('createSession()', () => {
@@ -8,20 +17,20 @@ describe('sagas/sessions/actions.js', () => {
       name: 'name',
       comment: 'comment',
     };
-    const actual = actions.createSession(session);
-    const expected = { type: actions.CREATE_SESSION, payload: session };
+    const actual = createSession(session);
+    const expected = { type: CREATE_SESSION, payload: session };
     expect(actual).toEqual(expected);
   });
 
   it('getSessions()', () => {
-    const actual = actions.getSessions();
-    const expected = { type: actions.GET_SESSIONS };
+    const actual = getSessions();
+    const expected = { type: GET_SESSIONS };
     expect(actual).toEqual(expected);
   });
 
   it('getSessionTypes()', () => {
-    const actual = actions.getSessionTypes();
-    const expected = { type: actions.GET_SESSION_TYPES };
+    const actual = getSessionTypes();
+    const expected = { type: GET_SESSION_TYPES };
     expect(actual).toEqual(expected);
   });
 });

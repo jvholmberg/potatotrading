@@ -1,49 +1,68 @@
-import _ from 'lodash';
-import * as selectors from '../selectors';
+import {
+  selectScreen,
+  selectScreenSize,
+  selectIsDesktop,
+  selectIsHandheld,
+  selectSidebar,
+  selectSidebarOpen,
+  selectSortingDiary
+} from '../selectors';
+import { reducerName } from '../constants';
+import { SORT_DIRECTION_DESCENDING } from '../../constants';
 
 describe('sagas/auth/selectors.js', () => {
-  const mockState = {
+  const getMockState = () => ({
     ui: {
       screen: { size: 'size' },
       sidebar: { open: false },
+      sorting: {
+        diary: {
+          key: 'key',
+          direction: SORT_DIRECTION_DESCENDING,
+        }
+      },
     },
-  };
+  });
 
-  // Screen
   it('selects screen', () => {
-    const actual = selectors.selectScreen(mockState);
-    const expected = _.get(mockState, 'ui.screen');
+    const actual = selectScreen(getMockState());
+    const expected = getMockState()[reducerName].screen;
     expect(actual).toEqual(expected);
   });
 
   it('selects screen size', () => {
-    const actual = selectors.selectScreenSize(mockState);
-    const expected = _.get(mockState, 'ui.screen.size');
+    const actual = selectScreenSize(getMockState());
+    const expected = getMockState()[reducerName].screen.size;
     expect(actual).toEqual(expected);
   });
 
   it('check if desktop', () => {
-    const actual = selectors.selectIsDesktop(mockState);
+    const actual = selectIsDesktop(getMockState());
     const expected = false;
     expect(actual).toEqual(expected);
   });
 
   it('check if handheld', () => {
-    const actual = selectors.selectIsHandheld(mockState);
+    const actual = selectIsHandheld(getMockState());
     const expected = false;
     expect(actual).toEqual(expected);
   });
 
-  // Sidebar
   it('selects sidebar', () => {
-    const actual = selectors.selectSidebar(mockState);
-    const expected = _.get(mockState, 'ui.sidebar');
+    const actual = selectSidebar(getMockState());
+    const expected = getMockState()[reducerName].sidebar;
     expect(actual).toEqual(expected);
   });
 
   it('selects sidbar open state', () => {
-    const actual = selectors.selectSidebarOpen(mockState);
-    const expected = _.get(mockState, 'ui.sidebar.open');
+    const actual = selectSidebarOpen(getMockState());
+    const expected = getMockState()[reducerName].sidebar.open;
+    expect(actual).toEqual(expected);
+  });
+
+  it('selects sidbar open state', () => {
+    const actual = selectSortingDiary(getMockState());
+    const expected = getMockState()[reducerName].sorting.diary;
     expect(actual).toEqual(expected);
   });
 });

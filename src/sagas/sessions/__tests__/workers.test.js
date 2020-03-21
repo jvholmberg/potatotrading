@@ -1,14 +1,26 @@
 import sinon from 'sinon';
 import { recordSaga } from '../../../utils/reduxSaga';
 import * as Api from '../../../utils/api';
-import * as workers from '../workers';
 import {
-  CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES,
-} from '../actions';
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from '../constants';
 import {
-  createRequestAction, PENDING, SUCCESS, FAILED, ABORTED,
-} from '../../actionCreator';
-import { updateRequest } from '../../reducerCreator';
+  createAction,
+  updateRequest
+} from '../../sagaHelpers';
+import {
+  PENDING,
+  SUCCESS,
+  FAILED,
+  ABORTED,
+} from '../../constants';
+import {
+  workerCreateSession,
+  workerGetSessions,
+  workerGetSessionTypes,
+} from '../workers';
 
 describe('sagas/sessions/workers.js', () => {
   const successResponse = { data: 'data' };
@@ -26,27 +38,27 @@ describe('sagas/sessions/workers.js', () => {
 
   it('Create session', async () => {
     const input = { name: 'name', comment: 'comment' };
-    let dispatched = await recordSaga(workers.workerCreateSession, {}, input);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(CREATE_SESSION, PENDING) });
+    let dispatched = await recordSaga(workerCreateSession, {}, input);
+    expect(dispatched[0]).toEqual({ type: createAction(CREATE_SESSION, PENDING) });
     expect(dispatched[1]).toEqual({
-      type: createRequestAction(CREATE_SESSION, SUCCESS),
+      type: createAction(CREATE_SESSION, SUCCESS),
       payload: successResponse.data,
     });
 
-    dispatched = await recordSaga(workers.workerCreateSession, {}, input);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(CREATE_SESSION, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(CREATE_SESSION, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerCreateSession, {}, input);
+    expect(dispatched[0]).toEqual({ type: createAction(CREATE_SESSION, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(CREATE_SESSION, FAILED), error: failedResponse });
   });
 
   it('Get sessions', async () => {
     const input = { from: 0, to: 0 };
-    let dispatched = await recordSaga(workers.workerGetSessions, {}, input);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSIONS, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: successResponse.data });
+    let dispatched = await recordSaga(workerGetSessions, {}, input);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_SESSIONS, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(GET_SESSIONS, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workers.workerGetSessions, {}, input);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSIONS, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_SESSIONS, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerGetSessions, {}, input);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_SESSIONS, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(GET_SESSIONS, FAILED), error: failedResponse });
   });
 
   it('Get session-types', async () => {
@@ -57,16 +69,16 @@ describe('sagas/sessions/workers.js', () => {
         },
       },
     };
-    let dispatched = await recordSaga(workers.workerGetSessionTypes, initialState);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSION_TYPES, PENDING) });
+    let dispatched = await recordSaga(workerGetSessionTypes, initialState);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_SESSION_TYPES, PENDING) });
     expect(dispatched[1]).toEqual({
-      type: createRequestAction(GET_SESSION_TYPES, SUCCESS),
+      type: createAction(GET_SESSION_TYPES, SUCCESS),
       payload: successResponse.data,
     });
 
-    dispatched = await recordSaga(workers.workerGetSessionTypes, initialState);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSION_TYPES, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createRequestAction(GET_SESSION_TYPES, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerGetSessionTypes, initialState);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_SESSION_TYPES, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(GET_SESSION_TYPES, FAILED), error: failedResponse });
   });
 
   it('Get session-types, existing already exists', async () => {
@@ -77,8 +89,8 @@ describe('sagas/sessions/workers.js', () => {
         },
       },
     };
-    const dispatched = await recordSaga(workers.workerGetSessionTypes, initialState);
-    expect(dispatched[0]).toEqual({ type: createRequestAction(GET_SESSION_TYPES, ABORTED) });
+    const dispatched = await recordSaga(workerGetSessionTypes, initialState);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_SESSION_TYPES, ABORTED) });
     expect(dispatched.length).toBe(1);
   });
 });

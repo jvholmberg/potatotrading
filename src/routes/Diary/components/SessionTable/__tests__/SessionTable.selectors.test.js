@@ -1,7 +1,8 @@
-import { DESC } from '../../../../../sagas/constants';
+import { SORT_DIRECTION_DESCENDING } from '../../../../../sagas/constants';
 import {
-  GET_SESSIONS, GET_SESSION_TYPES,
-} from '../../../../../sagas/sessions/actions';
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from '../../../../../sagas/sessions/constants';
 import * as selectors from '../SessionTable.selectors';
 
 describe('routes/Diary/components/SessionTable.selectors.js', () => {
@@ -23,7 +24,7 @@ describe('routes/Diary/components/SessionTable.selectors.js', () => {
     },
     ui: {
       sorting: {
-        diary: { key: 'timestamp', direction: DESC },
+        diary: { key: 'timestamp', direction: SORT_DIRECTION_DESCENDING },
       },
     }
   });

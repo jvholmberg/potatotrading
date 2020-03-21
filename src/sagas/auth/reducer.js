@@ -1,13 +1,20 @@
 /* eslint-disable default-case */
 import produce from 'immer';
 import _ from 'lodash';
+import { SUCCESS } from '../constants';
 import {
-  GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
-} from './actions';
+  getActionName,
+  getActionStatus,
+  getActionType,
+  updateRequest,
+} from '../sagaHelpers'
 import {
-  getActionName, getActionStatus, ABORTED, getActionType, REQ, SUCCESS,
-} from '../actionCreator'
-import { updateRequest } from '../reducerCreator';
+  reducerName,
+  GET_JWT,
+  VALIDATE_JWT,
+  REFRESH_JWT,
+  DESTROY_JWT
+} from './constants';
 
 export const getInitialState = () => ({
   token: {
@@ -26,14 +33,16 @@ export const getInitialState = () => ({
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
   const actionType = getActionType(type);
-  const actionName = getActionName(type);
-  const actionStatus = getActionStatus(type);
-  if (actionType !== REQ || actionStatus === ABORTED) {
+  if (actionType !== reducerName) {
     return draft;
   }
+  const actionName = getActionName(type);
+  const actionStatus = getActionStatus(type);
   switch (actionName) {
   case GET_JWT:
-    if (actionStatus === SUCCESS) _.set(draft, 'token', payload);
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'token', payload);
+    }
     _.set(draft, `requests.${GET_JWT}`, updateRequest(actionStatus, error));
     break;
   case VALIDATE_JWT:
@@ -44,7 +53,9 @@ export default produce((draft = getInitialState(), action = {}) => {
     _.set(draft, `requests.${VALIDATE_JWT}`, updateRequest(actionStatus, error));
     break;
   case REFRESH_JWT:
-    if (actionStatus === SUCCESS) _.set(draft, 'token', payload);
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'token', payload);
+    }
     _.set(draft, `requests.${REFRESH_JWT}`, updateRequest(actionStatus, error));
     break;
   case DESTROY_JWT:

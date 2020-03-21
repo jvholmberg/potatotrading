@@ -1,25 +1,36 @@
 /* eslint-disable default-case */
 import produce from 'immer';
 import _ from 'lodash';
-import { SIDEBAR_OPEN, SCREEN_SIZE, SORTING_DIARY } from './actions';
-import { getActionType, getActionName, UI } from '../actionCreator';
-import { ASC, DESC } from '../constants';
+import {
+  reducerName,
+  SIDEBAR_OPEN,
+  SCREEN_SIZE,
+  SORTING_DIARY,
+} from './constants';
+import {
+  getActionType,
+  getActionName,
+} from '../sagaHelpers';
+import {
+  SORT_DIRECTION_ASCENDING,
+  SORT_DIRECTION_DESCENDING,
+} from '../constants';
 
 export const getInitialState = () => ({
   screen: { size: null },
   sidebar: { open: false },
   sorting: {
-    diary: { key: 'timestamp', direction: DESC },
+    diary: { key: 'timestamp', direction: SORT_DIRECTION_DESCENDING },
   },
 });
 
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload = null } = action;
   const actionType = getActionType(type);
-  const actionName = getActionName(type);
-  if (actionType !== UI) {
+  if (actionType !== reducerName) {
     return draft;
   }
+  const actionName = getActionName(type);
   switch (actionName) {
   case SCREEN_SIZE:
     _.set(draft, 'screen.size', payload);
@@ -30,7 +41,9 @@ export default produce((draft = getInitialState(), action = {}) => {
   case SORTING_DIARY:
     _.set(draft, 'sorting.diary', {
       key: payload,
-      direction: draft.sorting.diary.key === payload && draft.sorting.diary.direction === DESC ? ASC : DESC,
+      direction: draft.sorting.diary.key === payload && draft.sorting.diary.direction === SORT_DIRECTION_DESCENDING
+        ? SORT_DIRECTION_ASCENDING
+        : SORT_DIRECTION_DESCENDING,
     });
     break;
   }

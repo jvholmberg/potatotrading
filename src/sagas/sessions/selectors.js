@@ -1,8 +1,12 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 import { isWithinInterval } from 'date-fns';
-import { reducerName } from './reducer';
-import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
+import {
+  reducerName,
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from './constants';
 
 // Requests
 export const selectCreateSessionReq = state => _.get(state, `${reducerName}.requests.${CREATE_SESSION}`);

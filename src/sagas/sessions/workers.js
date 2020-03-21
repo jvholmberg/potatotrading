@@ -1,35 +1,40 @@
 import { call, put, select } from 'redux-saga/effects';
+import * as Api from '../../utils/api';
+import { createAction } from '../sagaHelpers';
 import { selectGetSessionTypesReq } from './selectors';
 import {
-  createRequestAction, PENDING, SUCCESS, FAILED, ABORTED
-} from '../actionCreator';
-import { getAccessToken } from '../storage';
-import * as Api from '../../utils/api';
-
+  PENDING,
+  SUCCESS,
+  FAILED,
+  ABORTED,
+  LOCAL_STORAGE_ACCESS_TOKEN_KEY,
+} from '../constants';
 import {
-  CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES,
-} from './actions';
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from './constants';
 
 export function* workerCreateSession(action) {
   try {
-    yield put({ type: createRequestAction(CREATE_SESSION, PENDING) });
-    const accessToken = yield call(getAccessToken);
+    yield put({ type: createAction(CREATE_SESSION, PENDING) });
+    const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/sessions',
       headers: Api.generateHeaders(accessToken),
       data: action.payload,
     });
-    yield put({ type: createRequestAction(CREATE_SESSION, SUCCESS), payload: data });
+    yield put({ type: createAction(CREATE_SESSION, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createRequestAction(CREATE_SESSION, FAILED), error: err });
+    yield put({ type: createAction(CREATE_SESSION, FAILED), error: err });
   }
 }
 
 export function* workerGetSessions({ from, to }) {
   try {
-    yield put({ type: createRequestAction(GET_SESSIONS, PENDING) });
-    const accessToken = yield call(getAccessToken);
+    yield put({ type: createAction(GET_SESSIONS, PENDING) });
+    const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     const { data } = yield call(Api.instance, {
       method: 'get',
       url: '/sessions',
@@ -39,9 +44,9 @@ export function* workerGetSessions({ from, to }) {
         to,
       },
     });
-    yield put({ type: createRequestAction(GET_SESSIONS, SUCCESS), payload: data });
+    yield put({ type: createAction(GET_SESSIONS, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createRequestAction(GET_SESSIONS, FAILED), error: err });
+    yield put({ type: createAction(GET_SESSIONS, FAILED), error: err });
   }
 }
 
@@ -51,18 +56,18 @@ export function* workerGetSessionTypes() {
     const request = yield select(selectGetSessionTypesReq);
     const shouldAbort = request.done && !request.error;
     if (shouldAbort) {
-      yield put({ type: createRequestAction(GET_SESSION_TYPES, ABORTED) });
+      yield put({ type: createAction(GET_SESSION_TYPES, ABORTED) });
     } else {
-      yield put({ type: createRequestAction(GET_SESSION_TYPES, PENDING) });
-      const accessToken = yield call(getAccessToken);
+      yield put({ type: createAction(GET_SESSION_TYPES, PENDING) });
+      const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
       const { data } = yield call(Api.instance, {
         method: 'get',
         url: '/sessions/types',
         headers: Api.generateHeaders(accessToken),
       });
-      yield put({ type: createRequestAction(GET_SESSION_TYPES, SUCCESS), payload: data });
+      yield put({ type: createAction(GET_SESSION_TYPES, SUCCESS), payload: data });
     }
   } catch (err) {
-    yield put({ type: createRequestAction(GET_SESSION_TYPES, FAILED), error: err });
+    yield put({ type: createAction(GET_SESSION_TYPES, FAILED), error: err });
   }
 }

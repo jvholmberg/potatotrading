@@ -1,11 +1,17 @@
 /* eslint-disable default-case */
 import produce from 'immer';
 import _ from 'lodash';
-import { GET_PROFILE, UPDATE_PROFILE } from './actions';
 import {
-  getActionName, getActionStatus, getActionType, ABORTED, REQ,
-} from '../actionCreator'
-import { updateRequest } from '../reducerCreator';
+  getActionName,
+  getActionStatus,
+  getActionType,
+  updateRequest,
+} from '../sagaHelpers'
+import {
+  reducerName,
+  GET_PROFILE,
+  UPDATE_PROFILE
+} from './constants';
 
 export const getInitialState = () => ({
   profile: null,
@@ -17,11 +23,11 @@ export const getInitialState = () => ({
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
   const actionType = getActionType(type);
-  const actionName = getActionName(type);
-  const actionStatus = getActionStatus(type);
-  if (actionType !== REQ || actionStatus === ABORTED) {
+  if (actionType !== reducerName) {
     return draft;
   }
+  const actionName = getActionName(type);
+  const actionStatus = getActionStatus(type);
   switch (actionName) {
   case GET_PROFILE:
     _.set(draft, 'profile', payload);

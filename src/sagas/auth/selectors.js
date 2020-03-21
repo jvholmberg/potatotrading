@@ -1,20 +1,21 @@
 import {
-  GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
-} from './actions';
+  reducerName,
+  GET_JWT,
+  VALIDATE_JWT,
+  REFRESH_JWT,
+  DESTROY_JWT,
+} from './constants';
 
-const selectReducer = state => state.auth;
+const selectReducer = state => state[reducerName];
 
-// Data
 const selectToken = state => selectReducer(state).token;
 export const selectAccessToken = state => selectToken(state).accessToken;
 export const selectRefreshToken = state => selectToken(state).refreshToken;
 export const selectValidUntil = state => selectToken(state).validUntil;
 export const selectExpiresIn = state => selectToken(state).expiresIn;
 
-// Utils
 export const selectIsLoggedIn = state => selectAccessToken(state) !== null;
 
-// Requests
 const selectRequests = state => selectReducer(state).requests;
 const selectRequestsFor = (state, req) => selectRequests(state)[req];
 export const selectGetJwtReq = state => selectRequestsFor(state, GET_JWT);

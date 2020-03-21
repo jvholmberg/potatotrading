@@ -1,15 +1,20 @@
 import { put } from 'redux-saga/effects';
-import { createUiAction } from '../actionCreator';
-import { SIDEBAR_OPEN, SCREEN_SIZE, SORTING_DIARY } from './actions';
+import { createAction } from '../sagaHelpers';
+import { SET } from '../constants';
+import {
+  SIDEBAR_OPEN,
+  SCREEN_SIZE,
+  SORTING_DIARY,
+} from './constants';
 
 export function* workerScreenSize({ payload }) {
-  yield put({ type: createUiAction(SCREEN_SIZE), payload });
+  yield put({ type: createAction(SCREEN_SIZE, SET), payload });
 }
 
 export function* workerSidebarOpen({ payload }) {
-  yield put({ type: createUiAction(SIDEBAR_OPEN), payload });
+  yield put({ type: createAction(SIDEBAR_OPEN, SET), payload });
 }
 
 export function* workerSortingDiary({ payload }) {
-  yield put({ type: createUiAction(SORTING_DIARY), payload });
+  yield put({ type: createAction(SORTING_DIARY, SET), payload });
 }

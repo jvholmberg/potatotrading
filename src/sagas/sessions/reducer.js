@@ -1,13 +1,19 @@
 /* eslint-disable default-case */
 import produce from 'immer';
 import _ from 'lodash';
-import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
 import {
-  getActionName, getActionStatus, getActionType, ABORTED, SUCCESS, REQ,
-} from '../actionCreator'
-import { updateRequest } from '../reducerCreator';
-
-export const reducerName = 'sessions';
+  getActionName,
+  getActionStatus,
+  getActionType,
+  updateRequest,
+} from '../sagaHelpers'
+import { SUCCESS } from '../constants';
+import {
+  reducerName,
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from './constants';
 
 export const getInitialState = () => ({
   sessions: { byId: {}, allIds: [] },
@@ -22,11 +28,11 @@ export const getInitialState = () => ({
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
   const actionType = getActionType(type);
-  const actionName = getActionName(type);
-  const actionStatus = getActionStatus(type);
-  if (actionType !== REQ || actionStatus === ABORTED) {
+  if (actionType !== reducerName) {
     return draft;
   }
+  const actionName = getActionName(type);
+  const actionStatus = getActionStatus(type);
   switch (actionName) {
   case CREATE_SESSION:
     if (actionStatus === SUCCESS) {

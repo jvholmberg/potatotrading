@@ -1,8 +1,13 @@
 import { takeLatest } from 'redux-saga/effects';
-
-import { CREATE_SESSION, GET_SESSIONS, GET_SESSION_TYPES } from './actions';
 import {
-  workerCreateSession, workerGetSessions, workerGetSessionTypes,
+  CREATE_SESSION,
+  GET_SESSIONS,
+  GET_SESSION_TYPES,
+} from './constants';
+import {
+  workerCreateSession,
+  workerGetSessions,
+  workerGetSessionTypes,
 } from './workers';
 
 function* watcherCreateSession() {

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
-import { DESC } from '../../../../sagas/constants';
+import { SORT_DIRECTION_DESCENDING } from '../../../../sagas/constants';
 import {
   selectGetSessionsReq,
   selectGetSessionTypesReq,
@@ -28,7 +28,7 @@ export const selectSessionsIdsSorted = createSelector(
       const type = sessionTypes[session.typeId];
       return { ...sessions[id], type }[sorting.key];
     });
-    if (sorting.direction === DESC) return _.reverse(sorted);
+    if (sorting.direction === SORT_DIRECTION_DESCENDING) return _.reverse(sorted);
     return sorted;
   },
 );

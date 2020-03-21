@@ -2,12 +2,20 @@
 import produce from 'immer';
 import _ from 'lodash';
 import {
-  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
-} from './actions';
+  getActionType,
+  updateRequest,
+  getActionName,
+  getActionStatus,
+} from '../sagaHelpers'
+import { SUCCESS } from '../constants';
 import {
-  getActionName, getActionStatus, ABORTED, getActionType, REQ, SUCCESS,
-} from '../actionCreator'
-import { updateRequest } from '../reducerCreator';
+  reducerName,
+  CREATE_USER,
+  GET_MY_USER,
+  GET_USERS,
+  UPDATE_USER,
+  DELETE_USER,
+} from './constants';
 
 export const getInitialState = () => ({
   my: null,
@@ -24,25 +32,31 @@ export const getInitialState = () => ({
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
   const actionType = getActionType(type);
-  const actionName = getActionName(type);
-  const actionStatus = getActionStatus(type);
-  if (actionType !== REQ || actionStatus === ABORTED) {
+  if (actionType !== reducerName) {
     return draft;
   }
+  const actionName = getActionName(type);
+  const actionStatus = getActionStatus(type);
   switch (actionName) {
   case CREATE_USER:
     _.set(draft, `requests.${CREATE_USER}`, updateRequest(actionStatus, error));
     break;
   case GET_MY_USER:
-    if (actionStatus === SUCCESS) _.set(draft, 'my', payload);
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'my', payload);
+    }
     _.set(draft, `requests.${GET_MY_USER}`, updateRequest(actionStatus, error));
     break;
   case GET_USERS:
-    if (actionStatus === SUCCESS) _.set(draft, 'others', payload);
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'others', payload);
+    }
     _.setWith(draft, `requests.${GET_USERS}`, updateRequest(actionStatus, error));
     break;
   case UPDATE_USER:
-    if (actionStatus === SUCCESS) _.set(draft, 'others', payload);
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'others', payload);
+    }
     _.set(draft, `requests.${UPDATE_USER}`, updateRequest(actionStatus, error));
     break;
   case DELETE_USER:

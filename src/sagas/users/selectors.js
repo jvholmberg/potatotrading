@@ -1,14 +1,16 @@
 import {
-  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
-} from './actions';
+  CREATE_USER,
+  GET_MY_USER,
+  GET_USERS,
+  UPDATE_USER,
+  DELETE_USER,
+} from './constants';
 
 const selectReducer = state => state.users;
 
-// Data
 export const selectMyUser = state => selectReducer(state).my;
 export const selectOtherUsers = state => selectReducer(state).others;
 
-// Requests
 const selectRequests = state => selectReducer(state).requests;
 const selectRequestsFor = (state, req) => selectRequests(state)[req];
 export const selectCreateUserReq = state => selectRequestsFor(state, CREATE_USER);

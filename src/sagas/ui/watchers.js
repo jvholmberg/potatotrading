@@ -1,6 +1,14 @@
 import { takeEvery } from 'redux-saga/effects';
-import { SIDEBAR_OPEN, SCREEN_SIZE, SORTING_DIARY } from './actions';
-import { workerScreenSize, workerSidebarOpen, workerSortingDiary } from './workers';
+import {
+  SIDEBAR_OPEN,
+  SCREEN_SIZE,
+  SORTING_DIARY,
+} from './constants';
+import {
+  workerScreenSize,
+  workerSidebarOpen,
+  workerSortingDiary,
+} from './workers';
 
 function* watcherScreenSize() {
   yield takeEvery(SCREEN_SIZE, workerScreenSize);

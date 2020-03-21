@@ -1,9 +1,15 @@
 import { takeLatest } from 'redux-saga/effects';
 import {
-  GET_JWT, VALIDATE_JWT, REFRESH_JWT, DESTROY_JWT
-} from './actions';
+  GET_JWT,
+  VALIDATE_JWT,
+  REFRESH_JWT,
+  DESTROY_JWT
+} from './constants';
 import {
-  workerGetJwt, workerValidateJwt, workerRefreshJwt, workerDestroyJwt
+  workerGetJwt,
+  workerValidateJwt,
+  workerRefreshJwt,
+  workerDestroyJwt
 } from './workers';
 
 function* watcherGetJwt() {

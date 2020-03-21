@@ -1,10 +1,17 @@
 import { takeLatest } from 'redux-saga/effects';
-
 import {
-  CREATE_USER, GET_MY_USER, GET_USERS, UPDATE_USER, DELETE_USER,
-} from './actions';
+  CREATE_USER,
+  GET_MY_USER,
+  GET_USERS,
+  UPDATE_USER,
+  DELETE_USER,
+} from './constants';
 import {
-  workerCreateUser, workerGetUsers, workerUpdateUser, workerDeleteUser, workerGetMyUser,
+  workerCreateUser,
+  workerGetUsers,
+  workerUpdateUser,
+  workerDeleteUser,
+  workerGetMyUser,
 } from './workers';
 
 export function* watcherCreateUser() {

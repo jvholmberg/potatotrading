@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import { reducerName } from './constants';
 
-const selectReducer = state => state.ui;
+const selectReducer = state => state[reducerName];
 
 export const selectScreen = state => selectReducer(state).screen;
 export const selectScreenSize = state => selectScreen(state).size;

@@ -11,19 +11,19 @@ import {
   Button,
   Avatar,
 } from '@material-ui/core';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import PaymentIcon from '@material-ui/icons/Payment';
 import TextField from '../../../../components/TextField';
 import { selectChangePasswordReq } from '../../../../sagas/settings/selectors';
 import { changePassword } from '../../../../sagas/settings/actions';
 
 const cardHeaderProps = {
   avatar: (
-    <Avatar aria-label="Update password">
-      <VpnKeyIcon />
+    <Avatar aria-label="Edit ubscription">
+      <PaymentIcon />
     </Avatar>
   ),
-  title: 'Update password',
-  subheader: 'Change your existing password',
+  title: 'Edit subscription',
+  subheader: 'Select what EditSubscription to receive',
 };
 
 const validationSchema = Yup.object().shape({
@@ -42,7 +42,7 @@ const initialValues = {
   currentPassword: '',
 };
 
-const UpdatePassword = () => {
+const EditSubscription = () => {
   const dispatch = useDispatch()
   const onSubmit = value => dispatch(changePassword(value));
   const submitting = false;
@@ -85,7 +85,7 @@ const UpdatePassword = () => {
                 type="submit"
                 color="primary"
                 disabled={submitting}>
-                Update
+                Save
               </Button>
             </CardActions>
           </Form>
@@ -94,4 +94,4 @@ const UpdatePassword = () => {
     </Card>
   )
 };
-export default React.memo(UpdatePassword);
+export default React.memo(EditSubscription);

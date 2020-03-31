@@ -15,13 +15,13 @@ import {
   DELETE_USER,
 } from './constants';
 
-export function* workerCreateUser(action) {
+export function* workerCreateUser({ payload }) {
   try {
     yield put({ type: createAction(CREATE_USER, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/users',
-      data: action.payload,
+      data: payload,
     });
     yield put({ type: createAction(CREATE_USER, SUCCESS), payload: data });
   } catch (err) {

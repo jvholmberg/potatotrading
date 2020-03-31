@@ -16,16 +16,13 @@ import {
 } from './constants';
 import * as Api from '../../utils/api';
 
-export function* workerGetJwt({ email, password }) {
+export function* workerGetJwt({ payload }) {
   try {
     yield put({ type: createAction(GET_JWT, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/users/auth',
-      data: {
-        email,
-        password,
-      },
+      data: payload,
     });
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.accessToken);
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY, data.refreshToken);

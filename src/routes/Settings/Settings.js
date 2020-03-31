@@ -4,6 +4,8 @@ import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import UpdatePassword from './components/UpdatePassword';
+import EditNotifications from './components/EditNotifications';
+import EditSubscription from './components/EditSubscription';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,13 +34,14 @@ const Settings = () => {
       justify="flex-start"
       alignItems="stretch"
       alignContent="stretch">
-      <Grid item lg={4} md={4} sm={6} xs={12}>
+      <Grid item lg={4} md={6} sm={12} xs={12}>
         <UpdatePassword />
       </Grid>
       <Grid item lg={4} md={6} sm={12} xs={12}>
-        <Paper className={classes.paper}>
-          sc
-        </Paper>
+        <EditNotifications />
+      </Grid>
+      <Grid item lg={4} md={6} sm={12} xs={12}>
+        <EditSubscription />
       </Grid>
     </Grid>
   );

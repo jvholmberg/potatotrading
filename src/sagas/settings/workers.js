@@ -12,13 +12,13 @@ import {
   FAILED,
 } from '../constants';
 
-export function* workerChangePassword(val) {
+export function* workerChangePassword({ payload }) {
   try {
     yield put({ type: createAction(CHANGE_PASSWORD, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/auth/settings/password',
-      data: val,
+      data: payload,
     });
     yield put({ type: createAction(CHANGE_PASSWORD, SUCCESS), payload: data });
   } catch (err) {
@@ -26,13 +26,13 @@ export function* workerChangePassword(val) {
   }
 }
 
-export function* workerUpdatePrivacySettings(val) {
+export function* workerUpdatePrivacySettings({ payload }) {
   try {
     yield put({ type: createAction(UPDATE_PRIVACY, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/users/settings/privacy',
-      data: val,
+      data: payload,
     });
     yield put({ type: createAction(UPDATE_PRIVACY, SUCCESS), payload: data });
   } catch (err) {
@@ -40,13 +40,13 @@ export function* workerUpdatePrivacySettings(val) {
   }
 }
 
-export function* workerUpdateNotificationsSettings(val) {
+export function* workerUpdateNotificationsSettings({ payload }) {
   try {
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/users/settings/notifications',
-      data: val,
+      data: payload,
     });
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, SUCCESS), payload: data });
   } catch (err) {

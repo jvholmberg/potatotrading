@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import UpdatePassword from './components/UpdatePassword';
 import EditNotifications from './components/EditNotifications';
 import EditSubscription from './components/EditSubscription';
+import { getUserSettings } from '../../sagas/settings/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,16 +14,13 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     padding: theme.spacing(2),
   },
-  paper: {
-    padding: theme.spacing(2),
-    boxSizing: 'border-box',
-    minHeight: '18rem'
-  }
 }));
 
 const Settings = () => {
   const dispatch = useDispatch()
-
+  React.useEffect(() => {
+    dispatch(getUserSettings());
+  }, [dispatch]);
 
   const classes = useStyles();
   return (

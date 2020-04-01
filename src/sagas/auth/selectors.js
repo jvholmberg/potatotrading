@@ -4,6 +4,7 @@ import {
   VALIDATE_JWT,
   REFRESH_JWT,
   DESTROY_JWT,
+  CHANGE_PASSWORD,
 } from './constants';
 
 const selectReducer = state => state[reducerName];
@@ -22,3 +23,4 @@ export const selectGetJwtReq = state => selectRequestsFor(state, GET_JWT);
 export const selectValidateJwtReq = state => selectRequestsFor(state, VALIDATE_JWT);
 export const selectRefreshJwtReq = state => selectRequestsFor(state, REFRESH_JWT);
 export const selectDestroyJwtReq = state => selectRequestsFor(state, DESTROY_JWT);
+export const selectChangePasswordReq = state => selectRequestsFor(state, CHANGE_PASSWORD);

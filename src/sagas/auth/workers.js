@@ -12,7 +12,8 @@ import {
   GET_JWT,
   VALIDATE_JWT,
   REFRESH_JWT,
-  DESTROY_JWT
+  DESTROY_JWT,
+  CHANGE_PASSWORD
 } from './constants';
 import * as Api from '../../utils/api';
 
@@ -81,5 +82,19 @@ export function* workerDestroyJwt() {
     yield call([history, 'push'], '/');
   } catch (err) {
     yield put({ type: createAction(DESTROY_JWT, FAILED), error: err });
+  }
+}
+
+export function* workerChangePassword({ payload }) {
+  try {
+    yield put({ type: createAction(CHANGE_PASSWORD, PENDING) });
+    const { data } = yield call(Api.instance, {
+      method: 'post',
+      url: '/auth/settings/password',
+      data: payload,
+    });
+    yield put({ type: createAction(CHANGE_PASSWORD, SUCCESS), payload: data });
+  } catch (err) {
+    yield put({ type: createAction(CHANGE_PASSWORD, FAILED), error: err });
   }
 }

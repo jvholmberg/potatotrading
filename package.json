@@ -33,6 +33,7 @@
     "yup": "^0.28.1"
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "cypress": "^4.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -42,13 +43,15 @@
     "express": "^4.17.1",
     "husky": "^4.2.3",
     "jest-enzyme": "^7.1.2",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.13.0",
     "redux-mock-store": "^1.5.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:mock": "node src/server/index.js",
+    "start:mock": "nodemon src/server/index.js",
+    "start:both": "concurrently \"yarn start:mock\" \"yarn start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:once": "yarn run test --watchAll=false",

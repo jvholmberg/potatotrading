@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react';
+import React from 'react';
 import _ from 'lodash';
 
 export default (name, props) => {
-  const prevProps = useRef();
+  const prevProps = React.useRef();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (prevProps.current) {
       const changes = _.reduce(Object.keys({ ...prevProps.current, ...props }), (result, key) => {
         if (prevProps.current[key] !== props[key]) {

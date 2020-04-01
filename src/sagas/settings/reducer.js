@@ -10,7 +10,7 @@ import {
 import { SUCCESS } from '../constants';
 import {
   reducerName,
-  CHANGE_PASSWORD,
+  GET_SETTINGS,
   UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
 } from './constants';
@@ -25,7 +25,7 @@ export const getInitialState = () => ({
     push: null,
   },
   requests: {
-    [CHANGE_PASSWORD]: { pending: false, done: false, error: null },
+    [GET_SETTINGS]: { pending: false, done: false, error: null },
     [UPDATE_PRIVACY]: { pending: false, done: false, error: null },
     [UPDATE_NOTIFICAIONS]: { pending: false, done: false, error: null },
   },
@@ -40,20 +40,22 @@ export default produce((draft = getInitialState(), action = {}) => {
   const actionName = getActionName(type);
   const actionStatus = getActionStatus(type);
   switch (actionName) {
-  case CHANGE_PASSWORD:
-    _.set(draft, `requests.${CHANGE_PASSWORD}`, updateRequest(actionStatus, error));
+  case GET_SETTINGS:
+    if (actionStatus === SUCCESS) {
+      _.set(draft, 'privacy', payload.privacy);
+      _.set(draft, 'notifications', payload.notifications);
+    }
+    _.set(draft, `requests.${GET_SETTINGS}`, updateRequest(actionStatus, error));
     break;
   case UPDATE_PRIVACY:
     if (actionStatus === SUCCESS) {
-      _.set(draft, 'privacy.profile', payload.email);
-      _.set(draft, 'privacy.sessions', payload.push);
+      _.set(draft, 'privacy', payload);
     }
     _.set(draft, `requests.${UPDATE_PRIVACY}`, updateRequest(actionStatus, error));
     break;
   case UPDATE_NOTIFICAIONS:
     if (actionStatus === SUCCESS) {
-      _.set(draft, 'notifications.email', payload.email);
-      _.set(draft, 'notifications.push', payload.push);
+      _.set(draft, 'notifications', payload);
     }
     _.set(draft, `requests.${UPDATE_NOTIFICAIONS}`, updateRequest(actionStatus, error));
     break;

@@ -1,17 +1,17 @@
 import { takeLatest } from 'redux-saga/effects';
 import {
-  CHANGE_PASSWORD,
+  GET_SETTINGS,
   UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
 } from './constants';
 import {
-  workerChangePassword,
+  workerGetUserSettings,
   workerUpdatePrivacySettings,
   workerUpdateNotificationsSettings,
 } from './workers';
 
-function* watcherChangePassword() {
-  yield takeLatest(CHANGE_PASSWORD, workerChangePassword);
+function* watcherGetUserSettings() {
+  yield takeLatest(GET_SETTINGS, workerGetUserSettings);
 }
 
 function* watcherUpdatePrivacySettings() {
@@ -23,7 +23,7 @@ function* watcherUpdateNotificationsSettings() {
 }
 
 export default [
-  watcherChangePassword(),
+  watcherGetUserSettings(),
   watcherUpdatePrivacySettings(),
   watcherUpdateNotificationsSettings(),
 ];

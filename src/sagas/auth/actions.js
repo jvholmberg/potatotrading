@@ -3,7 +3,8 @@ import {
   GET_JWT,
   VALIDATE_JWT,
   REFRESH_JWT,
-  DESTROY_JWT
+  DESTROY_JWT,
+  CHANGE_PASSWORD,
 } from './constants';
 
 export const getJwt = values => ({
@@ -21,4 +22,9 @@ export const refreshJwt = () => ({
 
 export const destroyJwt = () => ({
   type: DESTROY_JWT,
+});
+
+export const changePassword = values => ({
+  type: CHANGE_PASSWORD,
+  payload: values,
 });

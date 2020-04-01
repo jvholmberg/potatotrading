@@ -1,0 +1,18 @@
+/* eslint-disable */
+
+module.exports = (app, latency) => {
+    app.get('/settings', (req, res) => latency(() => {
+      const mockFile = require('../../sagas/settings/__mocks__/getSettings.json');
+      res.send(mockFile);
+    }));
+      
+    app.post('/settings/privacy', (req, res) => latency(() => {
+      const mockFile = require('../../sagas/settings/__mocks__/updatePrivacySettings.json');
+      res.send(mockFile);
+    }));
+      
+    app.post('/settings/notifications', (req, res) => latency(() => {
+      const mockFile = require('../../sagas/settings/__mocks__/updateNotificationsSettings.json');
+      res.send(mockFile);
+    }));
+};

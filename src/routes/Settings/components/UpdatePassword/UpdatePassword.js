@@ -13,8 +13,8 @@ import {
 } from '@material-ui/core';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import TextField from '../../../../components/TextField';
-import { selectChangePasswordReq } from '../../../../sagas/settings/selectors';
-import { changePassword } from '../../../../sagas/settings/actions';
+import { selectChangePasswordReq } from '../../../../sagas/auth/selectors';
+import { changePassword } from '../../../../sagas/auth/actions';
 
 const cardHeaderProps = {
   avatar: (

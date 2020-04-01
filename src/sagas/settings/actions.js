@@ -1,12 +1,11 @@
 import {
-  CHANGE_PASSWORD,
+  GET_SETTINGS,
   UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
 } from './constants';
 
-export const changePassword = values => ({
-  type: CHANGE_PASSWORD,
-  payload: values,
+export const getUserSettings = () => ({
+  type: GET_SETTINGS,
 });
 
 export const updatePrivacySettings = values => ({

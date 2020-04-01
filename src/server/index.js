@@ -13,5 +13,6 @@ require('./endpoints/users')(app, latency);
 require('./endpoints/auth')(app, latency);
 require('./endpoints/profile')(app, latency);
 require('./endpoints/sessions')(app, latency);
+require('./endpoints/settings')(app, latency);
 
 app.listen(port, () => console.log(`Mock listening on port ${port}!`));

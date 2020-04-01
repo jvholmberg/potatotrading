@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import * as Api from '../../utils/api';
 import { createAction } from '../sagaHelpers';
 import {
-  CHANGE_PASSWORD,
+  GET_SETTINGS,
   UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
 } from './constants';
@@ -12,17 +12,17 @@ import {
   FAILED,
 } from '../constants';
 
-export function* workerChangePassword({ payload }) {
+export function* workerGetUserSettings({ payload }) {
   try {
-    yield put({ type: createAction(CHANGE_PASSWORD, PENDING) });
+    yield put({ type: createAction(GET_SETTINGS, PENDING) });
     const { data } = yield call(Api.instance, {
-      method: 'post',
-      url: '/auth/settings/password',
+      method: 'get',
+      url: '/settings',
       data: payload,
     });
-    yield put({ type: createAction(CHANGE_PASSWORD, SUCCESS), payload: data });
+    yield put({ type: createAction(GET_SETTINGS, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createAction(CHANGE_PASSWORD, FAILED), error: err });
+    yield put({ type: createAction(GET_SETTINGS, FAILED), error: err });
   }
 }
 
@@ -31,7 +31,7 @@ export function* workerUpdatePrivacySettings({ payload }) {
     yield put({ type: createAction(UPDATE_PRIVACY, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
-      url: '/users/settings/privacy',
+      url: '/settings/privacy',
       data: payload,
     });
     yield put({ type: createAction(UPDATE_PRIVACY, SUCCESS), payload: data });
@@ -45,7 +45,7 @@ export function* workerUpdateNotificationsSettings({ payload }) {
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
-      url: '/users/settings/notifications',
+      url: '/settings/notifications',
       data: payload,
     });
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, SUCCESS), payload: data });

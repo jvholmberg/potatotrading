@@ -3,13 +3,15 @@ import {
   GET_JWT,
   VALIDATE_JWT,
   REFRESH_JWT,
-  DESTROY_JWT
+  DESTROY_JWT,
+  CHANGE_PASSWORD
 } from './constants';
 import {
   workerGetJwt,
   workerValidateJwt,
   workerRefreshJwt,
-  workerDestroyJwt
+  workerDestroyJwt,
+  workerChangePassword
 } from './workers';
 
 function* watcherGetJwt() {
@@ -28,9 +30,14 @@ function* watcherDestroyJwt() {
   yield takeLatest(DESTROY_JWT, workerDestroyJwt);
 }
 
+function* watcherChangePassword() {
+  yield takeLatest(CHANGE_PASSWORD, workerChangePassword);
+}
+
 export default [
   watcherGetJwt(),
   watcherValidateJwt(),
   watcherRefreshJwt(),
   watcherDestroyJwt(),
+  watcherChangePassword(),
 ];

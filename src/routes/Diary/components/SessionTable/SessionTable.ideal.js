@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
@@ -79,4 +79,4 @@ SessionTable.propTypes = {
   sessionIds: PropTypes.array.isRequired,
 };
 
-export default memo(SessionTable);
+export default React.memo(SessionTable);

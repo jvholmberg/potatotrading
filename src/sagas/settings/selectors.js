@@ -1,6 +1,6 @@
 import {
   reducerName,
-  CHANGE_PASSWORD,
+  GET_SETTINGS,
   UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
 } from './constants';
@@ -12,6 +12,6 @@ export const selectNotificationsSettings = state => selectReducer(state).accessT
 
 const selectRequests = state => selectReducer(state).requests;
 const selectRequestsFor = (state, req) => selectRequests(state)[req];
-export const selectChangePasswordReq = state => selectRequestsFor(state, CHANGE_PASSWORD);
+export const selectGetSettingsReq = state => selectRequestsFor(state, GET_SETTINGS);
 export const selectUpdatePrivacySettingsReq = state => selectRequestsFor(state, UPDATE_PRIVACY);
 export const selectUpdateNotificationsSettingsReq = state => selectRequestsFor(state, UPDATE_NOTIFICAIONS);

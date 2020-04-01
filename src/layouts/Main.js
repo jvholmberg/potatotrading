@@ -25,4 +25,4 @@ Main.defaultProps = {
   children: null,
 };
 
-export default Main;
+export default React.memo(Main);

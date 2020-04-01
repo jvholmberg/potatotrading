@@ -22,7 +22,7 @@ export function* workerGetJwt({ payload }) {
     yield put({ type: createAction(GET_JWT, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
-      url: '/users/auth',
+      url: '/auth',
       data: payload,
     });
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.accessToken);
@@ -40,7 +40,7 @@ export function* workerValidateJwt() {
     const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     const { data } = yield call(Api.instance, {
       method: 'get',
-      url: '/users/auth',
+      url: '/auth',
       headers: Api.generateHeaders(accessToken),
     });
     yield put({ type: createAction(VALIDATE_JWT, SUCCESS), payload: data });
@@ -56,7 +56,7 @@ export function* workerRefreshJwt() {
     const refreshToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY);
     const { data } = yield call(Api.instance, {
       method: 'get',
-      url: `/users/auth/${refreshToken}`,
+      url: `/auth/${refreshToken}`,
       headers: Api.generateHeaders(accessToken),
     });
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.accessToken);
@@ -73,7 +73,7 @@ export function* workerDestroyJwt() {
     const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     yield call(Api.instance, {
       method: 'delete',
-      url: '/users/auth',
+      url: '/auth',
       headers: Api.generateHeaders(accessToken),
     });
     yield call([localStorage, 'removeItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
@@ -90,7 +90,7 @@ export function* workerChangePassword({ payload }) {
     yield put({ type: createAction(CHANGE_PASSWORD, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
-      url: '/auth/settings/password',
+      url: '/auth/password',
       data: payload,
     });
     yield put({ type: createAction(CHANGE_PASSWORD, SUCCESS), payload: data });

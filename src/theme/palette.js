@@ -1,17 +1,18 @@
 import { colors } from '@material-ui/core';
 
 export default {
+  type: 'light',
   primary: {
     contrastText: colors.common.white,
-    dark: colors.blue[900],
-    main: colors.blue[500],
-    light: colors.blue[100]
+    dark: colors.red[900],
+    main: colors.red[600],
+    light: colors.grey[100]
   },
   secondary: {
     contrastText: colors.common.white,
-    dark: colors.blue[900],
-    main: colors.blue.A400,
-    light: colors.blue.A400
+    dark: colors.grey[900],
+    main: colors.grey[600],
+    light: colors.grey[400]
   },
   success: {
     contrastText: colors.common.white,
@@ -38,14 +39,14 @@ export default {
     light: colors.red[400]
   },
   text: {
-    primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[600],
+    primary: colors.grey[900],
+    secondary: colors.grey[600],
+    disabled: colors.grey[400],
     link: colors.blue[600]
   },
   background: {
     default: colors.grey[100],
     paper: colors.common.white
   },
-  icon: colors.blueGrey[600],
   divider: colors.grey[200]
 };

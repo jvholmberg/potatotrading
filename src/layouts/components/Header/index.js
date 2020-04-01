@@ -20,7 +20,7 @@ const Header = ({ isLoggedIn, destroyJwt, noMenuButton }) => {
     <AppBar position="sticky" color="primary">
       <Toolbar>
         <RouterLink to="/">
-          <img alt="Logo" src="/logo.svg" />
+          <img alt="Logo" style={{ height: '35px' }} src="/logo_light.png" />
         </RouterLink>
         <div className={classes.flexGrow} />
         {isLoggedIn ? (

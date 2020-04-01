@@ -22,6 +22,10 @@ const TextField = props => {
     <MuiTextField {...{
       ...field,
       ...props,
+      variant: 'filled',
+      InputProps: {
+        disableUnderline: true,
+      },
       error: hasError,
       helperText,
     }} />

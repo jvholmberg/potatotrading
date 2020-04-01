@@ -29,9 +29,17 @@ const notLoggedInConfig = [MinimalLayout, [
   { path: '/register', component: Register },
   { path: '/login', component: Login },
 ]];
+const devConfig = [MainLayout, [
+  { path: '/overview', component: Overview },
+  { path: '/diary', component: Diary },
+  { path: '/settings', component: Settings },
+  { path: '/register', component: Register },
+  { path: '/login', component: Login },
+]];
 
 const Routes = ({ isLoggedIn, getMyUser }) => {
-  const [Layout, routesConfig] = !isLoggedIn ? loggedInConfig : notLoggedInConfig;
+  // const [Layout, routesConfig] = isLoggedIn ? loggedInConfig : notLoggedInConfig;
+  const [Layout, routesConfig] = devConfig;
   React.useEffect(() => {
     if (isLoggedIn) {
       getMyUser()

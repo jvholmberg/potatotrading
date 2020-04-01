@@ -1,7 +1,16 @@
+import { colors } from '@material-ui/core';
+
 export default {
+  text: {
+    padding: '0 8px',
+    height: 48,
+    borderRadius: 0,
+  },
   contained: {
-    boxShadow:
-      '0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20)',
-    backgroundColor: '#FFFFFF'
-  }
+    padding: '0 30px',
+    height: 48,
+    borderRadius: 0,
+    border: 0,
+    color: colors.common.white,
+  },
 };

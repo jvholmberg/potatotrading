@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import EditGraphs from './components/EditGraphs';
 import EditNotifications from './components/EditNotifications';
 import EditSubscription from './components/EditSubscription';
-import UpdatePassword from './components/UpdatePassword';
+import ChangePassword from './components/ChangePassword';
 import { getUserSettings } from '../../sagas/settings/actions';
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +35,7 @@ const Settings = () => {
       alignItems="stretch"
       alignContent="stretch">
       <Grid item xs={12}>
-        <UpdatePassword />
+        <ChangePassword />
       </Grid>
       <Grid item xs={12}>
         <EditNotifications />

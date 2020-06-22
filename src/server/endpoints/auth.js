@@ -6,7 +6,7 @@ module.exports = (app, latency) => {
     res.send(mockFile);
   }));
   
-  app.post('/auth/password', (req, res) => latency(() => {
+  app.put('/auth/password', (req, res) => latency(() => {
     const mockFile = require('../../sagas/auth/__mocks__/changePassword.json');
     res.send(mockFile);
   }));

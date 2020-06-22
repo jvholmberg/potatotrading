@@ -89,7 +89,7 @@ export function* workerChangePassword({ payload }) {
   try {
     yield put({ type: createAction(CHANGE_PASSWORD, PENDING) });
     const { data } = yield call(Api.instance, {
-      method: 'post',
+      method: 'put',
       url: '/auth/password',
       data: payload,
     });

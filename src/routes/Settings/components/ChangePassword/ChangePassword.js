@@ -22,8 +22,8 @@ const cardHeaderProps = {
       <VpnKeyIcon />
     </Avatar>
   ),
-  title: 'Update password',
-  subheader: 'Change your existing password',
+  title: 'Change password',
+  subheader: 'Select a new password',
 };
 
 const validationSchema = Yup.object().shape({
@@ -42,12 +42,11 @@ const initialValues = {
   currentPassword: '',
 };
 
-const UpdatePassword = () => {
+const ChangePassword = () => {
   const dispatch = useDispatch()
   const onSubmit = value => dispatch(changePassword(value));
-  const submitting = false;
 
-  const {  } = useSelector(selectChangePasswordReq);
+  const { pending } = useSelector(selectChangePasswordReq);
 
   return (
     <Card>
@@ -61,21 +60,21 @@ const UpdatePassword = () => {
                 type="password"
                 name="newPassword"
                 label="New password"
-                disabled={submitting}
+                disabled={pending}
                 fullWidth
                 required />
               <TextField
                 type="password"
                 name="newPasswordVerify"
                 label="Verify new password"
-                disabled={submitting}
+                disabled={pending}
                 fullWidth
                 required />
               <TextField
                 type="password"
                 name="currentPassword"
                 label="Current password"
-                disabled={submitting}
+                disabled={pending}
                 fullWidth
                 required />
             </CardContent>
@@ -84,7 +83,7 @@ const UpdatePassword = () => {
               <Button
                 type="submit"
                 color="primary"
-                disabled={submitting}>
+                disabled={pending}>
                 Update
               </Button>
             </CardActions>
@@ -94,4 +93,4 @@ const UpdatePassword = () => {
     </Card>
   )
 };
-export default React.memo(UpdatePassword);
+export default React.memo(ChangePassword);

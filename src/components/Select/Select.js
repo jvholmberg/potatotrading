@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MuiFormControl from '@material-ui/core/FormControl';
-import MuiFormControlLabel from '@material-ui/core/FormControlLabel';
+import MuiInputLabel from '@material-ui/core/InputLabel';
 import MuiFormHelperText from '@material-ui/core/FormHelperText';
-import MuiCheckbox from '@material-ui/core/Checkbox';
+import MuiSelect from '@material-ui/core/Select';
 import { useField } from 'formik';
 
 /**
- * Input
+ * Select
  *
  * @param {string} name -
  * @param {bool} fullWidth -
@@ -16,24 +16,29 @@ import { useField } from 'formik';
  * @param {string} [helperText=' '] -
  * @param {bool} [required=false] -
  */
-const Checkbox = ({
-  label,
+const Select = ({
   fullWidth,
+  margin,
+  label,
+  required,
   helperText,
   ...rest
 }) => {
   const [field, meta] = useField(rest);
   const hasError = !!(meta.touched && meta.error);
   return (
-    <MuiFormControl {...{ fullWidth }}>
-      <MuiFormControlLabel {...{
-        label,
-        control: (
-          <MuiCheckbox {...{
-            ...field,
-            ...rest,
-          }} />
-        )
+    <MuiFormControl {...{
+      fullWidth,
+      margin,
+      required,
+      variant: 'filled',
+      error: hasError,
+    }}>
+      <MuiInputLabel>{label}</MuiInputLabel>
+      <MuiSelect {...{
+        ...field,
+        ...rest,
+        disableUnderline: true
       }} />
       <MuiFormHelperText>
         {hasError ? meta.error : helperText}
@@ -41,7 +46,8 @@ const Checkbox = ({
     </MuiFormControl>
   );
 };
-Checkbox.propTypes = {
+
+Select.propTypes = {
   name: PropTypes.string.isRequired,
   fullWidth: PropTypes.bool,
   margin: PropTypes.string,
@@ -50,12 +56,12 @@ Checkbox.propTypes = {
   required: PropTypes.bool,
 };
 
-Checkbox.defaultProps = {
-  fullWidth: false,
+Select.defaultProps = {
   margin: 'dense',
+  fullWidth: false,
   label: '',
   helperText: '',
   required: false,
 };
 
-export default Checkbox;
+export default Select;

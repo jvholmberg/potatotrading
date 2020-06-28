@@ -1,29 +1,29 @@
 import { takeLatest } from 'redux-saga/effects';
 import {
   GET_SETTINGS,
-  UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
+  EDIT_GRAPHS,
 } from './constants';
 import {
   workerGetUserSettings,
-  workerUpdatePrivacySettings,
   workerUpdateNotificationsSettings,
+  workerEditGraphsSettings,
 } from './workers';
 
 function* watcherGetUserSettings() {
   yield takeLatest(GET_SETTINGS, workerGetUserSettings);
 }
 
-function* watcherUpdatePrivacySettings() {
-  yield takeLatest(UPDATE_PRIVACY, workerUpdatePrivacySettings);
-}
-
 function* watcherUpdateNotificationsSettings() {
   yield takeLatest(UPDATE_NOTIFICAIONS, workerUpdateNotificationsSettings);
 }
 
+function* watcherEditGraphsSettings() {
+  yield takeLatest(EDIT_GRAPHS, workerEditGraphsSettings);
+}
+
 export default [
   watcherGetUserSettings(),
-  watcherUpdatePrivacySettings(),
   watcherUpdateNotificationsSettings(),
+  watcherEditGraphsSettings(),
 ];

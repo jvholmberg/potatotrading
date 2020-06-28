@@ -11,42 +11,38 @@ import {
   Button,
   Avatar,
 } from '@material-ui/core';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import TextField from '../../../../components/TextField';
-import { selectChangePasswordReq } from '../../../../sagas/auth/selectors';
-import { changePassword } from '../../../../sagas/auth/actions';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Checkbox from '../../../components/Checkbox';
+import { selectUpdateNotificationsSettingsReq } from '../../../sagas/settings/selectors';
+import { changePassword } from '../../../sagas/auth/actions';
 
 const cardHeaderProps = {
   avatar: (
-    <Avatar aria-label="Update password">
-      <VpnKeyIcon />
+    <Avatar aria-label="Edit notifications">
+      <NotificationsIcon />
     </Avatar>
   ),
-  title: 'Change password',
-  subheader: 'Select a new password',
+  title: 'Edit notifications',
+  subheader: 'Select what notifications to receive',
 };
 
 const validationSchema = Yup.object().shape({
-  newPassword: Yup.string()
-    .required('Required'),
-  newPasswordVerify: Yup.string()
-    .oneOf([Yup.ref('newPassword'), null], 'Passwords does not match')
-    .required('Required'),
-  currentPassword: Yup.string()
-    .required('Required'),
+  emailNotifications: Yup.boolean(),
+  pushNotifications: Yup.boolean(),
+  smsNotifications: Yup.boolean(),
 });
 
 const initialValues = {
-  newPassword: '',
-  newPasswordVerify: '',
-  currentPassword: '',
+  emailNotifications: '',
+  pushNotifications: '',
+  smsNotifications: '',
 };
 
-const ChangePassword = () => {
+const Notifications = () => {
   const dispatch = useDispatch()
   const onSubmit = value => dispatch(changePassword(value));
 
-  const { pending } = useSelector(selectChangePasswordReq);
+  const { pending } = useSelector(selectUpdateNotificationsSettingsReq);
 
   return (
     <Card>
@@ -56,24 +52,21 @@ const ChangePassword = () => {
             <CardHeader {...cardHeaderProps} />
             <Divider />
             <CardContent>
-              <TextField
-                type="password"
-                name="newPassword"
-                label="New password"
+              <Checkbox
+                name="emailNotifications"
+                label="Email notificaitons"
                 disabled={pending}
                 fullWidth
                 required />
-              <TextField
-                type="password"
-                name="newPasswordVerify"
-                label="Verify new password"
+              <Checkbox
+                name="pushNotifications"
+                label="Push notificaitons"
                 disabled={pending}
                 fullWidth
                 required />
-              <TextField
-                type="password"
-                name="currentPassword"
-                label="Current password"
+              <Checkbox
+                name="smsNotifications"
+                label="Sms notifications"
                 disabled={pending}
                 fullWidth
                 required />
@@ -84,7 +77,7 @@ const ChangePassword = () => {
                 type="submit"
                 color="primary"
                 disabled={pending}>
-                Update
+                Save
               </Button>
             </CardActions>
           </Form>
@@ -93,4 +86,4 @@ const ChangePassword = () => {
     </Card>
   )
 };
-export default React.memo(ChangePassword);
+export default React.memo(Notifications);

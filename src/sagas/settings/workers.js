@@ -3,8 +3,8 @@ import * as Api from '../../utils/api';
 import { createAction } from '../sagaHelpers';
 import {
   GET_SETTINGS,
-  UPDATE_PRIVACY,
   UPDATE_NOTIFICAIONS,
+  EDIT_GRAPHS,
 } from './constants';
 import {
   PENDING,
@@ -26,30 +26,30 @@ export function* workerGetUserSettings({ payload }) {
   }
 }
 
-export function* workerUpdatePrivacySettings({ payload }) {
-  try {
-    yield put({ type: createAction(UPDATE_PRIVACY, PENDING) });
-    const { data } = yield call(Api.instance, {
-      method: 'post',
-      url: '/settings/privacy',
-      data: payload,
-    });
-    yield put({ type: createAction(UPDATE_PRIVACY, SUCCESS), payload: data });
-  } catch (err) {
-    yield put({ type: createAction(UPDATE_PRIVACY, FAILED), error: err });
-  }
-}
-
 export function* workerUpdateNotificationsSettings({ payload }) {
   try {
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, PENDING) });
     const { data } = yield call(Api.instance, {
-      method: 'post',
+      method: 'put',
       url: '/settings/notifications',
       data: payload,
     });
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createAction(UPDATE_NOTIFICAIONS, FAILED), error: err });
+  }
+}
+
+export function* workerEditGraphsSettings({ payload }) {
+  try {
+    yield put({ type: createAction(EDIT_GRAPHS, PENDING) });
+    const { data } = yield call(Api.instance, {
+      method: 'put',
+      url: '/settings/graphs',
+      data: payload,
+    });
+    yield put({ type: createAction(EDIT_GRAPHS, SUCCESS), payload: data });
+  } catch (err) {
+    yield put({ type: createAction(EDIT_GRAPHS, FAILED), error: err });
   }
 }

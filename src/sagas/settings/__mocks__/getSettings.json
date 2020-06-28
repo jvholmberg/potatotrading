@@ -4,5 +4,12 @@
     },
     "notifications": {
         
+    },
+    "graphs": {
+        "dataPeriod": [
+            { "id": 0, "name": "Week" },
+            { "id": 1, "name": "Month" },
+            { "id": 2, "name": "Year" }
+        ]
     }
 }

@@ -6,13 +6,18 @@ module.exports = (app, latency) => {
       res.send(mockFile);
     }));
       
-    app.post('/settings/privacy', (req, res) => latency(() => {
+    app.put('/settings/privacy', (req, res) => latency(() => {
       const mockFile = require('../../sagas/settings/__mocks__/updatePrivacySettings.json');
       res.send(mockFile);
     }));
       
-    app.post('/settings/notifications', (req, res) => latency(() => {
+    app.put('/settings/notifications', (req, res) => latency(() => {
       const mockFile = require('../../sagas/settings/__mocks__/updateNotificationsSettings.json');
+      res.send(mockFile);
+    }));
+      
+    app.put('/settings/graphs', (req, res) => latency(() => {
+      const mockFile = require('../../sagas/settings/__mocks__/editGraphsSettings.json');
       res.send(mockFile);
     }));
 };

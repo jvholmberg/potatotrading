@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
-import EditGraphs from './components/EditGraphs';
-import EditNotifications from './components/EditNotifications';
-import EditSubscription from './components/EditSubscription';
-import ChangePassword from './components/ChangePassword';
+import EditGraphs from './EditGraphs';
+import EditNotifications from './EditNotifications';
+import ChangePassword from './ChangePassword';
 import { getUserSettings } from '../../sagas/settings/actions';
 
 const useStyles = makeStyles(theme => ({
@@ -35,16 +34,13 @@ const Settings = () => {
       alignItems="stretch"
       alignContent="stretch">
       <Grid item xs={12}>
+        <EditGraphs />
+      </Grid>
+      <Grid item xs={12}>
         <ChangePassword />
       </Grid>
       <Grid item xs={12}>
         <EditNotifications />
-      </Grid>
-      <Grid item xs={12}>
-        <EditSubscription />
-      </Grid>
-      <Grid item xs={12}>
-        <EditGraphs />
       </Grid>
     </Grid>
   );

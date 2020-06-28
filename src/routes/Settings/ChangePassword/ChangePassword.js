@@ -11,19 +11,19 @@ import {
   Button,
   Avatar,
 } from '@material-ui/core';
-import PaymentIcon from '@material-ui/icons/Payment';
-import TextField from '../../../../components/TextField';
-import { selectChangePasswordReq } from '../../../../sagas/auth/selectors';
-import { changePassword } from '../../../../sagas/auth/actions';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import TextField from '../../../components/TextField';
+import { selectChangePasswordReq } from '../../../sagas/auth/selectors';
+import { changePassword } from '../../../sagas/auth/actions';
 
 const cardHeaderProps = {
   avatar: (
-    <Avatar aria-label="Edit ubscription">
-      <PaymentIcon />
+    <Avatar aria-label="Update password">
+      <VpnKeyIcon />
     </Avatar>
   ),
-  title: 'Edit subscription',
-  subheader: 'Select what EditSubscription to receive',
+  title: 'Change password',
+  subheader: 'Select a new password',
 };
 
 const validationSchema = Yup.object().shape({
@@ -42,12 +42,11 @@ const initialValues = {
   currentPassword: '',
 };
 
-const EditSubscription = () => {
+const ChangePassword = () => {
   const dispatch = useDispatch()
   const onSubmit = value => dispatch(changePassword(value));
-  const submitting = false;
 
-  const {  } = useSelector(selectChangePasswordReq);
+  const { pending } = useSelector(selectChangePasswordReq);
 
   return (
     <Card>
@@ -61,21 +60,21 @@ const EditSubscription = () => {
                 type="password"
                 name="newPassword"
                 label="New password"
-                disabled={submitting}
+                disabled={pending}
                 fullWidth
                 required />
               <TextField
                 type="password"
                 name="newPasswordVerify"
                 label="Verify new password"
-                disabled={submitting}
+                disabled={pending}
                 fullWidth
                 required />
               <TextField
                 type="password"
                 name="currentPassword"
                 label="Current password"
-                disabled={submitting}
+                disabled={pending}
                 fullWidth
                 required />
             </CardContent>
@@ -84,8 +83,8 @@ const EditSubscription = () => {
               <Button
                 type="submit"
                 color="primary"
-                disabled={submitting}>
-                Save
+                disabled={pending}>
+                Update
               </Button>
             </CardActions>
           </Form>
@@ -94,4 +93,4 @@ const EditSubscription = () => {
     </Card>
   )
 };
-export default React.memo(EditSubscription);
+export default React.memo(ChangePassword);

@@ -37,7 +37,7 @@ const LoginFormSchema = Yup
       .required('Required'),
   });
 
-const LoginForm = ({ getJwt, submitting }) => {
+const LoginForm = ({ getToken, submitting }) => {
   const classes = useStyles();
   return (
     <Formik
@@ -46,7 +46,7 @@ const LoginForm = ({ getJwt, submitting }) => {
         password: '',
       }}
       validationSchema={LoginFormSchema}
-      onSubmit={getJwt}
+      onSubmit={getToken}
       render={formProps => (
         <form className={classes.root} onSubmit={formProps.handleSubmit}>
           <Typography className={classes.title} variant="h2">Sign in</Typography>
@@ -76,7 +76,7 @@ const LoginForm = ({ getJwt, submitting }) => {
 };
 
 LoginForm.propTypes = {
-  getJwt: PropTypes.func.isRequired,
+  getToken: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
 };
 

@@ -1,26 +1,29 @@
 import {
   reducerName,
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
+  LOAD_TOKEN,
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
   CHANGE_PASSWORD,
 } from './constants';
 
 const selectReducer = state => state[reducerName];
 
 const selectToken = state => selectReducer(state).token;
-export const selectAccessToken = state => selectToken(state).accessToken;
-export const selectRefreshToken = state => selectToken(state).refreshToken;
-export const selectValidUntil = state => selectToken(state).validUntil;
-export const selectExpiresIn = state => selectToken(state).expiresIn;
+export const selectAccessToken = state => selectToken(state).access_token;
+export const selectRefreshToken = state => selectToken(state).refresh_token;
+export const selectTokenType = state => selectToken(state).token_type;
+export const selectValidUntil = state => selectToken(state).valid_until;
+export const selectExpiresIn = state => selectToken(state).expires_in;
 
 export const selectIsLoggedIn = state => selectAccessToken(state) !== null;
 
 const selectRequests = state => selectReducer(state).requests;
 const selectRequestsFor = (state, req) => selectRequests(state)[req];
-export const selectGetJwtReq = state => selectRequestsFor(state, GET_JWT);
-export const selectValidateJwtReq = state => selectRequestsFor(state, VALIDATE_JWT);
-export const selectRefreshJwtReq = state => selectRequestsFor(state, REFRESH_JWT);
-export const selectDestroyJwtReq = state => selectRequestsFor(state, DESTROY_JWT);
+export const selectLoadTokenTask = state => selectRequestsFor(state, LOAD_TOKEN);
+export const selectGetTokenReq = state => selectRequestsFor(state, GET_TOKEN);
+export const selectValidateTokenReq = state => selectRequestsFor(state, VALIDATE_TOKEN);
+export const selectRefreshTokenReq = state => selectRequestsFor(state, REFRESH_TOKEN);
+export const selectDestroyTokenReq = state => selectRequestsFor(state, DESTROY_TOKEN);
 export const selectChangePasswordReq = state => selectRequestsFor(state, CHANGE_PASSWORD);

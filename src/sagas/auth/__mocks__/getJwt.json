@@ -1,6 +1,0 @@
-{
-  "accessToken": "accessToken",
-  "refreshToken": "refreshToken",
-  "expiresIn": 3600000,
-  "validUntil": "2020-01-01"
-}

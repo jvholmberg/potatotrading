@@ -20,7 +20,7 @@ const SessionTable = ({ error }) => (
         <TableCell colSpan={4}>
           <Alert {...{ severity: 'error' }}>
             <AlertTitle>Error</AlertTitle>
-            {error}
+            {error?.message}
           </Alert>
         </TableCell>
       </TableRow>
@@ -29,7 +29,7 @@ const SessionTable = ({ error }) => (
 );
 
 SessionTable.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: PropTypes.object.isRequired,
 };
 
 export default SessionTable;

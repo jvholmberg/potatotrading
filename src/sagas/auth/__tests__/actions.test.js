@@ -1,39 +1,39 @@
 import {
-  getJwt,
-  validateJwt,
-  refreshJwt,
-  destroyJwt,
+  getToken,
+  validateToken,
+  refreshToken,
+  destroyToken,
 } from '../actions';
 import {
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
 } from '../constants';
 
 describe('sagas/auth/actions.js', () => {
   it('login', () => {
     const input = { username: 'user@domain.com', password: '123' };
-    const actual = getJwt(input);
-    const expected = { type: GET_JWT, payload: input };
+    const actual = getToken(input);
+    const expected = { type: GET_TOKEN, payload: input };
     expect(actual).toEqual(expected);
   });
 
   it('validate tokens', () => {
-    const actual = validateJwt();
-    const expected = { type: VALIDATE_JWT };
+    const actual = validateToken();
+    const expected = { type: VALIDATE_TOKEN };
     expect(actual).toEqual(expected);
   });
 
   it('refresh tokens', () => {
-    const actual = refreshJwt();
-    const expected = { type: REFRESH_JWT };
+    const actual = refreshToken();
+    const expected = { type: REFRESH_TOKEN };
     expect(actual).toEqual(expected);
   });
 
   it('logout', () => {
-    const actual = destroyJwt();
-    const expected = { type: DESTROY_JWT };
+    const actual = destroyToken();
+    const expected = { type: DESTROY_TOKEN };
     expect(actual).toEqual(expected);
   });
 });

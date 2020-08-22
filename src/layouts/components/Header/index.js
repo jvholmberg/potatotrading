@@ -14,7 +14,7 @@ import { mapStateToProps, mapDispatchToProps } from './selectors';
 
 import useStyles from './styles';
 
-const Header = ({ isLoggedIn, destroyJwt, noMenuButton }) => {
+const Header = ({ isLoggedIn, destroyToken, noMenuButton }) => {
   const classes = useStyles();
   return (
     <AppBar position="sticky" color="primary">
@@ -26,7 +26,7 @@ const Header = ({ isLoggedIn, destroyJwt, noMenuButton }) => {
         {isLoggedIn ? (
           <Hidden xsDown>
             <NotificationsButton length={1} />
-            <IconButton color="inherit" className={classes.signOutButton} onClick={destroyJwt}>
+            <IconButton color="inherit" className={classes.signOutButton} onClick={destroyToken}>
               <InputIcon />
             </IconButton>
           </Hidden>
@@ -51,12 +51,12 @@ const Header = ({ isLoggedIn, destroyJwt, noMenuButton }) => {
 
 Header.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  destroyJwt: PropTypes.func,
+  destroyToken: PropTypes.func,
   noMenuButton: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  destroyJwt: null,
+  destroyToken: null,
   noMenuButton: false,
 };
 

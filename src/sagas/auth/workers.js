@@ -7,51 +7,71 @@ import {
   FAILED,
   LOCAL_STORAGE_ACCESS_TOKEN_KEY,
   LOCAL_STORAGE_REFRESH_TOKEN_KEY,
+  LOCAL_STORAGE_TOKEN_TYPE_KEY,
 } from '../constants';
 import {
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
-  CHANGE_PASSWORD
+  LOAD_TOKEN,
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
+  CHANGE_PASSWORD,
 } from './constants';
 import * as Api from '../../utils/api';
 
-export function* workerGetJwt({ payload }) {
+export function* workerLoadToken() {
   try {
-    yield put({ type: createAction(GET_JWT, PENDING) });
+    yield put({ type: createAction(LOAD_TOKEN, PENDING) });
+    const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
+    const refreshToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY);
+    const tokenType = yield call([localStorage, 'getItem'], LOCAL_STORAGE_TOKEN_TYPE_KEY);
+    const data = {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      token_type: tokenType,
+    };
+    yield put({ type: createAction(LOAD_TOKEN, SUCCESS), payload: data });
+  } catch (err) {
+    yield put({ type: createAction(LOAD_TOKEN, FAILED), error: err });
+  }
+}
+
+export function* workerGetToken({ payload }) {
+  try {
+    yield put({ type: createAction(GET_TOKEN, PENDING) });
     const { data } = yield call(Api.instance, {
       method: 'post',
       url: '/auth',
       data: payload,
     });
-    yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.accessToken);
-    yield call([localStorage, 'setItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY, data.refreshToken);
+    yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.access_token);
+    yield call([localStorage, 'setItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY, data.refresh_token);
+    yield call([localStorage, 'setItem'], LOCAL_STORAGE_TOKEN_TYPE_KEY, data.token_type);
     yield call([history, 'push'], '/diary');
-    yield put({ type: createAction(GET_JWT, SUCCESS), payload: data });
+    yield put({ type: createAction(GET_TOKEN, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createAction(GET_JWT, FAILED), error: err });
+    yield put({ type: createAction(GET_TOKEN, FAILED), error: err });
   }
 }
 
-export function* workerValidateJwt() {
+export function* workerValidateToken() {
   try {
-    yield put({ type: createAction(VALIDATE_JWT, PENDING) });
+    yield put({ type: createAction(VALIDATE_TOKEN, PENDING) });
     const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     const { data } = yield call(Api.instance, {
       method: 'get',
       url: '/auth',
       headers: Api.generateHeaders(accessToken),
     });
-    yield put({ type: createAction(VALIDATE_JWT, SUCCESS), payload: data });
+    yield put({ type: createAction(VALIDATE_TOKEN, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createAction(VALIDATE_JWT, FAILED), error: err });
+    yield put({ type: createAction(VALIDATE_TOKEN, FAILED), error: err });
   }
 }
 
-export function* workerRefreshJwt() {
+export function* workerRefreshToken() {
   try {
-    yield put({ type: createAction(REFRESH_JWT, PENDING) });
+    yield put({ type: createAction(REFRESH_TOKEN, PENDING) });
     const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     const refreshToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY);
     const { data } = yield call(Api.instance, {
@@ -59,17 +79,18 @@ export function* workerRefreshJwt() {
       url: `/auth/${refreshToken}`,
       headers: Api.generateHeaders(accessToken),
     });
-    yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.accessToken);
-    yield call([localStorage, 'setItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY, data.refreshToken);
-    yield put({ type: createAction(REFRESH_JWT, SUCCESS), payload: data });
+    yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.access_token);
+    yield call([localStorage, 'setItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY, data.refresh_token);
+    yield call([localStorage, 'setItem'], LOCAL_STORAGE_TOKEN_TYPE_KEY, data.token_type);
+    yield put({ type: createAction(REFRESH_TOKEN, SUCCESS), payload: data });
   } catch (err) {
-    yield put({ type: createAction(REFRESH_JWT, FAILED), error: err });
+    yield put({ type: createAction(REFRESH_TOKEN, FAILED), error: err });
   }
 }
 
-export function* workerDestroyJwt() {
+export function* workerDestroyToken() {
   try {
-    yield put({ type: createAction(DESTROY_JWT, PENDING) });
+    yield put({ type: createAction(DESTROY_TOKEN, PENDING) });
     const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     yield call(Api.instance, {
       method: 'delete',
@@ -78,10 +99,11 @@ export function* workerDestroyJwt() {
     });
     yield call([localStorage, 'removeItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     yield call([localStorage, 'removeItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY);
-    yield put({ type: createAction(DESTROY_JWT, SUCCESS) });
+    yield call([localStorage, 'removeItem'], LOCAL_STORAGE_TOKEN_TYPE_KEY);
+    yield put({ type: createAction(DESTROY_TOKEN, SUCCESS) });
     yield call([history, 'push'], '/');
   } catch (err) {
-    yield put({ type: createAction(DESTROY_JWT, FAILED), error: err });
+    yield put({ type: createAction(DESTROY_TOKEN, FAILED), error: err });
   }
 }
 

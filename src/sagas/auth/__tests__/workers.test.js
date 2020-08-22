@@ -2,16 +2,16 @@ import sinon from 'sinon';
 import { recordSaga } from '../../../utils/reduxSaga';
 import * as Api from '../../../utils/api';
 import {
-  workerGetJwt,
-  workerValidateJwt,
-  workerRefreshJwt,
-  workerDestroyJwt,
+  workerGetToken,
+  workerValidateToken,
+  workerRefreshToken,
+  workerDestroyToken,
 } from '../workers';
 import {
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
 } from '../constants';
 import {
   PENDING,
@@ -36,42 +36,42 @@ describe('sagas/auth/workers.js', () => {
 
   it('Get jwt-token', async () => {
     const input = { username: 'user@domain.com', password: '123' };
-    let dispatched = await recordSaga(workerGetJwt, {}, input);
-    expect(dispatched[0]).toEqual({ type: createAction(GET_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(GET_JWT, SUCCESS), payload: successResponse.data });
+    let dispatched = await recordSaga(workerGetToken, {}, input);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(GET_TOKEN, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workerGetJwt, {}, input);
-    expect(dispatched[0]).toEqual({ type: createAction(GET_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(GET_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerGetToken, {}, input);
+    expect(dispatched[0]).toEqual({ type: createAction(GET_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(GET_TOKEN, FAILED), error: failedResponse });
   });
 
   it('Validate jwt-token', async () => {
-    let dispatched = await recordSaga(workerValidateJwt);
-    expect(dispatched[0]).toEqual({ type: createAction(VALIDATE_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(VALIDATE_JWT, SUCCESS), payload: successResponse.data });
+    let dispatched = await recordSaga(workerValidateToken);
+    expect(dispatched[0]).toEqual({ type: createAction(VALIDATE_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(VALIDATE_TOKEN, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workerValidateJwt);
-    expect(dispatched[0]).toEqual({ type: createAction(VALIDATE_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(VALIDATE_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerValidateToken);
+    expect(dispatched[0]).toEqual({ type: createAction(VALIDATE_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(VALIDATE_TOKEN, FAILED), error: failedResponse });
   });
 
   it('Refresh jwt-token', async () => {
-    let dispatched = await recordSaga(workerRefreshJwt);
-    expect(dispatched[0]).toEqual({ type: createAction(REFRESH_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(REFRESH_JWT, SUCCESS), payload: successResponse.data });
+    let dispatched = await recordSaga(workerRefreshToken);
+    expect(dispatched[0]).toEqual({ type: createAction(REFRESH_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(REFRESH_TOKEN, SUCCESS), payload: successResponse.data });
 
-    dispatched = await recordSaga(workerRefreshJwt);
-    expect(dispatched[0]).toEqual({ type: createAction(REFRESH_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(REFRESH_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerRefreshToken);
+    expect(dispatched[0]).toEqual({ type: createAction(REFRESH_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(REFRESH_TOKEN, FAILED), error: failedResponse });
   });
 
   it('Destroy jwt-token', async () => {
-    let dispatched = await recordSaga(workerDestroyJwt);
-    expect(dispatched[0]).toEqual({ type: createAction(DESTROY_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(DESTROY_JWT, SUCCESS) });
+    let dispatched = await recordSaga(workerDestroyToken);
+    expect(dispatched[0]).toEqual({ type: createAction(DESTROY_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(DESTROY_TOKEN, SUCCESS) });
 
-    dispatched = await recordSaga(workerDestroyJwt);
-    expect(dispatched[0]).toEqual({ type: createAction(DESTROY_JWT, PENDING) });
-    expect(dispatched[1]).toEqual({ type: createAction(DESTROY_JWT, FAILED), error: failedResponse });
+    dispatched = await recordSaga(workerDestroyToken);
+    expect(dispatched[0]).toEqual({ type: createAction(DESTROY_TOKEN, PENDING) });
+    expect(dispatched[1]).toEqual({ type: createAction(DESTROY_TOKEN, FAILED), error: failedResponse });
   });
 });

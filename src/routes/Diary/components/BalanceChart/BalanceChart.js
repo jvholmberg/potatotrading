@@ -29,7 +29,7 @@ const BalanceChart = () => {
         <PieChart {...{
           className: classes.center,
           loading: fetching,
-          errorMessage: error,
+          errorMessage: error?.message,
           data,
           nameKey: 'name',
           dataKey: 'value',

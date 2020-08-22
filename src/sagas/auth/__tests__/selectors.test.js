@@ -1,61 +1,69 @@
 import {
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
   reducerName,
 } from '../constants';
 import {
   selectAccessToken,
   selectRefreshToken,
+  selectTokenType,
   selectValidUntil,
   selectExpiresIn,
   selectIsLoggedIn,
-  selectGetJwtReq,
-  selectValidateJwtReq,
-  selectRefreshJwtReq,
-  selectDestroyJwtReq,
+  selectGetTokenReq,
+  selectValidateTokenReq,
+  selectRefreshTokenReq,
+  selectDestroyTokenReq,
 } from '../selectors';
 
 describe('sagas/auth/selectors.js', () => {
   const getMockState = () => ({
     auth: {
       token: {
-        accessToken: 'accessToken',
-        refreshToken: 'refreshToken',
-        expiresIn: 3600000,
-        validUntil: '2020-01-01'
+        access_token: 'access_token',
+        refresh_token: 'refresh_token',
+        token_type: 'token_type',
+        expires_in: 3600000,
+        valid_until: '2021-01-01'
       },
       requests: {
-        [GET_JWT]: { pending: true, done: false, error: null },
-        [VALIDATE_JWT]: { pending: false, done: true, error: null },
-        [REFRESH_JWT]: { pending: false, done: false, error: null },
-        [DESTROY_JWT]: { pending: false, done: true, error: 'error' },
+        [GET_TOKEN]: { pending: true, done: false, error: null },
+        [VALIDATE_TOKEN]: { pending: false, done: true, error: null },
+        [REFRESH_TOKEN]: { pending: false, done: false, error: null },
+        [DESTROY_TOKEN]: { pending: false, done: true, error: 'error' },
       },
     },
   });
 
-  it('selects accesstoken', () => {
+  it('selects access-token', () => {
     const actual = selectAccessToken(getMockState());
-    const expected = getMockState()[reducerName].token.accessToken;
+    const expected = getMockState()[reducerName].token.access_token;
     expect(actual).toEqual(expected);
   });
 
-  it('selects refreshtoken', () => {
+  it('selects refresh-token', () => {
     const actual = selectRefreshToken(getMockState());
-    const expected = getMockState()[reducerName].token.refreshToken;
+    const expected = getMockState()[reducerName].token.refresh_token;
     expect(actual).toEqual(expected);
   });
 
-  it('selects validuntil', () => {
+  it('selects token-type', () => {
+    const actual = selectTokenType(getMockState());
+    const expected = getMockState()[reducerName].token.token_type;
+    expect(actual).toEqual(expected);
+  });
+
+  it('selects valid-until', () => {
     const actual = selectValidUntil(getMockState());
-    const expected = getMockState()[reducerName].token.validUntil;
+    const expected = getMockState()[reducerName].token.valid_until;
     expect(actual).toEqual(expected);
   });
 
-  it('selects expiresin', () => {
+  it('selects expires in', () => {
     const actual = selectExpiresIn(getMockState());
-    const expected = getMockState()[reducerName].token.expiresIn;
+    const expected = getMockState()[reducerName].token.expires_in;
     expect(actual).toEqual(expected);
   });
 
@@ -66,26 +74,26 @@ describe('sagas/auth/selectors.js', () => {
   });
 
   it('select request for login', () => {
-    const actual = selectGetJwtReq(getMockState());
-    const expected = getMockState()[reducerName].requests[GET_JWT];
+    const actual = selectGetTokenReq(getMockState());
+    const expected = getMockState()[reducerName].requests[GET_TOKEN];
     expect(actual).toEqual(expected);
   });
 
   it('select request for validate login', () => {
-    const actual = selectValidateJwtReq(getMockState());
-    const expected = getMockState()[reducerName].requests[VALIDATE_JWT];
+    const actual = selectValidateTokenReq(getMockState());
+    const expected = getMockState()[reducerName].requests[VALIDATE_TOKEN];
     expect(actual).toEqual(expected);
   });
 
   it('select request for refreshing login', () => {
-    const actual = selectRefreshJwtReq(getMockState());
-    const expected = getMockState()[reducerName].requests[REFRESH_JWT];
+    const actual = selectRefreshTokenReq(getMockState());
+    const expected = getMockState()[reducerName].requests[REFRESH_TOKEN];
     expect(actual).toEqual(expected);
   });
 
   it('select request for logout', () => {
-    const actual = selectDestroyJwtReq(getMockState());
-    const expected = getMockState()[reducerName].requests[DESTROY_JWT];
+    const actual = selectDestroyTokenReq(getMockState());
+    const expected = getMockState()[reducerName].requests[DESTROY_TOKEN];
     expect(actual).toEqual(expected);
   });
 });

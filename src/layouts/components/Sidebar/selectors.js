@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { bindActionCreators } from 'redux';
 
 import { selectIsLoggedIn } from '../../../sagas/auth/selectors';
-import { destroyJwt } from '../../../sagas/auth/actions';
+import { destroyToken } from '../../../sagas/auth/actions';
 import { selectSidebarOpen, selectIsDesktop } from '../../../sagas/ui/selectors';
 import { setSidebarOpen } from '../../../sagas/ui/actions';
 
@@ -17,6 +17,6 @@ export const mapStateToProps = createSelector(
 
 export const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    destroyJwt,
+    destroyToken,
     setSidebarOpen,
   }, dispatch);

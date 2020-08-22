@@ -2,7 +2,7 @@
 
 module.exports = (app, latency) => {
   app.post('/auth', (req, res) => latency(() => {
-    const mockFile = require('../../sagas/auth/__mocks__/getJwt.json');
+    const mockFile = require('../../sagas/auth/__mocks__/getToken.json');
     res.send(mockFile);
   }));
   
@@ -12,17 +12,17 @@ module.exports = (app, latency) => {
   }));
 
   app.get('/auth/:refreshToken', (req, res) => latency(() => {
-    const mockFile = require('../../sagas/auth/__mocks__/refreshJwt.json');
+    const mockFile = require('../../sagas/auth/__mocks__/refreshToken.json');
     res.send(mockFile);
   }));
 
   app.get('/auth', (req, res) => {
-    const mockFile = require('../../sagas/auth/__mocks__/validateJwt.json');
+    const mockFile = require('../../sagas/auth/__mocks__/validateToken.json');
     res.send(mockFile);
   });
 
   app.delete('/auth', (req, res) => latency(() => {
-    const mockFile = require('../../sagas/auth/__mocks__/destroyJwt.json');
+    const mockFile = require('../../sagas/auth/__mocks__/destroyToken.json');
     res.send(mockFile);
   }));
 };

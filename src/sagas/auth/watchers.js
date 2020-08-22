@@ -1,33 +1,39 @@
 import { takeLatest } from 'redux-saga/effects';
 import {
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
-  CHANGE_PASSWORD
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
+  CHANGE_PASSWORD,
+  LOAD_TOKEN
 } from './constants';
 import {
-  workerGetJwt,
-  workerValidateJwt,
-  workerRefreshJwt,
-  workerDestroyJwt,
-  workerChangePassword
+  workerLoadToken,
+  workerGetToken,
+  workerValidateToken,
+  workerRefreshToken,
+  workerDestroyToken,
+  workerChangePassword,
 } from './workers';
 
-function* watcherGetJwt() {
-  yield takeLatest(GET_JWT, workerGetJwt);
+function* watcherLoadToken() {
+  yield takeLatest(LOAD_TOKEN, workerLoadToken);
 }
 
-function* watcherValidateJwt() {
-  yield takeLatest(VALIDATE_JWT, workerValidateJwt);
+function* watcherGetToken() {
+  yield takeLatest(GET_TOKEN, workerGetToken);
 }
 
-function* watcherRefreshJwt() {
-  yield takeLatest(REFRESH_JWT, workerRefreshJwt);
+function* watcherValidateToken() {
+  yield takeLatest(VALIDATE_TOKEN, workerValidateToken);
 }
 
-function* watcherDestroyJwt() {
-  yield takeLatest(DESTROY_JWT, workerDestroyJwt);
+function* watcherRefreshToken() {
+  yield takeLatest(REFRESH_TOKEN, workerRefreshToken);
+}
+
+function* watcherDestroyToken() {
+  yield takeLatest(DESTROY_TOKEN, workerDestroyToken);
 }
 
 function* watcherChangePassword() {
@@ -35,9 +41,10 @@ function* watcherChangePassword() {
 }
 
 export default [
-  watcherGetJwt(),
-  watcherValidateJwt(),
-  watcherRefreshJwt(),
-  watcherDestroyJwt(),
+  watcherLoadToken(),
+  watcherGetToken(),
+  watcherValidateToken(),
+  watcherRefreshToken(),
+  watcherDestroyToken(),
   watcherChangePassword(),
 ];

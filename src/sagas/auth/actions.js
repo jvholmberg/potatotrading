@@ -1,27 +1,32 @@
 
 import {
-  GET_JWT,
-  VALIDATE_JWT,
-  REFRESH_JWT,
-  DESTROY_JWT,
+  LOAD_TOKEN,
+  GET_TOKEN,
+  VALIDATE_TOKEN,
+  REFRESH_TOKEN,
+  DESTROY_TOKEN,
   CHANGE_PASSWORD,
 } from './constants';
 
-export const getJwt = values => ({
-  type: GET_JWT,
+export const loadToken = () => ({
+  type: LOAD_TOKEN,
+});
+
+export const getToken = values => ({
+  type: GET_TOKEN,
   payload: values,
 });
 
-export const validateJwt = () => ({
-  type: VALIDATE_JWT,
+export const validateToken = () => ({
+  type: VALIDATE_TOKEN,
 });
 
-export const refreshJwt = () => ({
-  type: REFRESH_JWT,
+export const refreshToken = () => ({
+  type: REFRESH_TOKEN,
 });
 
-export const destroyJwt = () => ({
-  type: DESTROY_JWT,
+export const destroyToken = () => ({
+  type: DESTROY_TOKEN,
 });
 
 export const changePassword = values => ({

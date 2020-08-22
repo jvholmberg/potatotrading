@@ -47,7 +47,7 @@ export function* workerGetToken({ payload }) {
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY, data.access_token);
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY, data.refresh_token);
     yield call([localStorage, 'setItem'], LOCAL_STORAGE_TOKEN_TYPE_KEY, data.token_type);
-    yield call([history, 'push'], '/diary');
+    yield call([history, 'push'], '/overview');
     yield put({ type: createAction(GET_TOKEN, SUCCESS), payload: data });
   } catch (err) {
     yield put({ type: createAction(GET_TOKEN, FAILED), error: err });

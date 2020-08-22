@@ -1,4 +1,5 @@
 import { call, put } from 'redux-saga/effects';
+import history from '../../utils/history';
 import * as Api from '../../utils/api';
 import { createAction } from '../sagaHelpers';
 import {
@@ -24,6 +25,7 @@ export function* workerCreateUser({ payload }) {
       data: payload,
     });
     yield put({ type: createAction(CREATE_USER, SUCCESS), payload: data });
+    yield call([history, 'push'], '/login');
   } catch (err) {
     yield put({ type: createAction(CREATE_USER, FAILED), error: err });
   }

@@ -14,7 +14,7 @@ import SessionTableIdeal from '../SessionTable.ideal';
 describe('<SessionTable />', () => {
   it('should return error', () => {
     jest.spyOn(componentSelectors, 'selectIsFetching').mockReturnValue(false);
-    jest.spyOn(componentSelectors, 'selectFetchError').mockReturnValue('error');
+    jest.spyOn(componentSelectors, 'selectFetchError').mockReturnValue({ message: 'error' });
     jest.spyOn(sagaSelectors, 'selectSortingDiary').mockReturnValue({
       key: 'timestamp',
       direction: SORT_DIRECTION_DESCENDING,

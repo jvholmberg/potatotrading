@@ -17,7 +17,7 @@ describe('Register page (desktop)', () => {
       .click();
 
     cy.url()
-      .should('be.contain', '/overview');
+      .should('be.contain', '/login');
   });
 
   it('Should navigate to register and submit form with errors', () => {

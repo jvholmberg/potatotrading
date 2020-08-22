@@ -21,7 +21,6 @@ import {
   DELETE_USER,
 } from '../constants';
 
-
 describe('sagas/users/reducer.js', () => {
   it('returns initial state', () => {
     const actual = reducer(undefined, undefined);

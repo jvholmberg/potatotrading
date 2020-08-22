@@ -1,4 +1,3 @@
-
 import {
   LOAD_TOKEN,
   GET_TOKEN,

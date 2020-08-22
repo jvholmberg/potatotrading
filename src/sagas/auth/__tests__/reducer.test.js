@@ -23,14 +23,12 @@ import {
   DESTROY_TOKEN,
 } from '../constants';
 
-
 describe('sagas/auth/reducer.js', () => {
   it('returns initial state', () => {
     const actual = reducer(undefined, undefined);
     const expected = { ...getInitialState() };
     expect(actual).toEqual(expected);
   });
-
 
   describe('LOAD_TOKEN', () => {
     it('returns pending state', () => {

@@ -20,7 +20,6 @@ import {
   GET_SESSION_TYPES,
 } from '../constants';
 
-
 describe('sagas/sessions/reducer.js', () => {
   it('returns initial state', () => {
     const actual = reducer(undefined, undefined);

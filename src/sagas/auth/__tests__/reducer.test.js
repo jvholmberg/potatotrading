@@ -16,6 +16,7 @@ import {
 } from '../../constants';
 import reducer, { getInitialState } from '../reducer';
 import {
+  LOAD_TOKEN,
   GET_TOKEN,
   VALIDATE_TOKEN,
   REFRESH_TOKEN,
@@ -28,6 +29,42 @@ describe('sagas/auth/reducer.js', () => {
     const actual = reducer(undefined, undefined);
     const expected = { ...getInitialState() };
     expect(actual).toEqual(expected);
+  });
+
+
+  describe('LOAD_TOKEN', () => {
+    it('returns pending state', () => {
+      const action = { type: createAction(LOAD_TOKEN, PENDING) };
+      const actual = reducer(undefined, action);
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${LOAD_TOKEN}`, updateRequest(PENDING, null));
+      expect(actual).toEqual(expected);
+    });
+
+    it('returns success state', () => {
+      const mockPayload = {
+        access_token: 'access_token',
+        refresh_token: 'refresh_token',
+        token_type: 'token_type',
+      };
+      const action = { type: createAction(LOAD_TOKEN, SUCCESS), payload: mockPayload };
+      const actual = reducer(undefined, action);
+      const expected = { ...getInitialState() };
+      _.set(expected, 'token.access_token', mockPayload.access_token);
+      _.set(expected, 'token.refresh_token', mockPayload.refresh_token);
+      _.set(expected, 'token.token_type', mockPayload.token_type);
+      _.set(expected, `requests.${LOAD_TOKEN}`, updateRequest(SUCCESS, null));
+      expect(actual).toEqual(expected);
+    });
+
+    it('returns failed state', () => {
+      const error = 'error';
+      const action = { type: createAction(LOAD_TOKEN, FAILED), error };
+      const actual = reducer(undefined, action);
+      const expected = { ...getInitialState() };
+      _.set(expected, `requests.${LOAD_TOKEN}`, updateRequest(FAILED, error));
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe('GET_TOKEN', () => {
@@ -80,8 +117,8 @@ describe('sagas/auth/reducer.js', () => {
       const action = { type: createAction(VALIDATE_TOKEN, SUCCESS), payload: mockResponse };
       const actual = reducer(undefined, action);
       const expected = { ...getInitialState() };
-      _.set(expected, 'token.validUntil', mockResponse.validUntil);
-      _.set(expected, 'token.expiresIn', mockResponse.expiresIn);
+      _.set(expected, 'token.valid_until', mockResponse.valid_until);
+      _.set(expected, 'token.expires_in', mockResponse.expires_in);
       _.set(expected, `requests.${VALIDATE_TOKEN}`, updateRequest(SUCCESS, null));
       expect(actual).toEqual(expected);
     });

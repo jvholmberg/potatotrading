@@ -1,15 +1,14 @@
-import React from 'react';
-import { Formik } from 'formik';
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import TextField from '../../components/TextField';
-
-import { mapStateToProps, mapDispatchToProps } from './selectors';
+import { createUser } from '../../sagas/users/actions';
+import { selectCreateUserReq } from '../../sagas/users/selectors';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,64 +25,70 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RegisterFormSchema = Yup
-  .object()
-  .shape({
-    email: Yup.string()
-      .email('Invalid email')
-      .required('Required'),
-    password: Yup.string()
-      .required('Required'),
-    passwordVerify: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords does not match')
-      .required('Required'),
-  });
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string()
+    .required('Required'),
+  passwordVerify: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords does not match')
+    .required('Required'),
+});
 
-const RegisterForm = ({ createUser, submitting }) => {
+const initialValues = {
+  email: '',
+  password: '',
+  passwordVerify: '',
+};
+
+const RegisterForm = () => {
+  const dispatch = useDispatch()
+  const onSubmit = useCallback(val => dispatch(createUser(val)), [dispatch]);
+  const { pending, error } = useSelector(selectCreateUserReq);
+
   const classes = useStyles();
   return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-        passwordVerify: '',
-      }}
-      validationSchema={RegisterFormSchema}
-      onSubmit={createUser}
-      render={formProps => (
-        <form className={classes.root} onSubmit={formProps.handleSubmit}>
-          <Typography className={classes.title} variant="h2">Sign up</Typography>
+    <Formik {...{ initialValues, validationSchema, onSubmit }}>
+      {() => (
+        <Form className={classes.root}>
+          <Typography className={classes.title} variant="h2">Sign in</Typography>
           <Typography color="textSecondary" gutterBottom>
             Sign in to get access to all the goodies
           </Typography>
-          <TextField name="email" type="email" label="Email" fullWidth formProps={formProps} />
-          <TextField name="password" type="password" label="Password" fullWidth formProps={formProps} />
-          <TextField name="passwordVerify" type="password" label="Verify password" fullWidth formProps={formProps} />
+          <TextField
+            name="email"
+            type="email"
+            label="Email"
+            disabled={pending}
+            fullWidth />
+          <TextField
+            name="password"
+            type="password"
+            label="Password"
+            disabled={pending}
+            fullWidth />
+          <TextField
+            name="passwordVerify"
+            type="password"
+            label="Verify password"
+            disabled={pending}
+            fullWidth />
           <Button
             type="submit"
             fullWidth
             className={classes.signUpButton}
-            disabled={submitting}
+            disabled={pending}
             color="primary"
             size="large"
             variant="contained">
             Register
           </Button>
-        </form>
-      )} />
+          {error}
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-RegisterForm.propTypes = {
-  createUser: PropTypes.func.isRequired,
-  submitting: PropTypes.bool,
-};
-
-RegisterForm.defaultProps = {
-  submitting: false,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(RegisterForm);
+export default RegisterForm;

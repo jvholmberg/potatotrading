@@ -1,8 +1,7 @@
-import React from 'react';
-import { Formik } from 'formik';
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +9,9 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/styles';
 import TextField from '../../components/TextField';
-import { mapStateToProps, mapDispatchToProps } from './selectors';
+
+import { getToken } from '../../sagas/auth/actions';
+import { selectGetTokenReq } from '../../sagas/auth/selectors';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,39 +28,49 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginFormSchema = Yup
-  .object()
-  .shape({
-    email: Yup.string()
-      .email('Invalid email')
-      .required('Required'),
-    password: Yup.string()
-      .required('Required'),
-  });
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+  password: Yup.string()
+    .required('Required'),
+});
 
-const LoginForm = ({ getToken, submitting }) => {
+const initialValues = {
+  email: '',
+  password: '',
+};
+
+const LoginForm = () => {
+  const dispatch = useDispatch()
+  const onSubmit = useCallback(val => dispatch(getToken(val)), [dispatch]);
+  const { pending, error } = useSelector(selectGetTokenReq);
+
   const classes = useStyles();
   return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      }}
-      validationSchema={LoginFormSchema}
-      onSubmit={getToken}
-      render={formProps => (
-        <form className={classes.root} onSubmit={formProps.handleSubmit}>
+    <Formik {...{ initialValues, validationSchema, onSubmit }}>
+      {() => (
+        <Form className={classes.root}>
           <Typography className={classes.title} variant="h2">Sign in</Typography>
           <Typography color="textSecondary" gutterBottom>
             Sign in to get access to all the goodies
           </Typography>
-          <TextField name="email" type="email" label="Email" fullWidth formProps={formProps} />
-          <TextField name="password" type="password" label="Password" fullWidth formProps={formProps} />
+          <TextField
+            name="email"
+            type="email"
+            label="Email"
+            disabled={pending}
+            fullWidth />
+          <TextField
+            name="password"
+            type="password"
+            label="Password"
+            disabled={pending}
+            fullWidth />
           <Button
             type="submit"
             fullWidth
             className={classes.signInButton}
-            disabled={submitting}
             color="primary"
             size="large"
             variant="contained">
@@ -70,21 +81,11 @@ const LoginForm = ({ getToken, submitting }) => {
             {' '}
             <Link component={RouterLink} to="/register" variant="h6">Sign up</Link>
           </Typography>
-        </form>
-      )} />
+          {error}
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-LoginForm.propTypes = {
-  getToken: PropTypes.func.isRequired,
-  submitting: PropTypes.bool,
-};
-
-LoginForm.defaultProps = {
-  submitting: false,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(LoginForm);
+export default LoginForm;

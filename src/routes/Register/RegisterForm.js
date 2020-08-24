@@ -67,7 +67,7 @@ const RegisterForm = ({ createUser, submitting }) => {
             color="primary"
             size="large"
             variant="contained">
-              Register
+            Register
           </Button>
         </form>
       )} />

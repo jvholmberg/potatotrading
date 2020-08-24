@@ -11,8 +11,8 @@ import { destroyToken } from '../../../sagas/auth/actions';
 import { selectSidebarOpen, selectIsDesktop } from '../../../sagas/ui/selectors';
 import { setSidebarOpen } from '../../../sagas/ui/actions';
 
-import SidebarLink from './Sidebar.link';
-import SidebarItem from './Sidebar.item';
+import SidebarLink from './SidebarLink';
+import SidebarItem from './SidebarItem';
 
 const useStyles = makeStyles(theme => ({
   drawer: {

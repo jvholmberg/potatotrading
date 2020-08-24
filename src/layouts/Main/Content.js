@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
-import { mapStateToProps } from './selectors';
+import { selectIsDesktop } from '../../sagas/ui/selectors';
 
 const useStyles = makeStyles(() => ({
   noShift: {
@@ -16,7 +16,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const Content = ({ isDesktop, children }) => {
+const Content = ({ children }) => {
+  const isDesktop = useSelector(selectIsDesktop);
   const classes = useStyles();
   return (
     <main className={isDesktop ? classes.shift : classes.noShift}>
@@ -26,16 +27,11 @@ export const Content = ({ isDesktop, children }) => {
 };
 
 Content.propTypes = {
-  isDesktop: PropTypes.bool,
   children: PropTypes.node,
 };
 
 Content.defaultProps = {
-  isDesktop: false,
   children: null,
 };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Content);
+export default Content;

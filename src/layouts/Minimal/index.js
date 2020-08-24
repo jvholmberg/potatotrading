@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Header from './components/Header';
-import { Content } from './components/Content';
-import Footer from './components/Footer';
+import Header from './Header';
+import Content from './Content';
+import Footer from './Footer';
 
 /**
  * Simple layout. Doesn't contain a sidebar.
- * Should only be used when user not yet authorized.
  *
  * @param {node} props.children -
  * @param {bool} props.noFooter -
  */
 const Minimal = ({ children }) => (
   <>
-    <Header noMenuButton />
+    <Header />
     <Content>
       {children}
       <Footer />

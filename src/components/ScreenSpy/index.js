@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useMediaQuery } from '@material-ui/core';
@@ -27,9 +28,11 @@ const ScreenSpy = ({ screenSize: prevScreenSize, setScreenSize }) => {
   const xl = useMediaQuery(theme.breakpoints.up('xl'));
 
   const screenSize = getScreenSize(xs, sm, md, lg, xl);
-  if (prevScreenSize !== screenSize && screenSize) {
-    setScreenSize(screenSize);
-  }
+  useEffect(() => {
+    if (prevScreenSize !== screenSize && screenSize) {
+      setScreenSize(screenSize);
+    }
+  }, [prevScreenSize, screenSize, setScreenSize]);
 
   return null;
 };

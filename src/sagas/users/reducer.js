@@ -7,7 +7,7 @@ import {
   getActionName,
   getActionStatus,
 } from '../sagaHelpers'
-import { SUCCESS } from '../constants';
+import { SUCCESS, ABORTED } from '../constants';
 import {
   reducerName,
   CREATE_USER,
@@ -31,12 +31,21 @@ export const getInitialState = () => ({
 
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
+
+  // Action belongs to other reducer; Exit
   const actionType = getActionType(type);
   if (actionType !== reducerName) {
     return draft;
   }
-  const actionName = getActionName(type);
+
+  // No status; Action was aborted; Exit
   const actionStatus = getActionStatus(type);
+  if (!actionStatus || actionStatus === ABORTED) {
+    return draft;
+  }
+
+  // Execute action; Return draft
+  const actionName = getActionName(type);
   switch (actionName) {
   case CREATE_USER:
     _.set(draft, `requests.${CREATE_USER}`, updateRequest(actionStatus, error));

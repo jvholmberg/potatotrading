@@ -10,10 +10,12 @@ import {
 import {
   getActionType,
   getActionName,
+  getActionStatus,
 } from '../sagaHelpers';
 import {
   SORT_DIRECTION_ASCENDING,
   SORT_DIRECTION_DESCENDING,
+  ABORTED,
 } from '../constants';
 
 export const getInitialState = () => ({
@@ -26,10 +28,20 @@ export const getInitialState = () => ({
 
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload = null } = action;
+
+  // Action belongs to other reducer; Exit
   const actionType = getActionType(type);
   if (actionType !== reducerName) {
     return draft;
   }
+
+  // No status; Action was aborted; Exit
+  const actionStatus = getActionStatus(type);
+  if (!actionStatus || actionStatus === ABORTED) {
+    return draft;
+  }
+
+  // Execute action; Return draft
   const actionName = getActionName(type);
   switch (actionName) {
   case SCREEN_SIZE:

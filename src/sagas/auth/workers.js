@@ -1,10 +1,11 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import history from '../../utils/history';
 import { createAction } from '../sagaHelpers';
 import {
   PENDING,
   SUCCESS,
   FAILED,
+  ABORTED,
   LOCAL_STORAGE_ACCESS_TOKEN_KEY,
   LOCAL_STORAGE_REFRESH_TOKEN_KEY,
   LOCAL_STORAGE_TOKEN_TYPE_KEY,
@@ -18,9 +19,18 @@ import {
   CHANGE_PASSWORD,
 } from './constants';
 import * as Api from '../../utils/api';
+import { selectLoadTokenTask } from './selectors';
 
 export function* workerLoadToken() {
   try {
+    // Should abort?
+    const { done } = yield select(selectLoadTokenTask);
+    if (done) {
+      yield put({ type: createAction(LOAD_TOKEN, ABORTED) });
+      return;
+    }
+
+    // Start process
     yield put({ type: createAction(LOAD_TOKEN, PENDING) });
     const accessToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_ACCESS_TOKEN_KEY);
     const refreshToken = yield call([localStorage, 'getItem'], LOCAL_STORAGE_REFRESH_TOKEN_KEY);

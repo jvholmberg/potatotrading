@@ -12,6 +12,7 @@ import {
   GET_PROFILE,
   UPDATE_PROFILE
 } from './constants';
+import { ABORTED } from '../constants';
 
 export const getInitialState = () => ({
   profile: null,
@@ -22,12 +23,21 @@ export const getInitialState = () => ({
 });
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
+
+  // Action belongs to other reducer; Exit
   const actionType = getActionType(type);
   if (actionType !== reducerName) {
     return draft;
   }
-  const actionName = getActionName(type);
+
+  // No status; Action was aborted; Exit
   const actionStatus = getActionStatus(type);
+  if (!actionStatus || actionStatus === ABORTED) {
+    return draft;
+  }
+
+  // Execute action; Return draft
+  const actionName = getActionName(type);
   switch (actionName) {
   case GET_PROFILE:
     _.set(draft, 'profile', payload);

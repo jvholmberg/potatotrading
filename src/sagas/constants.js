@@ -9,6 +9,7 @@ export const UPDATE = 'update';
 export const DELETE = 'delete';
 
 export const INIT = 'init';
+export const GET = 'get';
 export const SET = 'set';
 export const RESET = 'reset';
 

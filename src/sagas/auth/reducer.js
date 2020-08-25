@@ -1,12 +1,13 @@
 /* eslint-disable default-case */
 import produce from 'immer';
 import _ from 'lodash';
-import { SUCCESS } from '../constants';
+import { SUCCESS, ABORTED } from '../constants';
 import {
   getActionName,
   getActionStatus,
   getActionType,
   updateRequest,
+  updateTask,
 } from '../sagaHelpers'
 import {
   reducerName,
@@ -26,8 +27,10 @@ export const getInitialState = () => ({
     valid_until: null,
     expires_in: null,
   },
-  requests: {
+  tasks: {
     [LOAD_TOKEN]: { pending: false, done: false, error: null },
+  },
+  requests: {
     [GET_TOKEN]: { pending: false, done: false, error: null },
     [VALIDATE_TOKEN]: { pending: false, done: false, error: null },
     [REFRESH_TOKEN]: { pending: false, done: false, error: null },
@@ -37,12 +40,21 @@ export const getInitialState = () => ({
 });
 export default produce((draft = getInitialState(), action = {}) => {
   const { type, payload, error = null } = action;
+
+  // Action belongs to other reducer; Exit
   const actionType = getActionType(type);
   if (actionType !== reducerName) {
     return draft;
   }
-  const actionName = getActionName(type);
+
+  // No status; Action was aborted; Exit
   const actionStatus = getActionStatus(type);
+  if (!actionStatus || actionStatus === ABORTED) {
+    return draft;
+  }
+
+  // Execute action; Return draft
+  const actionName = getActionName(type);
   switch (actionName) {
   case LOAD_TOKEN:
     if (actionStatus === SUCCESS) {
@@ -50,7 +62,7 @@ export default produce((draft = getInitialState(), action = {}) => {
       _.set(draft, 'token.refresh_token', payload.refresh_token);
       _.set(draft, 'token.token_type', payload.token_type);
     }
-    _.set(draft, `requests.${LOAD_TOKEN}`, updateRequest(actionStatus, error));
+    _.set(draft, `tasks.${LOAD_TOKEN}`, updateTask(actionStatus, error));
     break;
   case GET_TOKEN:
     if (actionStatus === SUCCESS) {

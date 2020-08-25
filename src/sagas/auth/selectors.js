@@ -19,9 +19,12 @@ export const selectExpiresIn = state => selectToken(state).expires_in;
 
 export const selectIsLoggedIn = state => selectAccessToken(state) !== null;
 
+const selectTasks = state => selectReducer(state).tasks;
+const selectTasksFor = (state, task) => selectTasks(state)[task];
+export const selectLoadTokenTask = state => selectTasksFor(state, LOAD_TOKEN);
+
 const selectRequests = state => selectReducer(state).requests;
 const selectRequestsFor = (state, req) => selectRequests(state)[req];
-export const selectLoadTokenTask = state => selectRequestsFor(state, LOAD_TOKEN);
 export const selectGetTokenReq = state => selectRequestsFor(state, GET_TOKEN);
 export const selectValidateTokenReq = state => selectRequestsFor(state, VALIDATE_TOKEN);
 export const selectRefreshTokenReq = state => selectRequestsFor(state, REFRESH_TOKEN);

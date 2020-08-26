@@ -35,7 +35,7 @@ describe('sagas/auth/reducer.js', () => {
       const action = { type: createAction(LOAD_TOKEN, PENDING) };
       const actual = reducer(undefined, action);
       const expected = { ...getInitialState() };
-      _.set(expected, `requests.${LOAD_TOKEN}`, updateRequest(PENDING, null));
+      _.set(expected, `tasks.${LOAD_TOKEN}`, updateRequest(PENDING, null));
       expect(actual).toEqual(expected);
     });
 
@@ -51,7 +51,7 @@ describe('sagas/auth/reducer.js', () => {
       _.set(expected, 'token.access_token', mockPayload.access_token);
       _.set(expected, 'token.refresh_token', mockPayload.refresh_token);
       _.set(expected, 'token.token_type', mockPayload.token_type);
-      _.set(expected, `requests.${LOAD_TOKEN}`, updateRequest(SUCCESS, null));
+      _.set(expected, `tasks.${LOAD_TOKEN}`, updateRequest(SUCCESS, null));
       expect(actual).toEqual(expected);
     });
 
@@ -60,7 +60,7 @@ describe('sagas/auth/reducer.js', () => {
       const action = { type: createAction(LOAD_TOKEN, FAILED), error };
       const actual = reducer(undefined, action);
       const expected = { ...getInitialState() };
-      _.set(expected, `requests.${LOAD_TOKEN}`, updateRequest(FAILED, error));
+      _.set(expected, `tasks.${LOAD_TOKEN}`, updateRequest(FAILED, error));
       expect(actual).toEqual(expected);
     });
   });

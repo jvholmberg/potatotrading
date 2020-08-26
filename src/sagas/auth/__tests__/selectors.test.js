@@ -1,4 +1,6 @@
+/* eslint-disable max-lines-per-function */
 import {
+  LOAD_TOKEN,
   GET_TOKEN,
   VALIDATE_TOKEN,
   REFRESH_TOKEN,
@@ -12,6 +14,7 @@ import {
   selectValidUntil,
   selectExpiresIn,
   selectIsLoggedIn,
+  selectLoadTokenTask,
   selectGetTokenReq,
   selectValidateTokenReq,
   selectRefreshTokenReq,
@@ -27,6 +30,9 @@ describe('sagas/auth/selectors.js', () => {
         token_type: 'token_type',
         expires_in: 3600000,
         valid_until: '2021-01-01'
+      },
+      tasks: {
+        [LOAD_TOKEN]: { pending: true, done: false, error: null },
       },
       requests: {
         [GET_TOKEN]: { pending: true, done: false, error: null },
@@ -73,25 +79,31 @@ describe('sagas/auth/selectors.js', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('select request for login', () => {
+  it('select task for loading token', () => {
+    const actual = selectLoadTokenTask(getMockState());
+    const expected = getMockState()[reducerName].tasks[LOAD_TOKEN];
+    expect(actual).toEqual(expected);
+  });
+
+  it('select request for getting token', () => {
     const actual = selectGetTokenReq(getMockState());
     const expected = getMockState()[reducerName].requests[GET_TOKEN];
     expect(actual).toEqual(expected);
   });
 
-  it('select request for validate login', () => {
+  it('select request for validating token', () => {
     const actual = selectValidateTokenReq(getMockState());
     const expected = getMockState()[reducerName].requests[VALIDATE_TOKEN];
     expect(actual).toEqual(expected);
   });
 
-  it('select request for refreshing login', () => {
+  it('select request for refreshing token', () => {
     const actual = selectRefreshTokenReq(getMockState());
     const expected = getMockState()[reducerName].requests[REFRESH_TOKEN];
     expect(actual).toEqual(expected);
   });
 
-  it('select request for logout', () => {
+  it('select request for destroying token', () => {
     const actual = selectDestroyTokenReq(getMockState());
     const expected = getMockState()[reducerName].requests[DESTROY_TOKEN];
     expect(actual).toEqual(expected);

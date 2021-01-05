@@ -11,7 +11,7 @@
     "@material-ui/lab": "^4.0.0-alpha.44",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "clsx": "^1.1.0",
     "connected-react-router": "6.8.0",
     "date-fns": "^2.10.0",
